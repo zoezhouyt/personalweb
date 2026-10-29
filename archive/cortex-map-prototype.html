@@ -1,0 +1,627 @@
+<title>Cortex Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
+<style>
+/* Layout: a dark specimen plate holding the rotating brain on the left, a warm reading column on the right. */
+:root {
+  --paper: #efe9e0;
+  --paper-2: #e5ddd1;
+  --ink: #221c18;
+  --muted: #6d625a;
+  --rule: #d4c9ba;
+  --plate: #17120f;
+  --plate-ink: #f0e7da;
+  --plate-muted: #94877a;
+
+  --r-prefrontal: #8e2436;
+  --r-motor: #c0562c;
+  --r-orbital: #a33455;
+  --r-parietal: #45688c;
+  --r-temporal: #6b7a33;
+  --r-occipital: #2f7a76;
+  --r-cerebellum: #b5842a;
+  --r-hippocampus: #7a5a86;
+
+  --display: "Fraunces", Georgia, serif;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --util: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14100e;
+    --paper-2: #1c1714;
+    --ink: #ece3d8;
+    --muted: #9a8d80;
+    --rule: #30271f;
+    --plate: #0c0908;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14100e;
+  --paper-2: #1c1714;
+  --ink: #ece3d8;
+  --muted: #9a8d80;
+  --rule: #30271f;
+  --plate: #0c0908;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); line-height: 1.6; }
+h1, h2, h3 { text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--r-motor); outline-offset: 3px; }
+
+.wrap {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 2.5rem 3.5rem;
+}
+
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: 1.25rem; margin-bottom: 1.75rem; }
+.kicker {
+  font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 0.5rem;
+}
+.masthead h1 {
+  font-family: var(--display); font-weight: 300; letter-spacing: -0.02em;
+  font-size: clamp(2rem, 6vw, 3.1rem); line-height: 1.02; margin: 0;
+}
+.masthead p { margin: 0.6rem 0 0; color: var(--muted); max-width: 54ch; font-size: 0.95rem; }
+
+.split { display: grid; grid-template-columns: 1fr; gap: 1.75rem; }
+@media (min-width: 60rem) { .split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 2.75rem; align-items: start; } }
+
+/* ---- specimen plate ---- */
+.plate {
+  background: var(--plate);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3.4;
+  max-width: 100%;
+}
+@media (min-width: 60rem) { .plate { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 1.5rem); } }
+.plate canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
+.plate canvas.dragging { cursor: grabbing; }
+.plate-tag {
+  position: absolute; left: 0.9rem; bottom: 0.8rem;
+  font-family: var(--util); font-size: 0.6rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--plate-muted); margin: 0; pointer-events: none;
+}
+.plate-hint {
+  position: absolute; right: 0.9rem; bottom: 0.8rem;
+  font-family: var(--util); font-size: 0.6rem; letter-spacing: 0.1em;
+  color: var(--plate-muted); margin: 0; pointer-events: none;
+}
+
+/* ---- region index ---- */
+.index { min-width: 0; }
+.index h2 {
+  font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); font-weight: 400;
+  margin: 0 0 0.9rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--rule);
+}
+.region-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.region-btn {
+  width: 100%; display: grid; grid-template-columns: 0.55rem minmax(0, 1fr); gap: 0.85rem;
+  align-items: start; text-align: left; background: none; border: 0;
+  border-bottom: 1px solid var(--rule); padding: 0.8rem 0; cursor: pointer;
+  color: inherit; font: inherit;
+}
+.swatch { width: 0.55rem; height: 0.55rem; border-radius: 50%; margin-top: 0.45rem; background: var(--dot); }
+.region-btn .name { font-size: 0.97rem; font-weight: 500; display: block; }
+.region-btn .maps {
+  font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); display: block; margin-top: 0.15rem;
+}
+.region-btn[aria-pressed="true"] .name { color: var(--dot); }
+.region-btn:hover .name { color: var(--dot); }
+
+/* ---- detail ---- */
+.detail { margin-top: 1.75rem; border-top: 2px solid var(--dot, var(--rule)); padding-top: 1.1rem; }
+.detail .anat {
+  font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--dot, var(--muted)); margin: 0 0 0.35rem;
+}
+.detail h3 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; margin: 0 0 0.2rem; letter-spacing: -0.01em; }
+.detail .fn { font-style: italic; color: var(--muted); margin: 0 0 0.9rem; font-size: 0.92rem; max-width: 52ch; }
+.detail ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.detail li { display: grid; grid-template-columns: 1fr; gap: 0.1rem; max-width: 56ch; }
+.detail li b { font-weight: 500; }
+.detail li span { color: var(--muted); font-size: 0.9rem; }
+
+.caveat {
+  margin-top: 2.5rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+  color: var(--muted); font-size: 0.86rem; max-width: 62ch;
+}
+.caveat b { color: var(--ink); font-weight: 500; }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Prototype &mdash; concept test</p>
+    <h1>Cortex Map</h1>
+    <p>A navigable brain as the structure of a personal site. Drag to rotate. Select a region to see the work it holds.</p>
+  </header>
+
+  <div class="split">
+    <div class="plate">
+      <canvas id="brain" aria-label="Rotating three-dimensional brain. Use the region list beside it to navigate."></canvas>
+      <p class="plate-tag" id="plate-tag">Lateral aspect &middot; left hemisphere</p>
+      <p class="plate-hint">Drag to rotate</p>
+    </div>
+
+    <div class="index">
+      <h2>Functional regions</h2>
+      <ul class="region-list" id="region-list"></ul>
+      <div class="detail" id="detail"></div>
+      <p class="caveat"><b>A note on the conceit.</b> Strict one-region-one-function localisation is a simplification; contemporary evidence favours distributed networks over discrete modules. The mapping here is a navigational device, chosen because each region's best-established role genuinely corresponds to the work filed under it.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var REGIONS = [
+    {
+      id: "prefrontal", name: "Research & metacognition", anat: "Prefrontal cortex",
+      fn: "Executive function, planning, and judgement about one's own judgement.",
+      color: "#8e2436", anchor: [0.42, 0.12, 0.13],
+      items: [
+        ["Metacognitive calibration in AI-assisted learning", "Dissertation, supervised by Dr Luc Schneider — whether metacognitive prompts improve confidence–performance fit, and whether it transfers."],
+        ["Curiosity and misinformation detection", "Research apprenticeship to Dr Yana Litovsky, LSE — epistemic vigilance and truth discernment."],
+        ["Digital safety and AI safety in education", "Research assistant to Dr Sakshi Ghai, LSE — cross-sector synthesis on interventions for at-risk youth."]
+      ]
+    },
+    {
+      id: "motor", name: "Ventures & product", anat: "Premotor & motor cortex",
+      fn: "Where an intention is planned and then executed as action.",
+      color: "#c0562c", anchor: [0.07, 0.30, 0.13],
+      items: [
+        ["Noetic", "Co-founder — build-sprint talent scouting; commercial thesis, sponsor proposition and go-to-market."],
+        ["Miku", "Founder — AI-supported story relay teaching metacognitive skill to early adolescents."],
+        ["ByteDance", "AI & Automation intern — 40+ LLM workflows for TikTok Shop policy messaging; seller CSAT 5% to c. 70%."],
+        ["Hyperknow", "EMEA Campaign Lead — market entry, campus-ambassador network, UK state-school launch."]
+      ]
+    },
+    {
+      id: "orbital", name: "Capital & valuation", anat: "Orbitofrontal cortex",
+      fn: "Value-based decision-making: weighing outcomes under risk.",
+      color: "#a33455", anchor: [0.36, -0.14, 0.12],
+      items: [
+        ["Fosun International, Banking & Insurance Group", "Private equity summer and off-cycle intern across insurance and healthcare assets."],
+        ["Portuguese healthcare operator", "NBO/BO models for three bidders; 9.2–10.4x EV/EBITDA, €287–330m proceeds, c.€1.1bn EV."],
+        ["German life insurance acquisition", "Seven Phase II diligence workstreams consolidated into an IC-ready risk and valuation tracker."]
+      ]
+    },
+    {
+      id: "parietal", name: "Quantitative methods", anat: "Parietal cortex",
+      fn: "Numerical cognition and spatial reasoning; the intraparietal sulcus carries number sense.",
+      color: "#45688c", anchor: [-0.20, 0.24, 0.13],
+      items: [
+        ["Statistics and modelling", "PB330/MY202 Statistics; R, machine learning; experimental design for live studies."],
+        ["Python, R, SQL", "Analysis and data work across research and commercial projects."],
+        ["Financial modelling", "Valuation, net debt and solvency analysis built in the Fosun investment team."]
+      ]
+    },
+    {
+      id: "temporal", name: "Language & community", anat: "Temporal lobe & TPJ",
+      fn: "Language comprehension, and the perspective-taking that social cognition depends on.",
+      color: "#6b7a33", anchor: [0.08, -0.26, 0.23],
+      items: [
+        ["Four languages", "Native English and Mandarin; Cantonese and French."],
+        ["ASES London", "President — 70 fellows, a ten-week bootcamp, £5k sponsorship, first place in the VC competition."],
+        ["LSESU Entrepreneurs", "Core Executive — 40% membership growth, 200+ event attendees, 5+ sponsor relationships."]
+      ]
+    },
+    {
+      id: "occipital", name: "Design & curation", anat: "Occipital cortex",
+      fn: "Visual processing: form, contrast and the organisation of what is seen.",
+      color: "#2f7a76", anchor: [-0.46, 0.02, 0.08],
+      items: [
+        ["LinkSea", "UI/UX designer — student-facing frontend of a school workflow platform, with field testing."],
+        ["Art curation", "Curatorial work in the UAE and Saudi Arabia."]
+      ]
+    },
+    {
+      id: "cerebellum", name: "Practice & performance", anat: "Cerebellum",
+      fn: "Motor timing, coordination, and the procedural learning that makes practice stick.",
+      color: "#b5842a", anchor: [-0.36, -0.30, 0.14],
+      items: [
+        ["Ballet, cello, guzheng", "Vocational diplomas in all three."],
+        ["Competitive dance", "Competing in the United Kingdom."]
+      ]
+    },
+    {
+      id: "hippocampus", name: "Education", anat: "Hippocampus",
+      fn: "Encoding and consolidation — how experience becomes knowledge that lasts.",
+      color: "#7a5a86", anchor: [0.02, -0.10, 0.17], deep: true,
+      items: [
+        ["BSc Psychological and Behavioural Science", "London School of Economics, expected May 2027. Expected First Class Honours."],
+        ["A-Levels, A*A*A*AA", "Woldingham School — Maths, Psychology, Economics, Biology and an EPQ."]
+      ]
+    }
+  ];
+
+  // ---------- vector helpers ----------
+  function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / m, v[1] / m, v[2] / m]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+
+  // ---------- implicit surface ----------
+  function mirror(list) {
+    var out = [];
+    list.forEach(function (b) {
+      out.push(b);
+      if (b.c[2] !== 0) out.push({ c: [b.c[0], b.c[1], -b.c[2]], s: b.s, w: b.w });
+    });
+    return out;
+  }
+
+  var CEREBRUM = mirror([
+    { c: [0.30, 0.14, 0.12], s: 0.26, w: 1.00 },
+    { c: [0.30, -0.10, 0.11], s: 0.22, w: 0.95 },
+    { c: [0.05, 0.25, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.18, 0.20, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.40, 0.00, 0.09], s: 0.21, w: 0.92 },
+    { c: [0.06, -0.24, 0.21], s: 0.22, w: 0.95 },
+    { c: [-0.16, -0.18, 0.19], s: 0.20, w: 0.90 },
+    { c: [0.00, 0.02, 0.00], s: 0.30, w: 0.85 }
+  ]);
+  var CEREBELLUM = mirror([
+    { c: [-0.36, -0.26, 0.13], s: 0.17, w: 1.00 },
+    { c: [-0.45, -0.27, 0.00], s: 0.14, w: 0.90 }
+  ]);
+
+  function field(p, blobs) {
+    var f = 0;
+    for (var i = 0; i < blobs.length; i++) {
+      var b = blobs[i];
+      var dx = p[0] - b.c[0], dy = p[1] - b.c[1], dz = p[2] - b.c[2];
+      f += b.w * Math.exp(-(dx * dx + dy * dy + dz * dz) / (b.s * b.s));
+    }
+    return f;
+  }
+  function surfaceR(u, blobs, T, o) {
+    var lo = 0.01, hi = 1.0, m, p;
+    for (var i = 0; i < 18; i++) {
+      m = (lo + hi) * 0.5;
+      p = [o[0] + u[0] * m, o[1] + u[1] * m, o[2] + u[2] * m];
+      if (field(p, blobs) > T) lo = m; else hi = m;
+    }
+    return (lo + hi) * 0.5;
+  }
+  function gyri(u, k) {
+    return Math.sin(u[0] * 17 + u[1] * 11) * Math.sin(u[1] * 15 - u[2] * 13) * Math.sin(u[2] * 19 + u[0] * 9) * k;
+  }
+
+  var SQUASH = [1, 0.86, 0.95];
+  function place(u, r, o) {
+    return [(o[0] + u[0] * r) * SQUASH[0], (o[1] + u[1] * r) * SQUASH[1], (o[2] + u[2] * r) * SQUASH[2]];
+  }
+
+  // ---------- region assignment ----------
+  var ANCHORS = [];
+  REGIONS.forEach(function (R, i) {
+    if (R.deep) return;
+    ANCHORS.push({ i: i, p: [R.anchor[0] * SQUASH[0], R.anchor[1] * SQUASH[1], R.anchor[2] * SQUASH[2]] });
+    ANCHORS.push({ i: i, p: [R.anchor[0] * SQUASH[0], R.anchor[1] * SQUASH[1], -R.anchor[2] * SQUASH[2]] });
+  });
+  function regionAt(p) {
+    var best = 0, bd = Infinity;
+    for (var k = 0; k < ANCHORS.length; k++) {
+      var a = ANCHORS[k].p;
+      var dx = p[0] - a[0], dy = p[1] - a[1], dz = p[2] - a[2];
+      var d = dx * dx + dy * dy + dz * dz;
+      if (d < bd) { bd = d; best = ANCHORS[k].i; }
+    }
+    return best;
+  }
+
+  // ---------- fibre generation ----------
+  var rng = (function (seed) {
+    return function () { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  })(20260912);
+  function randUnit() {
+    var z = rng() * 2 - 1, t = rng() * Math.PI * 2, r = Math.sqrt(1 - z * z);
+    return [r * Math.cos(t), r * Math.sin(t), z];
+  }
+
+  function walk(blobs, T, o, steps, step, jitter, bias) {
+    var u = randUnit();
+    var t = norm(cross(u, randUnit()));
+    if (bias) { t = norm([t[0] + bias[0], t[1] + bias[1], t[2] + bias[2]]); t = norm([t[0] - u[0] * dot(t, u), t[1] - u[1] * dot(t, u), t[2] - u[2] * dot(t, u)]); }
+    var pts = [];
+    for (var i = 0; i < steps; i++) {
+      var r = surfaceR(u, blobs, T, o);
+      r *= 1 + gyri(u, 0.030);
+      pts.push(place(u, r, o));
+      var un = norm([u[0] + t[0] * step, u[1] + t[1] * step, u[2] + t[2] * step]);
+      var j = randUnit();
+      t = [t[0] + j[0] * jitter, t[1] + j[1] * jitter, t[2] + j[2] * jitter];
+      var d = dot(t, un);
+      t = norm([t[0] - un[0] * d, t[1] - un[1] * d, t[2] - un[2] * d]);
+      u = un;
+    }
+    return pts;
+  }
+
+  function tube(a, b, r0, r1, rings, perRing) {
+    var out = [];
+    var axis = norm([b[0] - a[0], b[1] - a[1], b[2] - a[2]]);
+    var e1 = norm(cross(axis, Math.abs(axis[1]) > 0.9 ? [1, 0, 0] : [0, 1, 0]));
+    var e2 = cross(axis, e1);
+    for (var s = 0; s < perRing; s++) {
+      var pts = [];
+      var phase = rng() * Math.PI * 2;
+      for (var i = 0; i <= rings; i++) {
+        var f = i / rings;
+        var rr = r0 + (r1 - r0) * f;
+        var ang = phase + f * 0.9;
+        var cx = a[0] + (b[0] - a[0]) * f, cy = a[1] + (b[1] - a[1]) * f, cz = a[2] + (b[2] - a[2]) * f;
+        pts.push([
+          cx + (e1[0] * Math.cos(ang) + e2[0] * Math.sin(ang)) * rr,
+          cy + (e1[1] * Math.cos(ang) + e2[1] * Math.sin(ang)) * rr,
+          cz + (e1[2] * Math.cos(ang) + e2[2] * Math.sin(ang)) * rr
+        ]);
+      }
+      out.push(pts);
+    }
+    return out;
+  }
+
+  var fibres = [];
+  function build() {
+    var i, pts;
+    for (i = 0; i < 300; i++) {
+      pts = walk(CEREBRUM, 1.0, [0, 0.02, 0], 30, 0.085, 0.11, null);
+      fibres.push({ pts: pts, r: regionAt(pts[Math.floor(pts.length / 2)]) });
+    }
+    var cbIndex = 6;
+    for (i = 0; i < 90; i++) {
+      pts = walk(CEREBELLUM, 0.92, [-0.38, -0.26, 0], 18, 0.085, 0.03, [0, 0, 1]);
+      fibres.push({ pts: pts, r: cbIndex });
+    }
+    tube([0.02, -0.17, 0], [-0.07, -0.50, 0], 0.075, 0.042, 14, 26).forEach(function (p) {
+      fibres.push({ pts: p, r: cbIndex, stem: true });
+    });
+    var hipIndex = 7;
+    [1, -1].forEach(function (sgn) {
+      tube([0.12, -0.17, sgn * 0.17], [-0.14, -0.13, sgn * 0.20], 0.035, 0.028, 10, 9).forEach(function (p) {
+        fibres.push({ pts: p, r: hipIndex, deep: true });
+      });
+    });
+  }
+
+  // ---------- rendering ----------
+  var canvas = document.getElementById("brain");
+  var ctx = canvas.getContext("2d");
+  var W = 0, H = 0, DPR = 1;
+  var yaw = 0.0, pitch = -0.12, spin = 0.0022;
+  var active = -1, hovered = -1;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(rect.width));
+    H = Math.max(1, Math.round(rect.height));
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  var cosY = 1, sinY = 0, cosX = 1, sinX = 0;
+  function rot(p) {
+    var x = p[0] * cosY + p[2] * sinY;
+    var z = -p[0] * sinY + p[2] * cosY;
+    var y = p[1] * cosX - z * sinX;
+    var z2 = p[1] * sinX + z * cosX;
+    return [x, y, z2];
+  }
+  var CAM = 3.0, FOCAL = 2.35;
+  function project(q, scale) {
+    var k = FOCAL / (CAM - q[2]);
+    return [W / 2 + q[0] * k * scale, H / 2 - q[1] * k * scale, q[2]];
+  }
+
+  function draw() {
+    cosY = Math.cos(yaw); sinY = Math.sin(yaw);
+    cosX = Math.cos(pitch); sinX = Math.sin(pitch);
+    var scale = Math.min(W, H) * 0.92;
+
+    ctx.clearRect(0, 0, W, H);
+
+    var focus = active >= 0 ? active : hovered;
+    var buckets = {};
+    function bucket(key) { if (!buckets[key]) buckets[key] = new Path2D(); return buckets[key]; }
+
+    for (var i = 0; i < fibres.length; i++) {
+      var f = fibres[i];
+      if (f.deep && focus !== 7) continue;
+      var pts = f.pts, prev = null, acc = 0, n = 0;
+      var path = null, key = null;
+      for (var j = 0; j < pts.length; j++) {
+        var q = rot(pts[j]);
+        var s = project(q, scale);
+        acc += q[2]; n++;
+        if (prev) {
+          var depth = (q[2] + prev[2]) * 0.5;
+          var k2 = f.r + "|" + (depth < -0.02 ? "b" : "f");
+          if (k2 !== key) { key = k2; path = bucket(k2); path.moveTo(prev[3], prev[4]); }
+          path.lineTo(s[0], s[1]);
+        }
+        prev = [q[0], q[1], q[2], s[0], s[1]];
+      }
+    }
+
+    Object.keys(buckets).forEach(function (key) {
+      var parts = key.split("|");
+      var ri = parseInt(parts[0], 10);
+      var back = parts[1] === "b";
+      var R = REGIONS[ri];
+      var alpha;
+      if (focus < 0) alpha = back ? 0.30 : 0.62;
+      else if (focus === ri) alpha = back ? 0.55 : 0.98;
+      else alpha = back ? 0.05 : 0.11;
+      ctx.strokeStyle = R.color;
+      ctx.globalAlpha = alpha;
+      ctx.lineWidth = focus === ri ? 0.95 : 0.7;
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.stroke(buckets[key]);
+    });
+    ctx.globalAlpha = 1;
+
+    if (focus >= 0) {
+      var R = REGIONS[focus];
+      var ap = [R.anchor[0] * SQUASH[0], R.anchor[1] * SQUASH[1], R.anchor[2] * SQUASH[2]];
+      var am = [ap[0], ap[1], -ap[2]];
+      var qa = rot(ap), qb = rot(am);
+      var q = qa[2] >= qb[2] ? qa : qb;
+      var s = project(q, scale);
+      var toRight = s[0] < W * 0.55;
+      var lx = toRight ? Math.min(W - 10, s[0] + 54) : Math.max(10, s[0] - 54);
+      var ly = s[1] - 26;
+      ctx.strokeStyle = R.color;
+      ctx.globalAlpha = 0.85;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(s[0], s[1], 3.2, 0, Math.PI * 2);
+      ctx.moveTo(s[0], s[1]);
+      ctx.lineTo(lx, ly);
+      ctx.lineTo(toRight ? lx + 16 : lx - 16, ly);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "#f0e7da";
+      ctx.font = "500 10px ui-monospace, Menlo, monospace";
+      ctx.textAlign = toRight ? "left" : "right";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(R.anat.toUpperCase(), toRight ? lx + 20 : lx - 20, ly + 4);
+    }
+  }
+
+  var last = 0;
+  function frame(t) {
+    var dt = last ? Math.min(t - last, 48) : 16;
+    last = t;
+    if (!dragging && !reduce.matches) yaw += spin * dt * 0.06;
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- interaction ----------
+  var dragging = false, lastX = 0, lastY = 0, moved = 0;
+  function pointerDown(e) {
+    dragging = true; moved = 0;
+    canvas.classList.add("dragging");
+    lastX = e.clientX; lastY = e.clientY;
+    canvas.setPointerCapture && canvas.setPointerCapture(e.pointerId);
+  }
+  function pointerMove(e) {
+    if (dragging) {
+      var dx = e.clientX - lastX, dy = e.clientY - lastY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      yaw -= dx * 0.008;
+      pitch = Math.max(-0.7, Math.min(0.7, pitch + dy * 0.005));
+      lastX = e.clientX; lastY = e.clientY;
+      return;
+    }
+    hitTest(e);
+  }
+  function pointerUp(e) {
+    if (dragging && moved < 6) hitTest(e, true);
+    dragging = false;
+    canvas.classList.remove("dragging");
+  }
+  function hitTest(e, select) {
+    var rect = canvas.getBoundingClientRect();
+    var mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    var scale = Math.min(W, H) * 0.92;
+    var best = -1, bd = 70 * 70;
+    REGIONS.forEach(function (R, i) {
+      if (R.deep) return;
+      [1, -1].forEach(function (sgn) {
+        var q = rot([R.anchor[0] * SQUASH[0], R.anchor[1] * SQUASH[1], sgn * R.anchor[2] * SQUASH[2]]);
+        if (q[2] < -0.1) return;
+        var s = project(q, scale);
+        var d = (s[0] - mx) * (s[0] - mx) + (s[1] - my) * (s[1] - my);
+        if (d < bd) { bd = d; best = i; }
+      });
+    });
+    hovered = best;
+    if (select && best >= 0) setActive(best);
+  }
+  canvas.addEventListener("pointerdown", pointerDown);
+  canvas.addEventListener("pointermove", pointerMove);
+  canvas.addEventListener("pointerup", pointerUp);
+  canvas.addEventListener("pointercancel", function () { dragging = false; canvas.classList.remove("dragging"); });
+  canvas.addEventListener("pointerleave", function () { if (!dragging) hovered = -1; });
+
+  // ---------- index + detail ----------
+  var list = document.getElementById("region-list");
+  var detail = document.getElementById("detail");
+  var tag = document.getElementById("plate-tag");
+  var buttons = [];
+
+  REGIONS.forEach(function (R, i) {
+    var li = document.createElement("li");
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "region-btn";
+    b.id = "region-" + R.id;
+    b.style.setProperty("--dot", R.color);
+    b.setAttribute("aria-pressed", "false");
+    b.innerHTML = '<span class="swatch"></span><span><span class="name"></span><span class="maps"></span></span>';
+    b.querySelector(".name").textContent = R.name;
+    b.querySelector(".maps").textContent = R.anat;
+    b.addEventListener("click", function () { setActive(active === i ? -1 : i); });
+    b.addEventListener("mouseenter", function () { if (active < 0) hovered = i; });
+    b.addEventListener("mouseleave", function () { if (active < 0) hovered = -1; });
+    li.appendChild(b);
+    list.appendChild(li);
+    buttons.push(b);
+  });
+
+  function setActive(i) {
+    active = i;
+    hovered = -1;
+    buttons.forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    renderDetail();
+  }
+
+  function renderDetail() {
+    var R = active >= 0 ? REGIONS[active] : REGIONS[0];
+    detail.style.setProperty("--dot", R.color);
+    var html = '<p class="anat">' + R.anat + '</p><h3></h3><p class="fn"></p><ul></ul>';
+    detail.innerHTML = html;
+    detail.querySelector("h3").textContent = R.name;
+    detail.querySelector(".fn").textContent = R.fn;
+    var ul = detail.querySelector("ul");
+    R.items.forEach(function (it) {
+      var li = document.createElement("li");
+      var b = document.createElement("b");
+      b.textContent = it[0];
+      var s = document.createElement("span");
+      s.textContent = it[1];
+      li.appendChild(b); li.appendChild(s);
+      ul.appendChild(li);
+    });
+    tag.textContent = active >= 0 ? R.anat + " · highlighted" : "Lateral aspect · both hemispheres";
+  }
+
+  // ---------- boot ----------
+  build();
+  resize();
+  setActive(0);
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+  else window.addEventListener("resize", resize);
+  requestAnimationFrame(frame);
+})();
+</script>

@@ -1,0 +1,495 @@
+<title>Zoe Zhou</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: narrow reading column with a sticky section index on the left; entries are a meta/body grid that stacks on phones. */
+:root {
+  --bg: #f5f6f7;
+  --surface: #ffffff;
+  --fg: #15202a;
+  --muted: #5a6b76;
+  --line: #dde2e6;
+  --accent: #0d6b5f;
+  --accent-soft: #e4efec;
+
+  --display: "Spectral", "Iowan Old Style", Georgia, serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --util: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1518;
+    --surface: #161e22;
+    --fg: #e7edef;
+    --muted: #92a3ac;
+    --line: #26323a;
+    --accent: #58c3ac;
+    --accent-soft: #14302b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1518;
+  --surface: #161e22;
+  --fg: #e7edef;
+  --muted: #92a3ac;
+  --line: #26323a;
+  --accent: #58c3ac;
+  --accent-soft: #14302b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.shell {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 3.5rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 62rem) {
+  .shell { grid-template-columns: 11rem minmax(0, 1fr); gap: 4rem; padding-block: 5rem 5rem; }
+}
+
+/* ---- index rail ---- */
+.rail { display: none; }
+@media (min-width: 62rem) {
+  .rail {
+    display: block;
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + 5rem);
+    align-self: start;
+  }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+  .rail a {
+    font-family: var(--util);
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-left: 2px solid var(--line);
+    padding: 0.1rem 0 0.1rem 0.75rem;
+    display: block;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .rail a:hover { color: var(--fg); }
+  .rail a[aria-current="true"] { color: var(--accent); border-left-color: var(--accent); }
+}
+
+main { min-width: 0; }
+
+/* ---- hero ---- */
+.hero { border-bottom: 1px solid var(--line); padding-bottom: 2.25rem; }
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 9vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+.hero .thesis {
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 3.4vw, 1.4rem);
+  font-style: italic;
+  color: var(--fg);
+  max-width: 34ch;
+  margin: 1.1rem 0 0;
+  line-height: 1.45;
+}
+.hero .place {
+  font-family: var(--util);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+}
+.contacts { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.75rem; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+  font-family: var(--body);
+  transition: border-color 0.2s, color 0.2s;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip .ink { font-family: var(--util); font-size: 0.8rem; }
+
+/* ---- sections ---- */
+section { padding-top: 3.25rem; }
+.eyebrow {
+  font-family: var(--util);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.lede { font-size: 1.05rem; max-width: 62ch; margin: 0 0 1rem; }
+.lede + .lede { margin-top: 1rem; }
+
+.entry {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem 1.75rem;
+  padding-block: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+.entry:first-of-type { border-top: none; padding-top: 0.25rem; }
+@media (min-width: 42rem) {
+  .entry { grid-template-columns: 10.5rem minmax(0, 1fr); }
+}
+.meta { min-width: 0; }
+.meta .when {
+  display: block;
+  font-family: var(--util);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.meta .where {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+.body { min-width: 0; }
+.body h3 {
+  font-family: var(--display);
+  font-size: 1.22rem;
+  font-weight: 600;
+  margin: 0 0 0.1rem;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.body .org { font-size: 0.9rem; color: var(--muted); margin: 0 0 0.6rem; }
+.body .org a { border-bottom: 1px solid var(--line); }
+.body .org a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.body p { margin: 0 0 0.6rem; max-width: 62ch; }
+.body p:last-child { margin-bottom: 0; }
+
+.deals { margin: 0.9rem 0 0; padding: 0.9rem 1.1rem; background: var(--accent-soft); border-radius: 4px; }
+.deals dt { font-weight: 600; font-size: 0.92rem; margin-top: 0.7rem; }
+.deals dt:first-child { margin-top: 0; }
+.deals dd { margin: 0.15rem 0 0; font-size: 0.92rem; color: var(--muted); max-width: 60ch; }
+
+/* ---- skills ---- */
+.facts { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 42rem) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fact h4 {
+  font-family: var(--util);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.45rem;
+}
+.fact p { margin: 0; max-width: 46ch; }
+
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+footer p { margin: 0 0 0.4rem; max-width: 56ch; }
+footer a { color: var(--accent); border-bottom: 1px solid var(--line); }
+
+.fade { animation: rise 0.6s ease-out both; }
+@keyframes rise { from { opacity: 0.001; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fade { animation: none; } }
+</style>
+
+<div class="shell">
+  <nav class="rail" aria-label="Sections">
+    <ol>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#building">Building</a></li>
+      <li><a href="#work">Experience</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#beyond">Beyond work</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero fade">
+      <p class="place">London, UK</p>
+      <h1>Zoe Zhou</h1>
+      <p class="thesis">I study how people judge what they know &mdash; and build learning tools around the answer.</p>
+      <div class="contacts">
+        <button class="chip" id="copy-email" type="button">
+          <span class="ink" id="email-text">zoezhou0912@gmail.com</span>
+          <span id="copy-label">Copy</span>
+        </button>
+        <a class="chip" href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>
+      </div>
+    </header>
+
+    <section id="about">
+      <h2 class="eyebrow">About</h2>
+      <p class="lede">I am reading Psychological and Behavioural Science at the London School of Economics, where my work keeps returning to one question: how accurately do learners know what they know? That interest runs from my dissertation on metacognitive calibration in AI-assisted learning, through research on curiosity and misinformation, into the products I build.</p>
+      <p class="lede">Alongside research, I have spent time where learning meets the market &mdash; designing an LLM-powered policy automation at ByteDance, underwriting insurance and healthcare deals at Fosun, and founding two early-stage ventures in education and talent. I work best on problems that need both the evidence and the product.</p>
+    </section>
+
+    <section id="research">
+      <h2 class="eyebrow">Research</h2>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Nov 2026 &ndash; present</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>Metacognitive calibration in AI-assisted learning</h3>
+          <p class="org">Independent research project, supervised by Dr Luc Schneider</p>
+          <p>Developing a dissertation on metacognitive calibration and judgement among university students and adult learners working with generative AI.</p>
+          <p>The central question is whether metacognitive prompts can improve the fit between confidence and performance, and whether that improvement transfers to independent judgement once the AI is taken away.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Oct 2026 &ndash; present</span><span class="where">LSE</span></div>
+        <div class="body">
+          <h3>Curiosity and misinformation detection</h3>
+          <p class="org">Research apprenticeship to Dr Yana Litovsky &middot; Department of Psychological and Behavioural Science</p>
+          <p>Investigating how curiosity shapes misinformation detection, epistemic vigilance and truth discernment, through literature review and experimental design.</p>
+          <p>Contributing to hypothesis generation around how guess generation, processing fluency and information-seeking may influence susceptibility to misleading claims.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Jan &ndash; Apr 2026</span><span class="where">LSE</span></div>
+        <div class="body">
+          <h3>Digital safety and AI safety in education</h3>
+          <p class="org">Research assistant to Dr Sakshi Ghai &middot; Department of Psychological and Behavioural Science</p>
+          <p>Conducted cross-sector synthesis on digital-safety interventions for at-risk youth in Kenya, covering gambling, harassment, phishing and privacy, and mapped NGO, policy and platform-level practice to inform intervention design.</p>
+          <p>Also reviewed literature on AI safety in educational settings, feeding into the product and curriculum design of an AI-supported metacognitive learning tool.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="building">
+      <h2 class="eyebrow">Building</h2>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Jun 2026 &ndash; present</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>Noetic &mdash; Co-founder, strategic partnerships</h3>
+          <p class="org"><a href="https://www.mynoetic.com/">mynoetic.com</a></p>
+          <p>A talent-scouting platform that helps companies identify high-agency, AI-native talent through sponsored build challenges and university hackathon networks.</p>
+          <p>I developed the commercial thesis, competitive landscape, sponsor proposition and go-to-market strategy, positioning Noetic as a selection mechanism based on track record rather than credentials.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Mar 2026 &ndash; present</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>Miku &mdash; Founder</h3>
+          <p class="org"><a href="https://www.mikulearnbyteach.com/">mikulearnbyteach.com</a></p>
+          <p>An AI-supported story-relay product that helps early adolescents build metacognitive skills &mdash; reflective thinking, evidence-checking and awareness of their own learning strategies &mdash; through typing. It is designed for scalable delivery to time-limited families across Asian markets.</p>
+          <p>I led product positioning, the ethical design framework and the curriculum architecture, grounding the design in cognitive-science research and repositioning the tool from a child-facing chatbot into a school-suitable learning environment.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="work">
+      <h2 class="eyebrow">Experience</h2>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Jun &ndash; Aug 2026</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>AI &amp; Automation Summer Project Intern</h3>
+          <p class="org">ByteDance</p>
+          <p>Built an LLM-powered automation for policy-enforcement messaging across TikTok Shop, deploying more than 40 prompt-based workflows on ByteDance's internal platform. Seller CSAT rose from 5% to roughly 70% within a month.</p>
+          <p>Owned EMEA design, testing and deployment across the policy, algorithm and operations teams, aligning solutions with international counterparts. Trained a ten-person team and authored an SOP adopted by over 200 policy staff.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">May 2026 &ndash; present</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>EMEA Campaign Lead</h3>
+          <p class="org">Hyperknow.io</p>
+          <p>Own Hyperknow's EMEA market entry end to end: market and competitive analysis, winning the go-to-market mandate against around five competing pitches, and building a campus-ambassador network across EU universities.</p>
+          <p>Launched in lower-income UK state schools, positioning the product as an interactive GCSE and A-level tutor.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Mar &ndash; May 2026</span><span class="where">Hybrid</span></div>
+        <div class="body">
+          <h3>UI/UX Designer</h3>
+          <p class="org">LinkSea</p>
+          <p>Designed the student-facing frontend of a workflow-automation platform for a Hong Kong middle school in JavaScript, owning one of three interfaces &mdash; student, teacher and admin &mdash; and aligning features with the backend owner.</p>
+          <p>Ran field testing and qualitative research with target student users, then iterated the frontend on their feedback.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Jun 2025 &ndash; Jun 2026</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>Private Equity Summer &amp; Off-cycle Intern</h3>
+          <p class="org">Fosun International &middot; Banking and Insurance Group</p>
+          <p>Joined as a summer intern and received a return offer to continue off-cycle in the group investment team, supporting acquisitions, divestments, portfolio strategy and financing across insurance and healthcare assets.</p>
+          <dl class="deals">
+            <dt>Portuguese healthcare operator &mdash; potential divestment of a 40% stake, c.&euro;1.1bn EV</dt>
+            <dd>Built NBO and BO models for three private equity bidders, benchmarking 9.2&ndash;10.4x EV/EBITDA and &euro;287&ndash;330m proceeds, and assessed net debt adjustments, governance, dividend policy and exit provisions across offers.</dd>
+            <dt>German life insurance business &mdash; potential acquisition</dt>
+            <dd>Consolidated seven Phase II due-diligence workstreams into an IC-ready risk and valuation tracker, and assessed downside, solvency and SPA protection implications for investment committee review.</dd>
+            <dt>Stablecoin product development initiative</dt>
+            <dd>Analysed regulatory frameworks across five or more jurisdictions, reviewed external-counsel correspondence for a potential launch, and prepared competitive positioning across European portfolio companies.</dd>
+          </dl>
+        </div>
+      </article>
+    </section>
+
+    <section id="leadership">
+      <h2 class="eyebrow">Leadership</h2>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Jan 2025 &ndash; Jun 2026</span><span class="where">London &amp; Stanford, CA</span></div>
+        <div class="body">
+          <h3>President, ASES London</h3>
+          <p class="org">Affiliated Stanford Entrepreneurial Students &middot; <a href="https://ases.stanford.edu/">ases.stanford.edu</a></p>
+          <p>Won first place in the ASES London VC competition with a pitch for a SaaS portfolio risk platform, covering market sizing, unit economics, competitive analysis and long-term forecasts, and was fully sponsored to attend the Stanford Summit 2025.</p>
+          <p>Appointed Director of ASES London, leading university partnerships, securing &pound;5k in enterprise sponsorship and delivering a ten-week bootcamp that connected around 70 selective early-stage founders with UK Tier 1&ndash;2 investors, including Antler.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Mar 2025 &ndash; Apr 2026</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>Core Executive &mdash; Secretary</h3>
+          <p class="org">LSESU Entrepreneurs</p>
+          <p>Strengthened internal operations across events and marketing, introducing structured recruitment, onboarding, role ownership and cross-team planning to improve retention and execution.</p>
+          <p>That translated into 40% membership growth, 200+ event attendees and five or more sponsor and partner relationships across London's startup ecosystem, including Dedalus Labs (YC) and Hyperknow (ZhenFund).</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="education">
+      <h2 class="eyebrow">Education</h2>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Expected May 2027</span><span class="where">London</span></div>
+        <div class="body">
+          <h3>BSc Psychological and Behavioural Science</h3>
+          <p class="org">London School of Economics and Political Science</p>
+          <p>Expected First Class Honours. Relevant coursework includes PB101 Psychological Science and PB330/MY202 Statistics, alongside R and machine learning.</p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta"><span class="when">Sep 2020 &ndash; Jun 2024</span><span class="where">Greater London</span></div>
+        <div class="body">
+          <h3>A-Levels &mdash; A*A*A*AA</h3>
+          <p class="org">Woldingham School</p>
+          <p>Maths, Psychology, Economics, Biology and an Extended Project Qualification.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="beyond">
+      <h2 class="eyebrow">Skills &amp; beyond work</h2>
+      <div class="facts">
+        <div class="fact">
+          <h4>Technical</h4>
+          <p>Python, R, SQL, JavaScript, CSS.</p>
+        </div>
+        <div class="fact">
+          <h4>Languages</h4>
+          <p>Native English and Mandarin; Cantonese and French.</p>
+        </div>
+        <div class="fact">
+          <h4>Performance</h4>
+          <p>Vocational diplomas in ballet, cello and guzheng. Competitive dancer in the UK.</p>
+        </div>
+        <div class="fact">
+          <h4>Art</h4>
+          <p>Curation work in the UAE and Saudi Arabia.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Open to research collaborations, internships and conversations about learning, metacognition and the tools built on them.</p>
+      <p>Reach me at <span class="ink">zoezhou0912@gmail.com</span> or on <a href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-email');
+  var label = document.getElementById('copy-label');
+  var text = document.getElementById('email-text');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var value = text.textContent.trim();
+      var done = function () {
+        label.textContent = 'Copied';
+        setTimeout(function () { label.textContent = 'Copy'; }, 1800);
+      };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).then(done, select);
+          return;
+        }
+      } catch (e) {}
+      select();
+      function select() {
+        try {
+          var range = document.createRange();
+          range.selectNodeContents(text);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          label.textContent = 'Select & copy';
+          setTimeout(function () { label.textContent = 'Copy'; }, 2400);
+        } catch (e) {}
+      }
+    });
+  }
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+  var sections = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  if (!('IntersectionObserver' in window) || !links.length) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var i = sections.indexOf(entry.target);
+      links.forEach(function (a, j) {
+        if (j === i) { a.setAttribute('aria-current', 'true'); }
+        else { a.removeAttribute('aria-current'); }
+      });
+    });
+  }, { rootMargin: '-15% 0px -70% 0px' });
+  sections.forEach(function (s) { if (s) io.observe(s); });
+})();
+</script>

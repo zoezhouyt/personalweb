@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zoe Zhou</title>
+<meta name="description" content="Zoe Zhou — Psychological and Behavioural Science at LSE. Research on metacognitive calibration and judgement, ventures in learning and talent, and a year in private equity.">
+<meta name="theme-color" content="#efe9e0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14100e" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2317120f'/%3E%3Cpath d='M9 20c-2-1-3-3-3-5s1-4 3-5c0-2 2-4 4-4s3 1 3 2c1-1 2-2 4-2s4 2 4 4c2 1 3 3 3 5s-1 4-3 5c0 2-2 3-4 3s-3-1-3-2c-1 1-2 2-4 2s-4-1-4-3z' fill='none' stroke='%238e2436' stroke-width='1.6'/%3E%3C/svg%3E">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Zoe Zhou">
+<meta property="og:title" content="Zoe Zhou">
+<meta property="og:url" content="https://zoezhouyt.github.io/">
+<meta property="og:description" content="Zoe Zhou — Psychological and Behavioural Science at LSE. Research on metacognitive calibration and judgement, ventures in learning and talent, and a year in private equity.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zoe Zhou">
+<meta name="twitter:description" content="Zoe Zhou — Psychological and Behavioural Science at LSE. Research on metacognitive calibration and judgement, ventures in learning and talent, and a year in private equity.">
+<style>
+  /* Base reset — on the Artifact platform this was injected; here it is explicit. */
+  html { color-scheme: light; }
+  :root {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body { margin: 0; font-size: 14px; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
+<style>
+/* Layout: the brain holds the left of the screen while the story scrolls past on the right; each chapter turns the brain to its own region. */
+:root {
+  --paper: #efe9e0;
+  --paper-2: #e6ded2;
+  --ink: #221c18;
+  --muted: #6e635a;
+  --rule: #d6cbbc;
+  --plate: #17120f;
+  --plate-muted: #8d8073;
+  --accent: #8e2436;
+
+  --display: "Fraunces", Georgia, serif;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --util: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14100e; --paper-2: #1b1613; --ink: #ece3d8;
+    --muted: #9b8e81; --rule: #32281f; --plate: #0b0908;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14100e; --paper-2: #1b1613; --ink: #ece3d8;
+  --muted: #9b8e81; --rule: #32281f; --plate: #0b0908;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); line-height: 1.62; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 20; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { text-wrap: balance; }
+
+.stage {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 62rem) {
+  .stage { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr); column-gap: 3.5rem; }
+}
+
+/* ---- the plate ---- */
+.plate-col { position: sticky; z-index: 5; }
+.plate {
+  position: relative; background: var(--plate); border-radius: 3px; overflow: hidden;
+}
+.plate canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+.plate figcaption {
+  position: absolute; left: 0.85rem; bottom: 0.7rem; margin: 0; pointer-events: none;
+  font-family: var(--util); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--plate-muted);
+}
+.plate .hint {
+  position: absolute; right: 0.85rem; bottom: 0.7rem; margin: 0; pointer-events: none;
+  font-family: var(--util); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--plate-muted);
+}
+
+@media (max-width: 61.99rem) {
+  .plate-col { top: env(safe-area-inset-top, 0px); padding-block: 0.5rem; background: var(--paper); }
+  .plate { aspect-ratio: 16 / 10; }
+}
+@media (min-width: 62rem) {
+  .plate-col { top: calc(env(safe-area-inset-top, 0px) + 0px); height: 100svh; display: flex; align-items: center; padding-block: 2rem; }
+  .plate { width: 100%; aspect-ratio: 1 / 1; max-height: 100%; }
+}
+
+/* ---- story ---- */
+.story { min-width: 0; }
+.chapter {
+  padding-block: 4rem;
+  border-bottom: 1px solid var(--rule);
+  scroll-margin-top: 50vh;
+}
+@media (min-width: 62rem) {
+  .chapter { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-block: 6rem; }
+}
+.chapter:last-of-type { border-bottom: 0; }
+
+.opening { border-bottom: 1px solid var(--rule); }
+.opening .name {
+  font-family: var(--display); font-weight: 300; letter-spacing: -0.025em;
+  font-size: clamp(2.8rem, 10vw, 5rem); line-height: 0.95; margin: 0;
+}
+.opening .thesis {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-size: clamp(1.15rem, 3.4vw, 1.55rem); line-height: 1.4;
+  margin: 1.25rem 0 0; max-width: 30ch;
+}
+.opening .sub { color: var(--muted); max-width: 48ch; margin: 1.25rem 0 0; font-size: 0.95rem; }
+.contacts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.75rem; }
+.chip {
+  font-family: var(--util); font-size: 0.72rem; letter-spacing: 0.04em;
+  padding: 0.42rem 0.8rem; border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--paper-2); color: var(--ink); cursor: pointer; text-decoration: none;
+  display: inline-flex; gap: 0.5rem; align-items: center;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+.marker {
+  display: flex; align-items: baseline; gap: 0.7rem; margin: 0 0 1.1rem;
+  padding-bottom: 0.6rem; border-bottom: 1px solid var(--rule);
+}
+.marker .no {
+  font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.marker .anat {
+  font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--tone);
+}
+.chapter h2 {
+  font-family: var(--display); font-weight: 400; letter-spacing: -0.015em;
+  font-size: clamp(1.75rem, 5vw, 2.5rem); line-height: 1.08; margin: 0 0 0.9rem;
+}
+.chapter .standfirst { font-size: 1.04rem; max-width: 54ch; margin: 0 0 0.75rem; }
+.chapter .standfirst + .standfirst { margin-top: 0.75rem; }
+
+.records { list-style: none; margin: 1.9rem 0 0; padding: 0; display: flex; flex-direction: column; }
+.records li { padding: 0.95rem 0; border-top: 1px solid var(--rule); max-width: 58ch; }
+.records .head { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: baseline; }
+.records b { font-weight: 500; font-size: 1rem; }
+.records .when {
+  font-family: var(--util); font-size: 0.68rem; color: var(--muted);
+  font-variant-numeric: tabular-nums; letter-spacing: 0.04em;
+}
+.records p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.93rem; }
+
+.gap {
+  margin: 1.5rem 0 0; padding: 0.8rem 1rem; border: 1px dashed var(--accent);
+  border-radius: 3px; color: var(--accent); font-size: 0.86rem; max-width: 54ch;
+}
+.gap b { font-family: var(--util); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+
+footer.close {
+  max-width: 82rem; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 3rem 4rem; border-top: 1px solid var(--rule);
+}
+footer.close p { max-width: 58ch; color: var(--muted); font-size: 0.92rem; margin: 0 0 0.6rem; }
+footer.close .caveat { font-size: 0.85rem; margin-top: 1.5rem; }
+footer.close .caveat b { color: var(--ink); font-weight: 500; }
+.ink { font-family: var(--util); font-size: 0.85em; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "url": "https://zoezhouyt.github.io/",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Zoe Zhou",
+    "email": "zoezhou0912@gmail.com",
+    "jobTitle": "Student, Psychological and Behavioural Science",
+    "description": "Research on metacognition, calibration and judgement; ventures in learning and talent.",
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "London School of Economics and Political Science" },
+    "knowsLanguage": ["English", "Mandarin Chinese", "Cantonese", "French"],
+    "url": "https://zoezhouyt.github.io/",
+    "sameAs": [
+      "https://www.linkedin.com/in/zoezhouyt912/",
+      "https://www.mynoetic.com/",
+      "https://www.mikulearnbyteach.com/"
+    ]
+  }
+}
+</script>
+</head>
+<body>
+<div class="stage">
+  <div class="plate-col">
+    <figure class="plate" style="margin:0">
+      <canvas id="brain" aria-hidden="true"></canvas>
+      <figcaption id="plate-tag">Lateral aspect</figcaption>
+      <p class="hint">Drag to turn</p>
+    </figure>
+  </div>
+
+  <div class="story" id="story">
+
+    <section class="chapter opening" id="c0" data-region="-1">
+      <h1 class="name">Zoe Zhou</h1>
+      <p class="thesis">I study how people judge what they know &mdash; and build the tools that teach them to judge better.</p>
+      <p class="sub">Psychological and Behavioural Science at the London School of Economics. Research on metacognition and judgement; ventures in learning and talent; a detour through private equity that taught me how capital decides. Scroll, and the brain follows.</p>
+      <div class="contacts">
+        <button class="chip" id="copy-email" type="button"><span class="ink" id="email-text">zoezhou0912@gmail.com</span><span id="copy-label">Copy</span></button>
+        <a class="chip" href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>
+        <a class="chip" href="https://www.mynoetic.com/">Noetic</a>
+        <a class="chip" href="https://www.mikulearnbyteach.com/">Miku</a>
+      </div>
+    </section>
+
+    <section class="chapter" id="c1" data-region="temporal">
+      <p class="marker"><span class="no">01</span><span class="anat">Temporal lobe &middot; language</span></p>
+      <h2>Four countries, four languages</h2>
+      <p class="standfirst">Before any of the work, there was the moving. Four countries, and the particular attention you develop when you are always slightly new &mdash; reading a room before you can fully read the language, noticing the conventions that locals have stopped noticing.</p>
+      <p class="standfirst">It is an unglamorous skill and it turns out to be the one everything else rests on. It is why a learning product for families in Asia and a policy workflow for sellers across EMEA feel like the same problem to me: both are about what travels between contexts and what quietly does not.</p>
+      <ul class="records">
+        <li><div class="head"><b>English and Mandarin</b><span class="when">Native</span></div><p>Both from the beginning, neither as a second language.</p></li>
+        <li><div class="head"><b>Cantonese and French</b><span class="when">Working</span></div><p>Enough to follow a room and to notice what a translation drops.</p></li>
+      </ul>
+      <p class="gap"><b>Needs your input</b>Which four countries, and in what order? I have not guessed &mdash; tell me and I will write this chapter properly.</p>
+    </section>
+
+    <section class="chapter" id="c2" data-region="hippocampus">
+      <p class="marker"><span class="no">02</span><span class="anat">Hippocampus &middot; learning &amp; memory</span></p>
+      <h2>Reading psychology at LSE</h2>
+      <p class="standfirst">I chose Psychological and Behavioural Science because it refused to separate the two halves of the question I cared about: what a mind does on its own, and what it does once other people, incentives and institutions are in the room.</p>
+      <p class="standfirst">The degree gave me the thing I had been missing &mdash; a method. Not opinions about behaviour, but a way of testing them.</p>
+      <ul class="records">
+        <li><div class="head"><b>BSc Psychological and Behavioural Science</b><span class="when">Expected May 2027</span></div><p>London School of Economics and Political Science. Expected First Class Honours. PB101 Psychological Science; PB330/MY202 Statistics.</p></li>
+        <li><div class="head"><b>A-Levels, A*A*A*AA</b><span class="when">2020 &ndash; 2024</span></div><p>Woldingham School. Maths, Psychology, Economics, Biology and an Extended Project Qualification.</p></li>
+      </ul>
+    </section>
+
+    <section class="chapter" id="c3" data-region="prefrontal">
+      <p class="marker"><span class="no">03</span><span class="anat">Prefrontal cortex &middot; judgement</span></p>
+      <h2>The question I keep returning to</h2>
+      <p class="standfirst">How accurately do learners know what they know? It sounds narrow. It is not. Calibration &mdash; the fit between confidence and actual performance &mdash; sits underneath almost every decision a person makes about when to stop studying, when to ask for help, and when to trust an answer that arrived too easily.</p>
+      <p class="standfirst">Generative AI has made the question urgent rather than academic. A fluent answer feels like understanding. My dissertation asks whether that feeling can be corrected, and whether the correction survives once the AI is taken away.</p>
+      <ul class="records">
+        <li><div class="head"><b>Metacognitive calibration in AI-assisted learning</b><span class="when">Nov 2026 &ndash; present</span></div><p>Independent research project supervised by Dr Luc Schneider. Whether metacognitive prompts can improve confidence&ndash;performance calibration, transfer, and independent judgement among university and adult learners.</p></li>
+        <li><div class="head"><b>Curiosity and misinformation detection</b><span class="when">Oct 2026 &ndash; present</span></div><p>Research apprenticeship to Dr Yana Litovsky, LSE. How curiosity shapes epistemic vigilance and truth discernment; hypothesis generation around guess generation, processing fluency and information-seeking.</p></li>
+        <li><div class="head"><b>Digital safety and AI safety in education</b><span class="when">Jan &ndash; Apr 2026</span></div><p>Research assistant to Dr Sakshi Ghai, LSE. Cross-sector synthesis on digital-safety interventions for at-risk youth in Kenya; AI safety literature feeding the design of a metacognitive learning tool.</p></li>
+      </ul>
+    </section>
+
+    <section class="chapter" id="c4" data-region="parietal">
+      <p class="marker"><span class="no">04</span><span class="anat">Parietal cortex &middot; number</span></p>
+      <h2>The quantitative spine</h2>
+      <p class="standfirst">Methods are what let the same person work on a research design on Monday and a valuation model on Thursday without changing how they think. In both cases the discipline is identical: state the assumption, find the number that would falsify it, and be honest about the error bars.</p>
+      <p class="standfirst">This is the chapter that explains the next one. Without it, the move into private equity would look like a detour.</p>
+      <ul class="records">
+        <li><div class="head"><b>Statistics and experimental design</b><span class="when">LSE</span></div><p>PB330/MY202 Statistics; R and machine learning; design of the studies behind the research above.</p></li>
+        <li><div class="head"><b>Python, R, SQL</b></div><p>Analysis and data work across research and commercial projects.</p></li>
+        <li><div class="head"><b>Valuation and financial modelling</b></div><p>Built inside a live investment team rather than a classroom &mdash; see below.</p></li>
+      </ul>
+    </section>
+
+    <section class="chapter" id="c5" data-region="orbital">
+      <p class="marker"><span class="no">05</span><span class="anat">Orbitofrontal cortex &middot; value</span></p>
+      <h2>How capital actually decides</h2>
+      <p class="standfirst">I went into private equity to find out how a decision gets made when the stakes are real and the information is incomplete. What I learned is that the model is never the argument. The model is the place where the argument becomes legible to people who disagree.</p>
+      <p class="standfirst">A year across insurance and healthcare assets, from summer intern to a return offer in the group investment team.</p>
+      <ul class="records">
+        <li><div class="head"><b>Fosun International, Banking &amp; Insurance Group</b><span class="when">Jun 2025 &ndash; Jun 2026</span></div><p>Private equity summer and off-cycle intern, supporting acquisitions, divestments, portfolio strategy and financing.</p></li>
+        <li><div class="head"><b>Portuguese healthcare operator</b><span class="when">c.&euro;1.1bn EV</span></div><p>Potential divestment of a 40% stake. Built NBO and BO models for three bidders, benchmarking 9.2&ndash;10.4x EV/EBITDA and &euro;287&ndash;330m proceeds; assessed net debt adjustments, governance, dividend policy and exit provisions.</p></li>
+        <li><div class="head"><b>German life insurance business</b></div><p>Potential acquisition. Consolidated seven Phase II diligence workstreams into an IC-ready risk and valuation tracker; assessed downside, solvency and SPA protection implications.</p></li>
+        <li><div class="head"><b>Stablecoin product initiative</b></div><p>Regulatory analysis across five or more jurisdictions and competitive positioning across European portfolio companies.</p></li>
+      </ul>
+    </section>
+
+    <section class="chapter" id="c6" data-region="tpj">
+      <p class="marker"><span class="no">06</span><span class="anat">Temporoparietal junction &middot; social cognition</span></p>
+      <h2>Building the room</h2>
+      <p class="standfirst">Somewhere in the middle of all this I became more interested in the people doing the work than in the work itself &mdash; specifically, in how you find the ones with unusual agency before anybody has given them a title that proves it.</p>
+      <p class="standfirst">That question runs from running a student programme to co-founding a company built entirely around it. Credentials are a lagging indicator. What someone builds in a weekend is not.</p>
+      <ul class="records">
+        <li><div class="head"><b>Noetic &mdash; co-founder</b><span class="when">Jun 2026 &ndash; present</span></div><p>A talent-scouting platform identifying high-agency, AI-native talent through sponsored build challenges and university hackathon networks. I developed the commercial thesis, competitive landscape, sponsor proposition and go-to-market strategy.</p></li>
+        <li><div class="head"><b>President, ASES London</b><span class="when">Jan 2025 &ndash; Jun 2026</span></div><p>Won first place in the ASES London VC competition and a funded place at the Stanford Summit 2025. Led university partnerships, secured &pound;5k in sponsorship, and ran a ten-week bootcamp connecting around 70 selected founders with UK Tier 1&ndash;2 investors including Antler.</p></li>
+        <li><div class="head"><b>Core Executive, LSESU Entrepreneurs</b><span class="when">Mar 2025 &ndash; Apr 2026</span></div><p>Rebuilt internal operations across events and marketing. 40% membership growth, 200+ event attendees and five or more sponsor relationships, including Dedalus Labs (YC) and Hyperknow (ZhenFund).</p></li>
+      </ul>
+    </section>
+
+    <section class="chapter" id="c7" data-region="motor">
+      <p class="marker"><span class="no">07</span><span class="anat">Premotor &amp; motor cortex &middot; execution</span></p>
+      <h2>Building for how people actually learn</h2>
+      <p class="standfirst">Everything above converges here. If calibration can be taught, it has to be taught inside something a thirteen-year-old will willingly open. That is a product problem as much as a psychological one, and the research is what stops it becoming another engagement-optimised toy.</p>
+      <p class="standfirst">The through-line across these four is the same: take a finding about how people learn or decide, and make it survive contact with a real user, a real school, or a real operations team.</p>
+      <ul class="records">
+        <li><div class="head"><b>Miku &mdash; founder</b><span class="when">Mar 2026 &ndash; present</span></div><p>An AI-supported story-relay product building metacognitive skill in early adolescents &mdash; reflective thinking, evidence-checking, strategy awareness &mdash; through typing. I led product positioning, the ethical design framework and curriculum architecture, and repositioned it from a child-facing chatbot into a school-suitable learning environment.</p></li>
+        <li><div class="head"><b>Hyperknow &mdash; EMEA Campaign Lead</b><span class="when">May 2026 &ndash; present</span></div><p>Own EMEA market entry end to end: market and competitive analysis, winning the GTM mandate against around five competing pitches, and a campus-ambassador network across EU universities. Launched in lower-income UK state schools as an interactive GCSE and A-level tutor.</p></li>
+        <li><div class="head"><b>ByteDance &mdash; AI &amp; Automation</b><span class="when">Jun &ndash; Aug 2026</span></div><p>Built an LLM-powered automation for policy-enforcement messaging across TikTok Shop; 40+ prompt-based workflows, with seller CSAT rising from 5% to c. 70% in a month. Trained a ten-person team and authored an SOP adopted by 200+ policy staff.</p></li>
+        <li><div class="head"><b>LinkSea &mdash; UI/UX designer</b><span class="when">Mar &ndash; May 2026</span></div><p>Designed the student-facing frontend of a school workflow-automation platform in JavaScript, with field testing and qualitative research with the students who would use it.</p></li>
+      </ul>
+    </section>
+
+    <section class="chapter" id="c8" data-region="cerebellum">
+      <p class="marker"><span class="no">08</span><span class="anat">Cerebellum &middot; timing &amp; practice</span></p>
+      <h2>Away from the desk</h2>
+      <p class="standfirst">The cerebellum handles timing, coordination, and the kind of learning that only arrives through repetition. It is the honest home for the part of my life that has nothing to do with any of the above and quietly explains most of it &mdash; the tolerance for drilling something until it is right.</p>
+      <ul class="records">
+        <li><div class="head"><b>Ballet, cello and guzheng</b><span class="when">Vocational diplomas</span></div><p>All three, which is mostly a story about hours.</p></li>
+        <li><div class="head"><b>Competitive dance</b><span class="when">United Kingdom</span></div><p>Still competing.</p></li>
+        <li><div class="head"><b>Art curation</b><span class="when">UAE &amp; Saudi Arabia</span></div><p>Curatorial work in the Gulf.</p></li>
+      </ul>
+    </section>
+
+  </div>
+</div>
+
+<footer class="close">
+  <p>Open to research collaborations, internships, and conversations about learning, judgement and the tools built on them.</p>
+  <p>Reach me at <span class="ink">zoezhou0912@gmail.com</span> or on <a href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>.</p>
+  <p class="caveat"><b>A note on the conceit.</b> Strict one-region-one-function localisation is a simplification; contemporary evidence favours distributed networks over discrete modules. The mapping used here is a navigational device, chosen because each region's best-established role corresponds honestly to the work filed under it.</p>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var REGIONS = {
+    temporal:    { color: "#6b7a33", anchor: [0.10, -0.26, 0.23], label: "Temporal lobe" },
+    hippocampus: { color: "#7a5a86", anchor: [0.02, -0.12, 0.18], label: "Hippocampus", deep: true },
+    prefrontal:  { color: "#8e2436", anchor: [0.42,  0.12, 0.13], label: "Prefrontal cortex" },
+    parietal:    { color: "#45688c", anchor: [-0.20, 0.24, 0.13], label: "Parietal cortex" },
+    orbital:     { color: "#a33455", anchor: [0.36, -0.15, 0.12], label: "Orbitofrontal cortex" },
+    tpj:         { color: "#2f7a76", anchor: [-0.26, -0.06, 0.20], label: "Temporoparietal junction" },
+    motor:       { color: "#c0562c", anchor: [0.07,  0.30, 0.13], label: "Premotor & motor cortex" },
+    cerebellum:  { color: "#b5842a", anchor: [-0.36, -0.30, 0.14], label: "Cerebellum" }
+  };
+  var KEYS = Object.keys(REGIONS);
+
+  // ---------- vector helpers ----------
+  function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / m, v[1] / m, v[2] / m]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+
+  function mirror(list) {
+    var out = [];
+    list.forEach(function (b) {
+      out.push(b);
+      if (b.c[2] !== 0) out.push({ c: [b.c[0], b.c[1], -b.c[2]], s: b.s, w: b.w });
+    });
+    return out;
+  }
+
+  var CEREBRUM = mirror([
+    { c: [ 0.31,  0.14, 0.12], s: 0.26, w: 1.00 },
+    { c: [ 0.32, -0.09, 0.11], s: 0.21, w: 0.94 },
+    { c: [ 0.05,  0.26, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.19,  0.21, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.41,  0.00, 0.09], s: 0.21, w: 0.92 },
+    { c: [ 0.14, -0.25, 0.20], s: 0.20, w: 0.92 },
+    { c: [-0.10, -0.21, 0.20], s: 0.20, w: 0.90 },
+    { c: [-0.28, -0.08, 0.17], s: 0.19, w: 0.88 },
+    { c: [ 0.00,  0.02, 0.00], s: 0.30, w: 0.85 }
+  ]);
+  var CEREBELLUM = mirror([
+    { c: [-0.36, -0.27, 0.13], s: 0.17, w: 1.00 },
+    { c: [-0.46, -0.28, 0.00], s: 0.14, w: 0.90 }
+  ]);
+
+  function field(p, blobs) {
+    var f = 0;
+    for (var i = 0; i < blobs.length; i++) {
+      var b = blobs[i];
+      var dx = p[0] - b.c[0], dy = p[1] - b.c[1], dz = p[2] - b.c[2];
+      f += b.w * Math.exp(-(dx * dx + dy * dy + dz * dz) / (b.s * b.s));
+    }
+    return f;
+  }
+
+  /* Creases: the lateral (Sylvian) fissure and the central sulcus, as narrow bands
+     where the surface is pulled inward. They are what make the shape read as a brain. */
+  function creases(p) {
+    var lateral = p[1] + 0.52 * p[0] + 0.10;
+    var side = Math.min(1, Math.abs(p[2]) / 0.18);
+    var lat = Math.exp(-(lateral * lateral) / 0.0035) * side * (p[0] > -0.30 ? 1 : 0.3);
+    var central = p[0] + 0.80 * p[1] - 0.17;
+    var cen = Math.exp(-(central * central) / 0.0016) * (p[1] > -0.10 ? 1 : 0);
+    return lat * 0.20 + cen * 0.085;
+  }
+
+  function gyriVal(u) {
+    return Math.sin(u[0] * 16 + u[1] * 10.5) * Math.sin(u[1] * 14 - u[2] * 12) * Math.sin(u[2] * 18 + u[0] * 8.5);
+  }
+
+  function surfaceR(u, blobs, T, o, crease) {
+    var lo = 0.01, hi = 1.0, m, p;
+    for (var i = 0; i < 17; i++) {
+      m = (lo + hi) * 0.5;
+      p = [o[0] + u[0] * m, o[1] + u[1] * m, o[2] + u[2] * m];
+      if (field(p, blobs) > T) lo = m; else hi = m;
+    }
+    var r = (lo + hi) * 0.5;
+    r *= 1 + gyriVal(u) * 0.028;
+    if (crease) r *= 1 - creases([o[0] + u[0] * r, o[1] + u[1] * r, o[2] + u[2] * r]);
+    return r;
+  }
+
+  var SQ = [1, 0.86, 0.95];
+  function place(u, r, o) {
+    return [(o[0] + u[0] * r) * SQ[0], (o[1] + u[1] * r) * SQ[1], (o[2] + u[2] * r) * SQ[2]];
+  }
+
+  // ---------- region assignment ----------
+  var ANCHORS = [];
+  KEYS.forEach(function (k) {
+    var R = REGIONS[k];
+    if (R.deep) return;
+    [1, -1].forEach(function (s) {
+      ANCHORS.push({ k: k, p: [R.anchor[0] * SQ[0], R.anchor[1] * SQ[1], s * R.anchor[2] * SQ[2]] });
+    });
+  });
+  function regionAt(p) {
+    var best = ANCHORS[0].k, bd = Infinity;
+    for (var i = 0; i < ANCHORS.length; i++) {
+      var a = ANCHORS[i].p;
+      var dx = p[0] - a[0], dy = p[1] - a[1], dz = p[2] - a[2];
+      var d = dx * dx + dy * dy + dz * dz;
+      if (d < bd) { bd = d; best = ANCHORS[i].k; }
+    }
+    return best;
+  }
+
+  // ---------- fibres that follow the gyri ----------
+  var rng = (function (s) { return function () { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; }; })(20261029);
+  function randUnit() {
+    var z = rng() * 2 - 1, t = rng() * Math.PI * 2, r = Math.sqrt(Math.max(0, 1 - z * z));
+    return [r * Math.cos(t), r * Math.sin(t), z];
+  }
+
+  function contourDir(u, prev) {
+    var a = norm(cross(u, Math.abs(u[1]) > 0.9 ? [1, 0, 0] : [0, 1, 0]));
+    var b = cross(u, a);
+    var e = 0.03, f0 = gyriVal(u);
+    var ga = (gyriVal(norm([u[0] + a[0] * e, u[1] + a[1] * e, u[2] + a[2] * e])) - f0) / e;
+    var gb = (gyriVal(norm([u[0] + b[0] * e, u[1] + b[1] * e, u[2] + b[2] * e])) - f0) / e;
+    var cx = -gb, cy = ga, m = Math.hypot(cx, cy) || 1;
+    cx /= m; cy /= m;
+    var t = [a[0] * cx + b[0] * cy, a[1] * cx + b[1] * cy, a[2] * cx + b[2] * cy];
+    if (prev && dot(t, prev) < 0) t = [-t[0], -t[1], -t[2]];
+    return t;
+  }
+
+  function walk(blobs, T, o, steps, step, follow, crease, bias) {
+    var u = randUnit();
+    var t = norm(cross(u, randUnit()));
+    if (bias) {
+      t = [t[0] + bias[0], t[1] + bias[1], t[2] + bias[2]];
+      var d0 = dot(t, u); t = norm([t[0] - u[0] * d0, t[1] - u[1] * d0, t[2] - u[2] * d0]);
+    }
+    var pts = [];
+    for (var i = 0; i < steps; i++) {
+      var r = surfaceR(u, blobs, T, o, crease);
+      pts.push(place(u, r, o));
+      var un = norm([u[0] + t[0] * step, u[1] + t[1] * step, u[2] + t[2] * step]);
+      if (follow > 0) {
+        var c = contourDir(un, t);
+        t = [t[0] * (1 - follow) + c[0] * follow, t[1] * (1 - follow) + c[1] * follow, t[2] * (1 - follow) + c[2] * follow];
+      }
+      var j = randUnit();
+      t = [t[0] + j[0] * 0.03, t[1] + j[1] * 0.03, t[2] + j[2] * 0.03];
+      var d = dot(t, un);
+      t = norm([t[0] - un[0] * d, t[1] - un[1] * d, t[2] - un[2] * d]);
+      u = un;
+    }
+    return pts;
+  }
+
+  function tube(a, b, r0, r1, rings, count, twist) {
+    var out = [];
+    var axis = norm([b[0] - a[0], b[1] - a[1], b[2] - a[2]]);
+    var e1 = norm(cross(axis, Math.abs(axis[1]) > 0.9 ? [1, 0, 0] : [0, 1, 0]));
+    var e2 = cross(axis, e1);
+    for (var s = 0; s < count; s++) {
+      var pts = [], phase = rng() * Math.PI * 2;
+      for (var i = 0; i <= rings; i++) {
+        var f = i / rings, rr = r0 + (r1 - r0) * f, ang = phase + f * twist;
+        pts.push([
+          a[0] + (b[0] - a[0]) * f + (e1[0] * Math.cos(ang) + e2[0] * Math.sin(ang)) * rr,
+          a[1] + (b[1] - a[1]) * f + (e1[1] * Math.cos(ang) + e2[1] * Math.sin(ang)) * rr,
+          a[2] + (b[2] - a[2]) * f + (e1[2] * Math.cos(ang) + e2[2] * Math.sin(ang)) * rr
+        ]);
+      }
+      out.push(pts);
+    }
+    return out;
+  }
+
+  var fibres = [];
+  function build() {
+    var i, pts;
+    for (i = 0; i < 420; i++) {
+      pts = walk(CEREBRUM, 1.0, [0, 0.02, 0], 26, 0.075, 0.55, true, null);
+      fibres.push({ pts: pts, k: regionAt(pts[13]) });
+    }
+    for (i = 0; i < 120; i++) {
+      pts = walk(CEREBELLUM, 0.92, [-0.39, -0.27, 0], 16, 0.085, 0, false, [0, 0, 1]);
+      fibres.push({ pts: pts, k: "cerebellum" });
+    }
+    tube([0.02, -0.18, 0], [-0.08, -0.52, 0], 0.072, 0.040, 13, 24, 0.9).forEach(function (p) {
+      fibres.push({ pts: p, k: "cerebellum" });
+    });
+    [1, -1].forEach(function (s) {
+      tube([0.13, -0.17, s * 0.16], [-0.15, -0.12, s * 0.20], 0.034, 0.027, 10, 10, 1.6).forEach(function (p) {
+        fibres.push({ pts: p, k: "hippocampus", deep: true });
+      });
+    });
+  }
+
+  // ---------- rendering ----------
+  var canvas = document.getElementById("brain");
+  var ctx = canvas.getContext("2d");
+  var W = 1, H = 1, DPR = 1;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  var yaw = -0.5, pitch = -0.08, zoom = 1;
+  var tYaw = -0.5, tPitch = -0.08, tZoom = 1;
+  var uYaw = 0, uPitch = 0;
+  var focus = null;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    if (!rect.width) return;
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.round(rect.width); H = Math.round(rect.height);
+    canvas.width = Math.max(1, W * DPR); canvas.height = Math.max(1, H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  var cY = 1, sY = 0, cX = 1, sX = 0;
+  function rot(p) {
+    var x = p[0] * cY + p[2] * sY;
+    var z = -p[0] * sY + p[2] * cY;
+    return [x, p[1] * cX - z * sX, p[1] * sX + z * cX];
+  }
+  var CAM = 3.0, FOC = 2.3;
+  function project(q, scale) {
+    var k = FOC / (CAM - q[2]);
+    return [W / 2 + q[0] * k * scale, H / 2 - q[1] * k * scale];
+  }
+
+  function draw(t) {
+    cY = Math.cos(yaw); sY = Math.sin(yaw);
+    cX = Math.cos(pitch); sX = Math.sin(pitch);
+    var scale = Math.min(W, H) * 0.90 * zoom;
+    ctx.clearRect(0, 0, W, H);
+
+    var paths = {};
+    function bucket(k) { if (!paths[k]) paths[k] = new Path2D(); return paths[k]; }
+
+    for (var i = 0; i < fibres.length; i++) {
+      var f = fibres[i];
+      if (f.deep && focus !== "hippocampus") continue;
+      var pts = f.pts, prev = null, path = null, key = null;
+      for (var j = 0; j < pts.length; j++) {
+        var q = rot(pts[j]);
+        var s = project(q, scale);
+        if (prev) {
+          var k2 = f.k + "|" + (((q[2] + prev[2]) * 0.5) < -0.02 ? "b" : "f");
+          if (k2 !== key) { key = k2; path = bucket(k2); path.moveTo(prev[3], prev[4]); }
+          path.lineTo(s[0], s[1]);
+        }
+        prev = [q[0], q[1], q[2], s[0], s[1]];
+      }
+    }
+
+    Object.keys(paths).forEach(function (key) {
+      var parts = key.split("|"), k = parts[0], back = parts[1] === "b";
+      var R = REGIONS[k], a;
+      if (!focus) a = back ? 0.26 : 0.58;
+      else if (focus === k) a = back ? 0.55 : 1;
+      else a = back ? 0.045 : 0.10;
+      ctx.strokeStyle = R.color;
+      ctx.globalAlpha = a;
+      ctx.lineWidth = focus === k ? 0.95 : 0.68;
+      ctx.lineJoin = "round"; ctx.lineCap = "round";
+      ctx.stroke(paths[key]);
+    });
+    ctx.globalAlpha = 1;
+
+    if (focus && REGIONS[focus]) {
+      var R = REGIONS[focus];
+      var qa = rot([R.anchor[0] * SQ[0], R.anchor[1] * SQ[1], R.anchor[2] * SQ[2]]);
+      var qb = rot([R.anchor[0] * SQ[0], R.anchor[1] * SQ[1], -R.anchor[2] * SQ[2]]);
+      var q = qa[2] >= qb[2] ? qa : qb;
+      var s = project(q, scale);
+      var right = s[0] < W * 0.55;
+      var lx = right ? Math.min(W - 12, s[0] + 46) : Math.max(12, s[0] - 46);
+      var ly = Math.max(16, s[1] - 24);
+      ctx.strokeStyle = R.color; ctx.lineWidth = 1; ctx.globalAlpha = 0.9;
+      ctx.beginPath();
+      ctx.arc(s[0], s[1], 3, 0, Math.PI * 2);
+      ctx.moveTo(s[0], s[1]); ctx.lineTo(lx, ly); ctx.lineTo(right ? lx + 14 : lx - 14, ly);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "#efe6d9";
+      ctx.font = "500 9.5px ui-monospace, Menlo, monospace";
+      ctx.textAlign = right ? "left" : "right";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(R.label.toUpperCase(), right ? lx + 18 : lx - 18, ly + 3.5);
+    }
+  }
+
+  // ---------- camera ----------
+  function aim(key) {
+    if (!key || !REGIONS[key]) { tYaw = -0.5; tPitch = -0.08; tZoom = 1; return; }
+    var a = REGIONS[key].anchor;
+    tYaw = -Math.atan2(a[0] * SQ[0], a[2] * SQ[2]);
+    tPitch = Math.max(-0.55, Math.min(0.55, Math.atan2(a[1] * SQ[1], 0.62) * 0.75));
+    tZoom = 1.05;
+  }
+  function shortest(from, to) {
+    var d = (to - from) % (Math.PI * 2);
+    if (d > Math.PI) d -= Math.PI * 2;
+    if (d < -Math.PI) d += Math.PI * 2;
+    return d;
+  }
+
+  var last = 0;
+  function frame(t) {
+    var dt = last ? Math.min(t - last, 50) : 16; last = t;
+    var sway = reduce.matches ? 0 : Math.sin(t * 0.00028) * 0.13;
+    var ease = reduce.matches ? 1 : 1 - Math.pow(0.0016, dt / 1000);
+    yaw += shortest(yaw, tYaw + sway + uYaw) * ease;
+    pitch += (tPitch + uPitch - pitch) * ease;
+    zoom += (tZoom - zoom) * ease;
+    uYaw *= Math.pow(0.35, dt / 1000);
+    uPitch *= Math.pow(0.35, dt / 1000);
+    draw(t);
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- drag ----------
+  var dragging = false, lx = 0, ly = 0;
+  canvas.addEventListener("pointerdown", function (e) {
+    dragging = true; lx = e.clientX; ly = e.clientY;
+    if (canvas.setPointerCapture) canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener("pointermove", function (e) {
+    if (!dragging) return;
+    uYaw -= (e.clientX - lx) * 0.009;
+    uPitch = Math.max(-0.6, Math.min(0.6, uPitch + (e.clientY - ly) * 0.005));
+    lx = e.clientX; ly = e.clientY;
+  });
+  ["pointerup", "pointercancel", "pointerleave"].forEach(function (ev) {
+    canvas.addEventListener(ev, function () { dragging = false; });
+  });
+
+  // ---------- scroll drives the camera ----------
+  var tag = document.getElementById("plate-tag");
+  var chapters = [].slice.call(document.querySelectorAll(".chapter"));
+  function setChapter(el) {
+    var key = el.getAttribute("data-region");
+    if (key === "-1" || !REGIONS[key]) { focus = null; aim(null); tag.textContent = "Lateral aspect"; }
+    else { focus = key; aim(key); tag.textContent = REGIONS[key].label; }
+    var tone = (key !== "-1" && REGIONS[key]) ? REGIONS[key].color : "var(--muted)";
+    el.style.setProperty("--tone", tone);
+  }
+  chapters.forEach(function (el) {
+    var k = el.getAttribute("data-region");
+    el.style.setProperty("--tone", REGIONS[k] ? REGIONS[k].color : "var(--muted)");
+  });
+
+  var wide = window.matchMedia("(min-width: 62rem)");
+  var io = null;
+  function observe() {
+    if (io) io.disconnect();
+    var margin = wide.matches ? "-45% 0px -45% 0px" : "-58% 0px -28% 0px";
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) setChapter(e.target); });
+    }, { rootMargin: margin, threshold: 0 });
+    chapters.forEach(function (c) { io.observe(c); });
+  }
+
+  // ---------- copy ----------
+  var btn = document.getElementById("copy-email");
+  var label = document.getElementById("copy-label");
+  var text = document.getElementById("email-text");
+  btn.addEventListener("click", function () {
+    var value = text.textContent.trim();
+    function fallback() {
+      try {
+        var range = document.createRange();
+        range.selectNodeContents(text);
+        var sel = window.getSelection();
+        sel.removeAllRanges(); sel.addRange(range);
+        label.textContent = "Select";
+      } catch (e) {}
+      setTimeout(function () { label.textContent = "Copy"; }, 2200);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(function () {
+          label.textContent = "Copied";
+          setTimeout(function () { label.textContent = "Copy"; }, 1800);
+        }, fallback);
+        return;
+      }
+    } catch (e) {}
+    fallback();
+  });
+
+  // ---------- boot ----------
+  build();
+  resize();
+  setChapter(chapters[0]);
+  yaw = tYaw; pitch = tPitch; zoom = tZoom;
+  observe();
+  if (wide.addEventListener) wide.addEventListener("change", observe);
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+  else window.addEventListener("resize", resize);
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
