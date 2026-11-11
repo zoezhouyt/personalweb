@@ -84,7 +84,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 @media (min-width: 66rem) {
   .page { margin-left: 18rem; margin-right: 2.5rem; padding-block: 3rem 8rem; }
-  .page > section, .masthead, footer.end { padding-left: 16.5rem; }
+  .page > section, .masthead, footer.end { padding-left: 19.5rem; }
 }
 
 section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
@@ -118,27 +118,38 @@ sup.ref a { color: var(--accent); }
 .tl-rows { min-width: 0; }
 .tl-entry { position: relative; padding-block: 1.9rem; border-bottom: 1px solid var(--rule); }
 .tl-group:last-of-type .tl-rows .tl-entry:last-child { border-bottom: 0; }
-.tl-dot, .tl-cursor { display: none; }
+.tl-dot, .tl-cursor, .tl-fill { display: none; }
 
 @media (min-width: 66rem) {
-  .tl { margin-left: -16.5rem; }
-  .tl::before {
-    content: ""; position: absolute; left: 7rem; top: 0.75rem; bottom: 0.75rem;
+  .tl { margin-left: -19.5rem; }
+  /* each year sits on its own rail, one step further right, joined by a short
+     diagonal: the course change that says the year has turned over */
+  .tl-group { position: relative; }
+  .tl-group + .tl-group { margin-top: 3rem; }
+  .tl-group::after {
+    content: ""; position: absolute; left: var(--rx); top: 0; bottom: 0.75rem;
     width: 1px; background: var(--rule);
   }
-  .tl::after {
-    content: ""; position: absolute; left: 7rem; top: 0.75rem; width: 1px;
-    height: var(--travelled, 0px); background: var(--accent); opacity: 0.5;
+  .tl-group:first-of-type::after { top: 0.75rem; }
+  .tl-group + .tl-group::before {
+    content: ""; position: absolute; left: calc(var(--rx) - 1rem); top: -3rem;
+    width: 1px; height: 50.6px; background: var(--rule);
+    transform-origin: top center; transform: rotate(-18.435deg);
   }
-  .tl-group { grid-template-columns: 6rem minmax(0, 1fr); }
+  .tl-fill {
+    display: block; position: absolute; left: var(--rx); top: 0; width: 1px;
+    height: var(--fill, 0px); background: var(--accent); opacity: 0.5;
+  }
+  .tl-group:first-of-type .tl-fill { top: 0.75rem; }
+  .tl-group { grid-template-columns: 7rem minmax(0, 1fr); }
   .tl-yr {
     position: sticky; top: 50vh; align-self: start; transform: translateY(-50%);
-    width: 5.5rem; text-align: right; margin: 0;
+    width: 6.5rem; text-align: right; margin: 0;
     font-size: clamp(1.9rem, 3vw, 2.7rem);
   }
-  .tl-rows { padding-left: 10.5rem; }
+  .tl-rows { padding-left: 12.5rem; }
   .tl-dot {
-    display: block; position: absolute; left: -9.5rem; margin-left: -6.5px; top: 2.35rem;
+    display: block; position: absolute; left: calc(var(--rx) - 19.5rem); margin-left: -6.5px; top: 2.35rem;
     width: 13px; height: 13px; border-radius: 50%;
     background: var(--paper); border: 1px solid var(--dot-line);
   }
@@ -148,7 +159,7 @@ sup.ref a { color: var(--accent); }
   }
   .tl-cursor { display: block; position: sticky; top: 50vh; height: 0; z-index: 3; pointer-events: none; }
   .tl-cursor i {
-    position: absolute; left: 7rem; margin-left: -4.5px; top: -4.5px;
+    position: absolute; left: var(--cursor-x, 7.5rem); margin-left: -4.5px; top: -4.5px;
     width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
   }
   .tl-cursor i::after {
@@ -156,11 +167,20 @@ sup.ref a { color: var(--accent); }
     transform: translate(-50%, -50%); border-radius: 50%;
     border: 1px solid var(--accent); opacity: 0.22;
   }
-  .tl-cursor canvas { position: absolute; left: 7.9rem; top: -4rem; width: 8rem; height: 8rem; display: block; }
-  .tl-cursor span {
-    position: absolute; left: 7.9rem; top: 4.15rem; width: 8rem; text-align: center;
-    font-family: var(--mono); font-size: 8px; letter-spacing: 0.9px;
-    text-transform: uppercase; color: var(--faint);
+  .tl-cursor canvas { position: absolute; left: calc(var(--cursor-x, 7.5rem) + 0.9rem); top: -4rem; width: 8rem; height: 8rem; display: block; }
+  .tl-cursor i, .tl-cursor canvas, .tl-cursor .atlas-cap { transition: left 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+  @media (prefers-reduced-motion: reduce) { .tl-cursor i, .tl-cursor canvas, .tl-cursor .atlas-cap { transition: none; } }
+  .tl-cursor .atlas-cap {
+    position: absolute; left: calc(var(--cursor-x, 7.5rem) + 0.9rem); top: 4.15rem;
+    width: 8rem; text-align: center;
+  }
+  .tl-cursor .atlas-cap b {
+    display: block; font-family: var(--mono); font-size: 8px; letter-spacing: 0.9px;
+    text-transform: uppercase; color: var(--faint); font-weight: 500;
+  }
+  .tl-cursor .atlas-cap em {
+    display: block; font-style: normal; font-size: 10px; line-height: 1.4;
+    color: var(--mute); margin-top: 0.25rem;
   }
   .tl-entry.is-past .tl-dot { border-color: var(--mute); }
   .tl-entry.is-past .tl-dot::after { background: var(--mute); }
@@ -228,7 +248,6 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   <nav>
     <a href="#about">About</a>
     <a href="#plan">Flight plan</a>
-    <a href="#now">Now</a>
     <a href="#hours">Off hours</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -266,22 +285,21 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <div class="tl-cursor" aria-hidden="true">
         <i></i>
         <canvas id="atlas"></canvas>
-        <span id="atlas-label"></span>
+        <span class="atlas-cap"><b id="atlas-label"></b><em id="atlas-gloss"></em></span>
       </div>
 
-      <section class="tl-group">
+      <section class="tl-group" style="--rx: 7.5rem">
         <p class="tl-yr">2026</p>
+        <span class="tl-fill" aria-hidden="true"></span>
         <div class="tl-rows">
         <article data-region="hippocampus" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Miku</h3></div>
         <p class="tl-role">Founder</p>
         <p class="text">A teachable agent. The learner teaches Miku, who is deliberately blank and answers only from what it has been taught, then predicts question by question what Miku will get right. The distance between prediction and result is the calibration measure, shown back as a map of what the learner actually managed to convey.</p>
-        <p class="text">Two prototypes came before it. The first ran into a problem I had not considered. The second into one I had, and had got backwards.</p>
         <ul class="outputs">
-          <li><span class="thumb">01</span><div><b>A reflective chatbot, stopped</b><p>Started at Stanford GSE's AI Tinkery. A father told me he was relieved: he could not answer his child's questions, and now something could. His relief unsettled me. I had built a tool a parent could use to step back.</p></div></li>
-          <li><span class="thumb">02</span><div><b>A story-relay game, stopped</b><p>Adapted from a Berkeley project. I set it aside before any child used it. Extending a story rewards building on an idea, and the habit I wanted to train was questioning one.</p></div></li>
           <li><span class="thumb">03</span><div><b>Where Miku stands</b><p>Adult friends have used it. I am interviewing parents before any child does. No child data yet, so no claim that it works.</p></div></li>
         </ul>
         </article>
@@ -289,24 +307,28 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <article data-region="tpj" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
+          <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Noetic</h3></div>
         <p class="tl-role">Co-founder</p>
         <p class="text">One-day builds where students and engineers work with a frontier company's newest tools, and that company's engineers are in the room. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p>
         <ul class="outputs">
           <li><span class="thumb">NB</span><div><b>The Nebius day</b><p>103 applicants, 63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening.</p></div></li>
-          <li class="drop"><span class="thumb">AS</span><details><summary><b>ASES London</b><span>Co-director. The programme that came before Noetic.</span></summary><div class="drop-body"><p>Won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter. I have been invited back to Stanford each year since. It was the first environment I had to design rather than attend.</p><p>AS A ten-week bootcamp Around 70 fellows selected, the programme designed, and &pound;5k of sponsorship secured.</p><p>SU LSESU Entrepreneurs Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></div></details></li>
         </ul>
         </article>
 
         <article data-region="prefrontal" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>Research assistant</h3></div>
-        <p class="tl-role">Dr Yana Litovsky &middot; Department of Psychological and Behavioural Science, LSE</p>
-        <p class="text">Guess generation, processing fluency and susceptibility to misleading claims. It made me question one of my own design decisions: whether asking a learner to predict their performance anchors them to a judgement they then defend.</p>
+          <div class="tl-top"><h3>LSE, Department of Psychological and Behavioural Science</h3></div>
+          <p class="tl-role">Research assistant</p>
+          <p class="text">Two projects in the department, both about how people judge what they know.</p>
+          <ul class="outputs">
+            <li class="drop"><span class="thumb">YL</span><details><summary><b>Dr Yana Litovsky</b><span>Curiosity, guessing and misinformation.</span></summary><div class="drop-body"><p>Guess generation, processing fluency and susceptibility to misleading claims. It made me question one of my own design decisions: whether asking a learner to predict their performance anchors them to a judgement they then defend.</p></div></details></li>
+            <li class="drop"><span class="thumb">SG</span><details><summary><b>Dr Sakshi Ghai</b><span>Digital safety for young people in Kenya.</span></summary><div class="drop-body"><p>Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p></div></details></li>
+          </ul>
         </article>
 
         <article data-region="tpj" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Hyperknow</h3></div>
@@ -317,6 +339,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <article data-region="motor" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
+          <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>ByteDance</h3></div>
         <p class="tl-role">AI &amp; automation summer project intern</p>
         <p class="text">Built LLM-powered automation for policy-enforcement messaging across TikTok Shop. More than 40 prompt-based workflows, seller satisfaction up from 5% to around 70% within a month, a ten-person team trained, and a procedure adopted by over 200 policy staff.</p>
@@ -325,25 +348,30 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <article data-region="occipital" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
+          <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>LinkSea</h3></div>
         <p class="tl-role">UI/UX designer</p>
         <p class="text">Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, for a middle school in Hong Kong. Field-tested it with the students themselves, then rebuilt the parts they could not complete.</p>
         </article>
-
-        <article data-region="temporal" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>Research assistant</h3></div>
-        <p class="tl-role">Dr Sakshi Ghai &middot; London School of Economics</p>
-        <p class="text">Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p>
-        </article>
         </div>
       </section>
 
-      <section class="tl-group">
+      <section class="tl-group" style="--rx: 8.5rem">
         <p class="tl-yr">2025</p>
+        <span class="tl-fill" aria-hidden="true"></span>
         <div class="tl-rows">
+        <article data-region="tpj" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-top"><h3>ASES London</h3></div>
+          <p class="tl-role">Co-director &middot; Affiliated Stanford Entrepreneurial Students</p>
+          <p class="text">The programme that came before Noetic, and the first environment I had to design rather than attend.</p>
+          <ul class="outputs">
+            <li class="drop"><span class="thumb">AS</span><details><summary><b>What it involved</b><span>Bootcamp, sponsorship, and the Stanford summit.</span></summary><div class="drop-body"><p>Won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter. I have been invited back to Stanford each year since. It was the first environment I had to design rather than attend.</p><p>AS A ten-week bootcamp Around 70 fellows selected, the programme designed, and &pound;5k of sponsorship secured.</p><p>SU LSESU Entrepreneurs Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></div></details></li>
+          </ul>
+        </article>
+
         <article data-region="orbital" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Fosun International</h3></div>
@@ -356,38 +384,19 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </article>
         </div>
       </section>
-    </div>
-  </section>
 
-  <section id="now" data-region="prefrontal">
-    <div class="section-head"><h2>Now</h2><span class="label">November 2026</span></div>
-    <div class="now-grid">
-      <div class="now-item">
-        <p class="n">01</p>
-        <h3>Building</h3>
-        <p class="org">Miku</p>
-        <p>Interviewing parents before a single child uses it, which is slower than shipping and the right order.</p>
-      </div>
-      <div class="now-item">
-        <p class="n">02</p>
-        <h3>Researching</h3>
-        <p class="org">Calibration</p>
-        <p>Whether a metacognitive prompt improves the fit between confidence and performance, and whether it survives the AI being taken away.</p>
-      </div>
-      <div class="now-item">
-        <p class="n">03</p>
-        <h3>Convening</h3>
-        <p class="org">Noetic</p>
-        <p>Designing one-day builds so that ability shows up before a track record does.</p>
-      </div>
-      <div class="now-item">
-        <p class="n">04</p>
-        <h3>Applying</h3>
-        <p class="org">2027 entry</p>
-        <p>For learning design and learning engineering master's programmes.</p>
-      </div>
-    </div>
-  </section>
+      <section class="tl-group" style="--rx: 9.5rem">
+        <p class="tl-yr">2024</p>
+        <span class="tl-fill" aria-hidden="true"></span>
+        <div class="tl-rows">
+        <article data-region="tpj" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-top"><h3>Women in Entrepreneurship</h3></div>
+          <p class="tl-role">Event project director &middot; LSESU Entrepreneurs</p>
+          <p class="text">Directed the events programme for Women in Entrepreneurship within LSESU Entrepreneurs.</p>
+        </article>
+        </div>
+      </section>
 
   <section id="hours" data-region="cerebellum">
     <div class="section-head"><h2>Off hours</h2><span class="label">Away from the desk</span></div>
@@ -472,10 +481,15 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     occipital:   [-0.46,  0.02, 0.08]
   };
   var NAME = {
-    temporal: "Temporal lobe", hippocampus: "Hippocampus", prefrontal: "Prefrontal cortex",
-    parietal: "Parietal cortex", orbital: "Orbitofrontal cortex",
-    tpj: "Temporoparietal junction", motor: "Motor cortex", cerebellum: "Cerebellum",
-    occipital: "Occipital cortex"
+    temporal:    ["Temporal lobe", "language, and the meaning carried in it"],
+    hippocampus: ["Hippocampus", "where learning turns into memory"],
+    prefrontal:  ["Prefrontal cortex", "judgement, and knowing what you know"],
+    parietal:    ["Parietal cortex", "number, space and scale"],
+    orbital:     ["Orbitofrontal cortex", "working out what something is worth"],
+    tpj:         ["Temporoparietal junction", "taking someone else's point of view"],
+    motor:       ["Motor cortex", "turning a decision into action"],
+    cerebellum:  ["Cerebellum", "timing, and skill built by repetition"],
+    occipital:   ["Occipital cortex", "making sense of what you see"]
   };
 
   function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0]/m, v[1]/m, v[2]/m]; }
@@ -677,6 +691,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   }
 
   var label = document.getElementById("atlas-label");
+  var gloss = document.getElementById("atlas-gloss");
   var marks = [].slice.call(document.querySelectorAll("[data-region]"));
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
@@ -684,7 +699,9 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
       var k = e.target.getAttribute("data-region");
       if (k === focus) return;
       focus = k; aim(k); setFocusSeats(k);
-      label.textContent = NAME[k] || "";
+      var n = NAME[k] || ["", ""];
+      label.textContent = n[0];
+      gloss.textContent = n[1];
     });
   }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
   marks.forEach(function (m) { io.observe(m); });
@@ -709,8 +726,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   function update() {
     queued = false;
     var line = window.innerHeight * 0.5;
-    var r = tl.getBoundingClientRect();
-    tl.style.setProperty("--travelled", Math.max(0, Math.min(r.height, line - r.top)) + "px");
+    var groups = tl.querySelectorAll(".tl-group"), g, gr, fill;
+    for (i = 0; i < groups.length; i++) {
+      g = groups[i]; gr = g.getBoundingClientRect();
+      fill = g.querySelector(".tl-fill");
+      if (fill) fill.style.setProperty("--fill", Math.max(0, Math.min(gr.height, line - gr.top)) + "px");
+    }
     var now = -1, i;
     for (i = 0; i < entries.length; i++) {
       if (entries[i].getBoundingClientRect().top <= line) now = i;
@@ -720,10 +741,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
       entries[i].classList.toggle("is-past", i < now);
     }
     var active = now < 0 ? null : entries[now].closest(".tl-group");
-    var groups = tl.querySelectorAll(".tl-group");
     for (i = 0; i < groups.length; i++) {
       groups[i].classList.toggle("is-now", groups[i] === active);
     }
+    var onRail = active || groups[0];
+    var mark = onRail && onRail.querySelector(".tl-fill");
+    if (mark) tl.style.setProperty("--cursor-x", mark.offsetLeft + "px");
   }
   function onScroll() {
     if (queued) return;

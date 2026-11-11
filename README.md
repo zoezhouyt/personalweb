@@ -20,25 +20,28 @@ engineering, not recruiters.
 
 ## Flight plan
 
-Eight entries in two year groups, newest first. The year is the structure: a large
-numeral sits in the left margin, sticky, and holds the middle of the viewport while its
-entries scroll past. It turns oxblood while its group is the one you are reading, so
-the year visibly changes over. Months are gone; the group year is the only date.
+Nine entries in three year groups, newest first.
 
-2026 holds Miku, Noetic, a research assistantship, Hyperknow, ByteDance, LinkSea and a
-second research assistantship. 2025 holds Fosun.
+**2026** Miku, Noetic, the LSE assistantships, Hyperknow, ByteDance, LinkSea.
+**2025** ASES London, Fosun. **2024** Women in Entrepreneurship.
 
-ASES London is not an entry of its own. It sits inside Noetic as an expandable row,
-since it is the programme that came before it. Any output row can take the same
-treatment.
+The year is the structure. A large numeral sits in the left margin, sticky, holding the
+middle of the viewport while its entries pass, and turning oxblood while its group is
+the one being read. Months are gone; the group year is the only date.
 
-Education and the dissertation are deliberately absent. All three are stated in the
-About essay and its footnotes, so entries for them added length without adding
-anything.
+Each year sits on **its own rail, one step further right**, joined by a short diagonal.
+That course change is the year turning over, and the cursor dot and the brain slide
+across onto the new rail as you cross it. A cursor holds mid-viewport and travels down,
+the rail fills behind it, and each dot moves through ahead, current and passed.
 
-The rail is interactive: a cursor dot holds the middle of the viewport and travels down
-it, the rail fills behind it, and each entry's dot moves through ahead, current and
-passed. All of the furniture is hidden below 66rem, where there is no margin for it.
+Two entries hold more behind a disclosure: the LSE entry opens into the Litovsky and
+Ghai projects, and ASES opens into the bootcamp, sponsorship and Stanford summit. Any
+output row can take the same treatment.
+
+Education, the dissertation and the Now section are deliberately absent. The first two
+are in the About footnotes; the third said nothing the entries did not.
+
+All of the rail furniture is hidden below 66rem, where there is no margin for it.
 
 ## The atlas
 
@@ -50,16 +53,19 @@ to be where it is and frees the whole right side for text.
 Every entry and section carries a `data-region`. An `IntersectionObserver` watches them,
 and the camera eases to the yaw and pitch that turn that region to face you.
 
-| Region | Holds |
-|---|---|
-| Hippocampus | Miku |
-| Temporoparietal junction | Noetic, Hyperknow |
-| Prefrontal cortex | the Litovsky assistantship, Now |
-| Motor cortex | ByteDance |
-| Occipital cortex | LinkSea |
-| Temporal lobe | the Ghai assistantship, About |
-| Orbitofrontal cortex | Fosun |
-| Cerebellum | Off hours |
+| Region | Holds | Shown as |
+|---|---|---|
+| Hippocampus | Miku | where learning turns into memory |
+| Temporoparietal junction | Noetic, Hyperknow, ASES, WiE | taking someone else's point of view |
+| Prefrontal cortex | the LSE assistantships | judgement, and knowing what you know |
+| Motor cortex | ByteDance | turning a decision into action |
+| Occipital cortex | LinkSea | making sense of what you see |
+| Orbitofrontal cortex | Fosun | working out what something is worth |
+| Temporal lobe | About | language, and the meaning carried in it |
+| Cerebellum | Off hours | timing, and skill built by repetition |
+
+The third column is printed under the brain, because a region name on its own means
+nothing to a reader who has not studied neuroscience.
 
 The parietal anchor is defined but unused since the LSE entry went. Harmless, and there
 if something numerical earns it later.
