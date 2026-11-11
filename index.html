@@ -12,17 +12,23 @@
 <meta property="og:title" content="Zoe Zhou">
 <meta property="og:description" content="Psychological and Behavioural Science at LSE. Research on metacognition and calibration, and the learning tools built on it.">
 <style>
-/* Layout: a fixed identity rail at the far left, one narrow reading column, hairline rules, small type. */
+/* Layout: fixed identity rail far left, one 40rem measure, a dot rail with the year in its margin. */
 :root {
   --paper: #faf5f5;
-  --ink: #16161a;
-  --muted: #76736e;
-  --faint: #a8a39c;
-  --rule: #e2dcdc;
+  --ink: #060606;
+  --title: #313030;
+  --text: #434445;
+  --mute: #9b9b9b;
+  --faint: #989898;
+  --rule: #cbc9d6;
+  --sunken: #efeaea;
   --accent: #8e2436;
+  --dot-line: #c3c1c1;
+  --dot-fill: #b4b2b2;
 
-  --sans: "Helvetica Neue", Helvetica, Inter, Arial, sans-serif;
+  --sans: system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+  --measure: 40rem;
 
   color-scheme: light;
   padding-top: env(safe-area-inset-top, 0px);
@@ -30,16 +36,17 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #10100e; --ink: #ece9e4; --muted: #8b857d; --faint: #5f5a53;
-    --rule: #272521; --accent: #d4687c;
+    --paper: #191817; --ink: #f1eee9; --title: #ddd9d3; --text: #b4afa8;
+    --mute: #7d7871; --faint: #6c6861; --rule: #343139; --sunken: #211f1e;
+    --accent: #d4687c; --dot-line: #4a4642; --dot-fill: #5c5853;
     color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
 body {
-  margin: 0; background: var(--paper); color: var(--ink);
-  font-family: var(--sans); font-size: 13.5px; line-height: 1.65;
-  -webkit-font-smoothing: antialiased; letter-spacing: 0.005em;
+  margin: 0; background: var(--paper); color: var(--text);
+  font-family: var(--sans); font-size: 16px; line-height: 1.7;
+  letter-spacing: -0.12px; -webkit-font-smoothing: antialiased;
 }
 img { max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -47,103 +54,116 @@ a { color: inherit; text-decoration: none; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 40; }
 
 .label {
-  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--faint);
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.84px;
+  text-transform: uppercase; color: var(--faint); line-height: 1.4;
 }
 
-/* ---- fixed identity rail ---- */
-.rail { padding-block: 1.5rem 0; }
-.rail .name { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0 0 0.9rem; }
+/* ---- identity rail ---- */
+.rail { padding-block: 1.75rem 0; }
+.rail .name { font-family: var(--mono); font-size: 11px; letter-spacing: 2.16px; text-transform: uppercase; color: var(--ink); margin: 0 0 1rem; }
 .rail .meta { margin: 0; }
-.rail .meta span { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; color: var(--muted); font-variant-numeric: tabular-nums; }
-.rail nav { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; }
-.rail nav a { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.rail .meta span { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; color: var(--mute); line-height: 1.8; font-variant-numeric: tabular-nums; }
+.rail nav { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.2rem; }
+.rail nav a { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--mute); line-height: 1.9; }
 .rail nav a:hover { color: var(--ink); }
-
-@media (min-width: 64rem) {
+@media (min-width: 66rem) {
   .rail {
-    position: fixed; top: calc(env(safe-area-inset-top, 0px) + 2.75rem);
-    left: max(2rem, env(safe-area-inset-left, 0px)); width: 11rem; z-index: 10; padding: 0;
+    position: fixed; top: calc(env(safe-area-inset-top, 0px) + 3rem);
+    left: max(2.5rem, env(safe-area-inset-left, 0px)); width: 11rem; z-index: 10; padding: 0;
   }
-  .rail nav { flex-direction: column; gap: 0.4rem; margin-top: 2rem; }
+  .rail nav { flex-direction: column; gap: 0; margin-top: 2.25rem; }
 }
 
 /* ---- page column ---- */
 .page {
-  max-width: 44rem; margin: 0 auto;
-  padding-left: max(18px, env(safe-area-inset-left, 0px));
-  padding-right: max(18px, env(safe-area-inset-right, 0px));
-  padding-block: 0 5rem;
+  max-width: var(--measure); margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  padding-block: 0 6rem;
 }
-@media (min-width: 64rem) { .page { margin-left: 17rem; margin-right: 2rem; padding-block: 2.75rem 7rem; } }
+@media (min-width: 66rem) { .page { margin-left: 18rem; margin-right: 2.5rem; padding-block: 3rem 8rem; } }
 
-section { padding-block: 3.25rem 0; scroll-margin-top: 3rem; }
-.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.6rem; margin-bottom: 1.75rem; }
-.section-head h2 { font-size: 11px; font-family: var(--mono); letter-spacing: 0.16em; text-transform: uppercase; font-weight: 400; margin: 0; }
+section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.7rem; margin-bottom: 2rem; }
+.section-head h2 { font-family: var(--mono); font-size: 10px; letter-spacing: 1.84px; text-transform: uppercase; font-weight: 500; color: var(--ink); margin: 0; }
 
 /* ---- masthead ---- */
 .masthead { padding-block: 0.5rem 0; }
-.masthead h1 { font-size: 13.5px; font-weight: 500; margin: 0 0 0.3rem; letter-spacing: 0.01em; }
-.masthead .sub { color: var(--muted); margin: 0; max-width: 46ch; }
+.masthead h1 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0 0 0.4rem; }
+.masthead .sub { color: var(--text); margin: 0; max-width: 34em; }
 
 /* ---- about, with footnotes ---- */
-.about p { margin: 0 0 0.95rem; max-width: 56ch; }
+.about p { margin: 0 0 1.15rem; max-width: 34em; }
 .about p:last-of-type { margin-bottom: 0; }
-sup.ref { font-size: 8.5px; vertical-align: super; line-height: 0; margin-left: 1px; font-family: var(--mono); }
+sup.ref { font-size: 9px; vertical-align: super; line-height: 0; margin-left: 1px; font-family: var(--mono); }
 sup.ref a { color: var(--accent); }
-.notes { margin: 2.25rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); list-style: none; counter-reset: n; }
-.notes li { display: grid; grid-template-columns: 1.4rem minmax(0, 1fr); gap: 0.5rem; margin-bottom: 0.6rem; font-size: 11.5px; color: var(--muted); max-width: 60ch; }
-.notes li::before { counter-increment: n; content: counter(n); font-family: var(--mono); font-size: 9.5px; color: var(--faint); padding-top: 0.22rem; }
+.notes { margin: 2.5rem 0 0; padding-top: 1.1rem; border-top: 1px solid var(--rule); list-style: none; counter-reset: n; }
+.notes li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.4rem; margin-bottom: 0.7rem; font-size: 12px; line-height: 1.8; color: var(--mute); max-width: 42em; }
+.notes li::before { counter-increment: n; content: counter(n); font-family: var(--mono); font-size: 9px; color: var(--faint); padding-top: 0.3rem; }
 
-/* ---- flight plan ---- */
-.leg { display: grid; grid-template-columns: 1fr; gap: 0.5rem; padding-block: 1.75rem; border-bottom: 1px solid var(--rule); }
-@media (min-width: 40rem) { .leg { grid-template-columns: 5.5rem minmax(0, 1fr); column-gap: 2rem; } }
-.leg:last-of-type { border-bottom: 0; }
-.leg-when { min-width: 0; }
-.leg-when .yr { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; margin: 0; }
-.leg-when .mo { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em; color: var(--faint); margin: 0.1rem 0 0; text-transform: uppercase; }
-.leg-body { min-width: 0; }
-.leg-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.65rem; }
-.leg-top h3 { font-size: 13.5px; font-weight: 500; margin: 0; }
-.badge {
-  font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--accent); border: 1px solid var(--accent); border-radius: 2px; padding: 0.05rem 0.3rem;
-}
-.leg-role { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0.3rem 0 0.6rem; }
-.leg-body p.text { margin: 0 0 0.6rem; color: var(--muted); max-width: 56ch; }
-.leg-body p.text:last-child { margin-bottom: 0; }
+/* ---- the dot rail ---- */
+.tl { position: relative; }
+.tl-entry { position: relative; padding-block: 1.9rem; border-bottom: 1px solid var(--rule); }
+.tl-entry:last-child { border-bottom: 0; }
+.tl-year { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: 0.6px; color: var(--mute); margin: 0 0 0.5rem; font-variant-numeric: tabular-nums; }
+.tl-route { display: block; font-size: 7px; line-height: 9px; letter-spacing: 0.9px; color: var(--dot-line); text-transform: uppercase; margin-top: 2px; }
+.tl-dot { display: none; }
 
-.outputs { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
-.outputs li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 0.85rem; align-items: start; max-width: 54ch; }
-.thumb {
-  width: 2.4rem; height: 2.4rem; border: 1px solid var(--rule); border-radius: 2px;
-  display: grid; place-items: center; font-family: var(--mono); font-size: 11px; color: var(--faint);
+@media (min-width: 46rem) {
+  .tl { padding-left: 6.5rem; }
+  .tl::before { content: ""; position: absolute; left: 4.5rem; top: 0.75rem; bottom: 0.75rem; width: 1px; background: var(--rule); }
+  .tl-year {
+    position: absolute; left: -6.5rem; top: 2.1rem; width: 3.4rem;
+    text-align: right; margin: 0;
+  }
+  .tl-dot {
+    display: block; position: absolute; left: -2rem; top: 2.35rem;
+    width: 13px; height: 13px; margin-left: -6.5px; border-radius: 50%;
+    background: var(--paper); border: 1px solid var(--dot-line);
+  }
+  .tl-dot::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px;
+    transform: translate(-50%, -50%); border-radius: 50%; background: var(--dot-fill);
+  }
+  .tl-entry.is-current .tl-dot { border-color: var(--accent); }
+  .tl-entry.is-current .tl-dot::after { background: var(--accent); }
 }
-.outputs b { font-weight: 500; display: block; font-size: 12.5px; }
-.outputs p { margin: 0.1rem 0 0; color: var(--muted); font-size: 11.5px; }
+
+.tl-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.7rem; }
+.tl-top h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0; }
+.badge { font-family: var(--mono); font-size: 8px; letter-spacing: 0.96px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 2px; padding: 1px 4px; }
+.tl-role { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--faint); margin: 0.45rem 0 0.85rem; }
+.tl-entry p.text { margin: 0 0 0.8rem; max-width: 34em; }
+.tl-entry p.text:last-child { margin-bottom: 0; }
+
+.outputs { list-style: none; margin: 1.35rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+.outputs li { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.95rem; align-items: start; max-width: 34em; }
+.thumb { width: 2.6rem; height: 2.6rem; background: var(--sunken); border-radius: 2px; display: grid; place-items: center; font-family: var(--mono); font-size: 10px; letter-spacing: 0.6px; color: var(--faint); }
+.outputs b { font-weight: 500; display: block; font-size: 14px; color: var(--title); line-height: 1.5; }
+.outputs p { margin: 0.15rem 0 0; color: var(--mute); font-size: 13px; line-height: 1.65; }
 
 /* ---- now ---- */
-.now-grid { display: grid; grid-template-columns: 1fr; gap: 1.6rem; }
-@media (min-width: 40rem) { .now-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.9rem 2rem; } }
-.now-item .n { font-family: var(--mono); font-size: 9.5px; color: var(--faint); margin: 0 0 0.35rem; letter-spacing: 0.1em; }
-.now-item h3 { font-size: 12.5px; font-weight: 500; margin: 0 0 0.1rem; }
-.now-item .org { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.4rem; }
-.now-item p { margin: 0; color: var(--muted); max-width: 40ch; font-size: 12px; }
+.now-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 46rem) { .now-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 2.5rem; } }
+.now-item .n { font-family: var(--mono); font-size: 9px; color: var(--faint); margin: 0 0 0.45rem; letter-spacing: 1.05px; }
+.now-item h3 { font-size: 14px; font-weight: 500; color: var(--ink); margin: 0 0 0.15rem; }
+.now-item .org { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--accent); margin: 0 0 0.5rem; }
+.now-item p { margin: 0; color: var(--mute); max-width: 26em; font-size: 13px; line-height: 1.7; }
 
 /* ---- off hours ---- */
-.hours-grid { display: grid; grid-template-columns: 1fr; gap: 1.4rem; }
-@media (min-width: 40rem) { .hours-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6rem 2rem; } }
-.hours-grid h3 { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin: 0 0 0.3rem; }
-.hours-grid p { margin: 0; color: var(--muted); max-width: 40ch; font-size: 12px; }
+.hours-grid { display: grid; grid-template-columns: 1fr; gap: 1.6rem; }
+@media (min-width: 46rem) { .hours-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.9rem 2.5rem; } }
+.hours-grid h3 { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--faint); margin: 0 0 0.35rem; }
+.hours-grid p { margin: 0; color: var(--mute); max-width: 26em; font-size: 13px; line-height: 1.7; }
 
 /* ---- footer ---- */
-footer.end { margin-top: 4rem; padding-top: 1.1rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; align-items: baseline; }
+footer.end { margin-top: 5rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; align-items: baseline; }
 footer.end a, footer.end button {
-  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase;
+  color: var(--mute); background: none; border: 0; padding: 0; cursor: pointer; line-height: 1.9;
 }
 footer.end a:hover, footer.end button:hover { color: var(--accent); }
-footer.end .sig { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; color: var(--faint); margin-left: auto; }
+footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6px; color: var(--faint); margin-left: auto; }
 </style>
 </head>
 <body>
@@ -192,76 +212,71 @@ footer.end .sig { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.
   <section id="plan">
     <div class="section-head"><h2>Flight plan</h2><span class="label">2020 &rarr; now</span></div>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2020</p><p class="mo">Sep 2020 &ndash; Jun 2024</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>Woldingham School</h3></div>
-        <p class="leg-role">A-Levels, A*A*A*AA</p>
+    <div class="tl">
+    <article class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2020<span class="tl-route">Sep 2020 &ndash; Jun 2024</span></p>
+      <div class="tl-top"><h3>Woldingham School</h3></div>
+        <p class="tl-role">A-Levels, A*A*A*AA</p>
         <p class="text">Boarding school in Surrey. The accent turned British inside a year. Maths, Psychology, Economics, Biology, and an Extended Project Qualification, which was the first time anyone asked me to pick a question and defend it rather than answer one that was set.</p>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2024</p><p class="mo">Sep 2024 &ndash; May 2027</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>London School of Economics</h3><span class="badge">Current</span></div>
-        <p class="leg-role">BSc Psychological and Behavioural Science</p>
+    <article class="tl-entry is-current">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2024<span class="tl-route">Sep 2024 &ndash; May 2027</span></p>
+      <div class="tl-top"><h3>London School of Economics</h3></div>
+        <p class="tl-role">BSc Psychological and Behavioural Science</p>
         <p class="text">I chose it because it refused to separate the two halves of the question I cared about: what a mind does on its own, and what it does once other people, incentives and institutions are in the room. The degree gave me a way of testing claims about behaviour instead of collecting opinions about it.</p>
         <ul class="outputs">
           <li><span class="thumb">PB</span><div><b>PB101, PB330 / MY202</b><p>Psychological Science, and Statistics with R and machine learning.</p></div></li>
         </ul>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2025</p><p class="mo">Jan 2025 &ndash; Jun 2026</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>ASES London</h3></div>
-        <p class="leg-role">Co-director</p>
+    <article class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2025<span class="tl-route">Jan 2025 &ndash; Jun 2026</span></p>
+      <div class="tl-top"><h3>ASES London</h3></div>
+        <p class="tl-role">Co-director</p>
         <p class="text">Won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter. I have been invited back to Stanford each year since. It was the first environment I had to design rather than attend.</p>
         <ul class="outputs">
           <li><span class="thumb">AS</span><div><b>A ten-week bootcamp</b><p>Around 70 fellows selected, the programme designed, and &pound;5k of sponsorship secured.</p></div></li>
           <li><span class="thumb">SU</span><div><b>LSESU Entrepreneurs</b><p>Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></div></li>
         </ul>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2025</p><p class="mo">Jun 2025 &ndash; Jun 2026</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>Fosun International</h3></div>
-        <p class="leg-role">Private equity, banking &amp; insurance group</p>
+    <article class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2025<span class="tl-route">Jun 2025 &ndash; Jun 2026</span></p>
+      <div class="tl-top"><h3>Fosun International</h3></div>
+        <p class="tl-role">Private equity, banking &amp; insurance group</p>
         <p class="text">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer. It taught me how a market puts a number on a product.</p>
         <ul class="outputs">
           <li><span class="thumb">PT</span><div><b>Portuguese healthcare operator</b><p>Models for three bidders on a 40% stake at c.&euro;1.1bn EV, benchmarking 9.2 to 10.4x EV/EBITDA and &euro;287 to 330m proceeds.</p></div></li>
           <li><span class="thumb">DE</span><div><b>German life insurance</b><p>Seven Phase II diligence workstreams consolidated into one risk and valuation tracker for investment committee.</p></div></li>
         </ul>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">Jan &ndash; Apr 2026</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>LSE, Department of Psychological and Behavioural Science</h3></div>
-        <p class="leg-role">Research assistant to Dr Sakshi Ghai</p>
+    <article class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Jan &ndash; Apr 2026</span></p>
+      <div class="tl-top"><h3>LSE, Department of Psychological and Behavioural Science</h3></div>
+        <p class="tl-role">Research assistant to Dr Sakshi Ghai</p>
         <p class="text">Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">Mar &ndash; May 2026</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>LinkSea</h3></div>
-        <p class="leg-role">UI/UX designer</p>
+    <article class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Mar &ndash; May 2026</span></p>
+      <div class="tl-top"><h3>LinkSea</h3></div>
+        <p class="tl-role">UI/UX designer</p>
         <p class="text">Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, for a middle school in Hong Kong. Field-tested it with the students themselves, then rebuilt the parts they could not complete.</p>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">Mar 2026 &ndash; present</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>Miku</h3><span class="badge">Current</span></div>
-        <p class="leg-role">Founder</p>
+    <article class="tl-entry is-current">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Mar 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Miku</h3></div>
+        <p class="tl-role">Founder</p>
         <p class="text">A teachable agent. The learner teaches Miku, who is deliberately blank and answers only from what it has been taught, then predicts question by question what Miku will get right. The distance between prediction and result is the calibration measure, shown back as a map of what the learner actually managed to convey.</p>
         <p class="text">Two prototypes came before it. The first ran into a problem I had not considered. The second into one I had, and had got backwards.</p>
         <ul class="outputs">
@@ -269,56 +284,51 @@ footer.end .sig { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.
           <li><span class="thumb">02</span><div><b>A story-relay game, stopped</b><p>Adapted from a Berkeley project. I set it aside before any child used it. Extending a story rewards building on an idea, and the habit I wanted to train was questioning one.</p></div></li>
           <li><span class="thumb">03</span><div><b>Where Miku stands</b><p>Adult friends have used it. I am interviewing parents before any child does. No child data yet, so no claim that it works.</p></div></li>
         </ul>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">May 2026 &ndash; present</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>Hyperknow</h3><span class="badge">Current</span></div>
-        <p class="leg-role">EMEA campaign lead</p>
+    <article class="tl-entry is-current">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">May 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Hyperknow</h3></div>
+        <p class="tl-role">EMEA campaign lead</p>
         <p class="text">Own European market entry for a team with no read on the market. I took it because of a gap I keep returning to: A-level students whose families cannot afford a personal tutor. A system that teaches course content is worth a great deal to a child who has nobody.</p>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">Jun &ndash; Aug 2026</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>ByteDance</h3></div>
-        <p class="leg-role">AI &amp; automation summer project intern</p>
+    <article class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Jun &ndash; Aug 2026</span></p>
+      <div class="tl-top"><h3>ByteDance</h3></div>
+        <p class="tl-role">AI &amp; automation summer project intern</p>
         <p class="text">Built LLM-powered automation for policy-enforcement messaging across TikTok Shop. More than 40 prompt-based workflows, seller satisfaction up from 5% to around 70% within a month, a ten-person team trained, and a procedure adopted by over 200 policy staff.</p>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">Jun 2026 &ndash; present</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>Noetic</h3><span class="badge">Current</span></div>
-        <p class="leg-role">Co-founder</p>
+    <article class="tl-entry is-current">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Jun 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Noetic</h3></div>
+        <p class="tl-role">Co-founder</p>
         <p class="text">One-day builds where students and engineers work with a frontier company's newest tools, and that company's engineers are in the room. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p>
         <ul class="outputs">
           <li><span class="thumb">NB</span><div><b>The Nebius day</b><p>103 applicants, 63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening.</p></div></li>
         </ul>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">Oct 2026 &ndash; present</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>Curiosity and misinformation</h3><span class="badge">Current</span></div>
-        <p class="leg-role">Research apprenticeship to Dr Yana Litovsky</p>
+    <article class="tl-entry is-current">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Oct 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Curiosity and misinformation</h3></div>
+        <p class="tl-role">Research apprenticeship to Dr Yana Litovsky</p>
         <p class="text">Guess generation, processing fluency and susceptibility to misleading claims. It made me question one of my own design decisions: whether asking a learner to predict their performance anchors them to a judgement they then defend.</p>
-      </div>
     </article>
 
-    <article class="leg">
-      <div class="leg-when"><p class="yr">2026</p><p class="mo">Nov 2026 &ndash; present</p></div>
-      <div class="leg-body">
-        <div class="leg-top"><h3>Dissertation</h3><span class="badge">Current</span></div>
-        <p class="leg-role">Supervised by Dr Luc Schneider</p>
+    <article class="tl-entry is-current">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Nov 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Dissertation</h3></div>
+        <p class="tl-role">Supervised by Dr Luc Schneider</p>
         <p class="text">When an AI assistant supports a learner's own judgement, and when it quietly replaces the work that would have built it.</p>
-      </div>
     </article>
+    </div>
   </section>
 
   <section id="now">
