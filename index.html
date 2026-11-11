@@ -163,6 +163,30 @@ h1, h2, h3 { text-wrap: balance; }
 }
 .records p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.93rem; }
 
+/* ---- case studies ---- */
+.case { border-top: 1px solid var(--rule); padding-block: 1.75rem 0.5rem; }
+.case-head h3 { font-family: var(--display); font-weight: 500; font-size: 1.4rem; letter-spacing: -0.01em; margin: 0 0 0.2rem; }
+.case-sub { margin: 0; font-size: 0.98rem; max-width: 52ch; }
+.case-status {
+  font-family: var(--util); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--tone); margin: 0.45rem 0 0;
+}
+.case-fields { margin: 1.25rem 0 0; display: flex; flex-direction: column; gap: 1rem; }
+.case-fields > div { display: grid; grid-template-columns: 1fr; gap: 0.25rem; }
+@media (min-width: 46rem) {
+  .case-fields > div { grid-template-columns: 9.5rem minmax(0, 1fr); gap: 1.4rem; }
+}
+.case-fields dt {
+  font-family: var(--util); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); padding-top: 0.22rem; min-width: 0;
+}
+.case-fields dd { margin: 0; min-width: 0; max-width: 58ch; }
+.case-fields dd + dd { margin-top: 0.55rem; }
+pre.code {
+  margin: 0.6rem 0 0; padding: 0.8rem 0.95rem; background: var(--paper-2); border: 1px solid var(--rule);
+  border-radius: 3px; overflow-x: auto; font-family: var(--util); font-size: 0.78rem; line-height: 1.5;
+}
+
 .gap {
   margin: 1.5rem 0 0; padding: 0.8rem 1rem; border: 1px dashed var(--accent);
   border-radius: 3px; color: var(--accent); font-size: 0.86rem; max-width: 54ch;
@@ -275,25 +299,69 @@ footer.close .caveat b { color: var(--ink); font-weight: 500; }
 
     <section class="chapter" id="c5" data-region="motor">
       <p class="marker"><span class="no">05</span><span class="anat">Premotor &amp; motor cortex &middot; execution</span></p>
-      <h2>Three prototypes, two of them stopped</h2>
-      <p class="standfirst">Two of these I stopped on purpose. The first ran into a problem I had not considered; the second into one I had, and had got backwards.</p>
+      <h2>Case studies</h2>
+      <p class="standfirst">Three things I have built, set out the way a learning engineer would want to read them: the problem, what the design rests on, what the evidence covers, and what it does not.</p>
+      <p class="standfirst">Two earlier prototypes come first, because stopping them is what produced the third.</p>
+
       <ul class="records">
-        <li><div class="head"><b>A reflective chatbot</b><span class="when">First prototype</span></div><p>Started at Stanford GSE's AI Tinkery. In an early parent interview a father told me he was relieved: he had been out of school for years and could not answer his child's questions, and now something could. His relief unsettled me. I had built a tool a parent could use to step back.</p></li>
-        <li><div class="head"><b>A story-relay game</b><span class="when">Second prototype</span></div><p>Adapted from a Berkeley project, with children reasoning through fictional scenarios. I set it aside before any child used it. Extending a story rewards building on an idea, and the habit I wanted to train was questioning one.</p></li>
-        <li><div class="head"><b>Miku, a teachable agent</b><span class="when">Current</span></div><p>The learner teaches Miku, who is deliberately blank and answers only from what it has been taught. The learner then predicts, question by question, what Miku will get right, including questions Miku was never taught to handle. The gap between prediction and result is the calibration measure, and it is shown back to the learner as a map of what they actually managed to convey. The lineage is teachable agents and Betty's Brain.</p></li>
-        <li><div class="head"><b>Where Miku actually stands</b><span class="when">Honest status</span></div><p>Adult friends have used it. I am interviewing parents before any child does, and there is no child data yet, so I cannot claim that it works. What I can say is what I would test first.</p></li>
-        <li><div class="head"><b>LinkSea</b><span class="when">Mar &ndash; May 2026</span></div><p>Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, then field-tested it with the students who would use it and rebuilt on what they said.</p></li>
+        <li><div class="head"><b>A reflective chatbot</b><span class="when">Stopped</span></div><p>Started at Stanford GSE's AI Tinkery. In an early parent interview a father told me he was relieved: he had been out of school for years and could not answer his child's questions, and now something could. His relief unsettled me. I had built a tool a parent could use to step back.</p></li>
+        <li><div class="head"><b>A story-relay game</b><span class="when">Stopped</span></div><p>Adapted from a Berkeley project, with children reasoning through fictional scenarios. I set it aside before any child used it. Extending a story rewards building on an idea, and the habit I wanted to train was questioning one.</p></li>
       </ul>
+
+      <article class="case">
+        <div class="case-head">
+          <h3>Miku</h3>
+          <p class="case-sub">A teachable agent that turns a learner's own prediction into a calibration measure.</p>
+          <p class="case-status">Working prototype &middot; no child data yet</p>
+        </div>
+        <dl class="case-fields">
+          <div><dt>The problem</dt><dd>A learner who can produce a fluent answer will usually believe they understand it. Struggling to produce something used to be the signal that you did not, and a generative model removes that signal while leaving the work looking finished. Confidence goes up, calibration goes down, and nobody in the room can see it happening.</dd></div>
+          <div><dt>My role</dt><dd>Founder. I set the product direction, wrote the ethical design framework and the curriculum architecture, and moved the design away from a child-facing chatbot towards something a school could put in front of a class.</dd></div>
+          <div><dt>What it rests on</dt><dd>The teachable-agent tradition: a learner who prepares to teach, and then teaches, understands more than one who prepares only for themselves. Betty's Brain is the best-known system in this line, and the proteg&eacute; effect is the result behind it. The calibration half comes from the metacognitive judgement literature, where the measure of interest is the distance between predicted and actual performance.</dd></div>
+          <div><dt>What I built</dt><dd>The learner teaches Miku, who is deliberately blank and answers only from what it has been taught. The learner then predicts, question by question, what Miku will get right, including questions Miku was never taught to handle. The distance between prediction and result is the calibration score, and it is shown back as a map of what the learner actually managed to convey.</dd></div>
+          <div><dt>Evidence, and its limits</dt><dd>Adult friends have used the prototype and it behaves as designed. I am interviewing parents before any child uses it.</dd><dd>So there is no child data, no evidence that calibration improves, and no evidence of transfer. What exists is a working system and adult feedback.</dd></div>
+          <div><dt>What I would test next</dt><dd>Whether the prediction step improves calibration or anchors it. The work with Dr Litovsky on guess generation raised the possibility that asking for an early judgement makes a learner defend it. The cleanest first study compares learners who teach Miku and predict against learners who teach Miku and do not, with calibration measured before and after. That isolates the prediction mechanic from the teaching itself.</dd></div>
+        </dl>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <h3>LinkSea</h3>
+          <p class="case-sub">The student-facing interface of a school workflow platform, rebuilt on what the students said.</p>
+          <p class="case-status">Shipped &middot; Hong Kong middle school</p>
+        </div>
+        <dl class="case-fields">
+          <div><dt>The problem</dt><dd>A middle school was consolidating its internal processes onto one platform used by students, teachers and administrators. Each group needed a different view of the same data. I owned the student view.</dd></div>
+          <div><dt>My role</dt><dd>Designed and built the student interface in JavaScript, one of three, and kept it aligned with the backend owner as the data model moved underneath it.</dd></div>
+          <div><dt>What it rests on</dt><dd>Nothing exotic. Watch the people who will use a thing attempt the task, in their own setting, before deciding what the screen should say.</dd></div>
+          <div><dt>What I built</dt><dd>The student-side flows, then field testing and qualitative interviews with the students themselves, then a rebuild of the parts they could not complete.</dd></div>
+          <div><dt>Evidence, and its limits</dt><dd>The field testing changed the design, and I can say which parts changed and why.</dd><dd>I did not collect task completion rates before and after, so I cannot put a number on the improvement. At the time it did not occur to me, and that is the specific thing I would do differently.</dd></div>
+          <div><dt>What I would test next</dt><dd>Time to complete and failure rate on the three tasks students do most often, measured on the old interface and the new one with the same cohort.</dd></div>
+        </dl>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <h3>Noetic</h3>
+          <p class="case-sub">One-day builds designed so that ability shows up before a track record does.</p>
+          <p class="case-status">Running &middot; co-founded 2026</p>
+        </div>
+        <dl class="case-fields">
+          <div><dt>The problem</dt><dd>People with real ability and no track record have very few places to demonstrate it, and the usual filters select for the track record. A one-day build is a learning environment with an unusually short feedback loop, which makes it a good place to test whether a different filter works.</dd></div>
+          <div><dt>My role</dt><dd>Co-founder. I wrote the commercial thesis, the competitive landscape and the sponsor proposition, and designed how the days themselves run.</dd></div>
+          <div><dt>What it rests on</dt><dd>Two decisions I can defend. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped, which lowers the cost of trying something in public. Judging rewards whether a team can explain why they chose a particular model, ahead of how finished the result looks, because the reasoning is the part worth training.</dd></div>
+          <div><dt>What I built</dt><dd>The format: students and engineers working with a frontier company's newest tools, with that company's own engineers in the room for the day.</dd><dd>The first version of it served only the learners, and a large company went quiet for weeks. Startups said yes, because a first hands-on day with their tools is the adoption their go-to-market already needs.</dd><dd>Then the operating layer, after the first run depended entirely on me. Retrospectives became proposal templates, selection criteria and written procedures, and volunteers run them now.</dd></div>
+          <div><dt>Evidence, and its limits</dt><dd>The Nebius day drew 103 applicants. We selected 63, and 63 came.</dd><dd>Those are attendance numbers. They show the format is attractive and that people who commit turn up. They say nothing about whether anyone learned something that lasted past the evening, which is the question I care about.</dd></div>
+          <div><dt>What I would test next</dt><dd>Whether participants use the tools again. A short follow-up at four weeks asking what they have built since, set against a comparison group who attended a day without the engineers present, would separate the access from the event.</dd></div>
+        </dl>
+      </article>
     </section>
 
     <section class="chapter" id="c6" data-region="tpj">
       <p class="marker"><span class="no">06</span><span class="anat">Temporoparietal junction &middot; social cognition</span></p>
       <h2>Designing the room people learn in</h2>
-      <p class="standfirst">A one-day build is a learning environment with an unusually short feedback loop, which makes it a good place to test a design claim and see the result the same evening.</p>
+      <p class="standfirst">The Noetic case above is the sharpest version of this. Two earlier programmes are where I learned the mechanics, and both were run for students who had not yet been given a reason to take themselves seriously.</p>
       <ul class="records">
-        <li><div class="head"><b>Noetic</b><span class="when">Jun 2026 &ndash; present</span></div><p>Co-founded. One-day builds where students and engineers work with a frontier company's newest tools and that company's engineers are in the room. Tracks are split by experience, so a first-timer is not scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p></li>
-        <li><div class="head"><b>What the first design got wrong</b><span class="when">Noetic</span></div><p>It served only the learners. A large company went quiet for weeks. Startups said yes, because a first hands-on day with their tools is the adoption their go-to-market already needs. The Nebius day drew 103 applicants; we selected 63, and 63 came.</p></li>
-        <li><div class="head"><b>What the second design fixed</b><span class="when">Noetic</span></div><p>Everything ran through me. Retrospectives became proposal templates, selection criteria and written procedures, and volunteers run them now.</p></li>
         <li><div class="head"><b>ASES London</b><span class="when">Co-director, 2025 &ndash; 2026</span></div><p>Won the London competition and have been invited back to Stanford each year since. Co-led the London programme: around 70 fellows selected, a ten-week founder and investor bootcamp, and &pound;5k of sponsorship.</p></li>
         <li><div class="head"><b>LSESU Entrepreneurs</b><span class="when">Mar 2025 &ndash; Apr 2026</span></div><p>Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></li>
       </ul>
