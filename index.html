@@ -104,6 +104,7 @@ sup.ref a { color: var(--accent); }
 
 /* ---- the dot rail ---- */
 .tl { position: relative; }
+.tl-cursor { display: none; }
 .tl-entry { position: relative; padding-block: 1.9rem; border-bottom: 1px solid var(--rule); }
 .tl-entry:last-child { border-bottom: 0; }
 .tl-year { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: 0.6px; color: var(--mute); margin: 0 0 0.5rem; font-variant-numeric: tabular-nums; }
@@ -126,14 +127,35 @@ sup.ref a { color: var(--accent); }
     content: ""; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px;
     transform: translate(-50%, -50%); border-radius: 50%; background: var(--dot-fill);
   }
-  .tl-entry.is-current .tl-dot { border-color: var(--accent); }
-  .tl-entry.is-current .tl-dot::after { background: var(--accent); }
+  /* travelled portion of the rail, set from the cursor position */
+  .tl::after {
+    content: ""; position: absolute; left: 4.5rem; top: 0.75rem; width: 1px;
+    height: var(--travelled, 0px); background: var(--accent); opacity: 0.5;
+  }
+  .tl-cursor { display: block; position: sticky; top: 50vh; height: 0; z-index: 2; pointer-events: none; }
+  .tl-cursor i {
+    position: absolute; left: -2rem; margin-left: -4.5px; top: -4.5px;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+  }
+  .tl-cursor i::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px;
+    transform: translate(-50%, -50%); border-radius: 50%;
+    border: 1px solid var(--accent); opacity: 0.22;
+  }
+  .tl-entry.is-past .tl-dot { border-color: var(--mute); }
+  .tl-entry.is-past .tl-dot::after { background: var(--mute); }
+  .tl-entry.is-now .tl-dot { border-color: var(--accent); }
+  .tl-entry.is-now .tl-dot::after { background: var(--accent); }
 }
 
 .tl-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.7rem; }
 .tl-top h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0; }
 .badge { font-family: var(--mono); font-size: 8px; letter-spacing: 0.96px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 2px; padding: 1px 4px; }
 .tl-role { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--faint); margin: 0.45rem 0 0.85rem; }
+.tl-entry.is-now .tl-year { color: var(--accent); }
+.tl-entry.is-now .tl-route { color: var(--accent); opacity: 0.8; }
+.tl-year, .tl-route { transition: color 0.25s ease; }
+@media (prefers-reduced-motion: reduce) { .tl-year, .tl-route { transition: none; } }
 .tl-entry p.text { margin: 0 0 0.8rem; max-width: 34em; }
 .tl-entry p.text:last-child { margin-bottom: 0; }
 
@@ -231,66 +253,19 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <div class="section-head"><h2>Flight plan</h2><span class="label">2020 &rarr; now</span></div>
 
     <div class="tl">
-    <article data-region="hippocampus" class="tl-entry">
+    <div class="tl-cursor" aria-hidden="true"><i></i></div>
+      <article data-region="tpj" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2020<span class="tl-route">Sep 2020 &ndash; Jun 2024</span></p>
-      <div class="tl-top"><h3>Woldingham School</h3></div>
-        <p class="tl-role">A-Levels, A*A*A*AA</p>
-        <p class="text">Boarding school in Surrey. The accent turned British inside a year. Maths, Psychology, Economics, Biology, and an Extended Project Qualification, which was the first time anyone asked me to pick a question and defend it rather than answer one that was set.</p>
-    </article>
-
-    <article data-region="parietal" class="tl-entry is-current">
-      <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2024<span class="tl-route">Sep 2024 &ndash; May 2027</span></p>
-      <div class="tl-top"><h3>London School of Economics</h3></div>
-        <p class="tl-role">BSc Psychological and Behavioural Science</p>
-        <p class="text">I chose it because it refused to separate the two halves of the question I cared about: what a mind does on its own, and what it does once other people, incentives and institutions are in the room. The degree gave me a way of testing claims about behaviour instead of collecting opinions about it.</p>
+      <p class="tl-year">2026<span class="tl-route">Jun 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Noetic</h3></div>
+        <p class="tl-role">Co-founder</p>
+        <p class="text">One-day builds where students and engineers work with a frontier company's newest tools, and that company's engineers are in the room. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p>
         <ul class="outputs">
-          <li><span class="thumb">PB</span><div><b>PB101, PB330 / MY202</b><p>Psychological Science, and Statistics with R and machine learning.</p></div></li>
+          <li><span class="thumb">NB</span><div><b>The Nebius day</b><p>103 applicants, 63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening.</p></div></li>
         </ul>
     </article>
 
-    <article data-region="tpj" class="tl-entry">
-      <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2025<span class="tl-route">Jan 2025 &ndash; Jun 2026</span></p>
-      <div class="tl-top"><h3>ASES London</h3></div>
-        <p class="tl-role">Co-director</p>
-        <p class="text">Won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter. I have been invited back to Stanford each year since. It was the first environment I had to design rather than attend.</p>
-        <ul class="outputs">
-          <li><span class="thumb">AS</span><div><b>A ten-week bootcamp</b><p>Around 70 fellows selected, the programme designed, and &pound;5k of sponsorship secured.</p></div></li>
-          <li><span class="thumb">SU</span><div><b>LSESU Entrepreneurs</b><p>Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></div></li>
-        </ul>
-    </article>
-
-    <article data-region="orbital" class="tl-entry">
-      <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2025<span class="tl-route">Jun 2025 &ndash; Jun 2026</span></p>
-      <div class="tl-top"><h3>Fosun International</h3></div>
-        <p class="tl-role">Private equity, banking &amp; insurance group</p>
-        <p class="text">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer. It taught me how a market puts a number on a product.</p>
-        <ul class="outputs">
-          <li><span class="thumb">PT</span><div><b>Portuguese healthcare operator</b><p>Models for three bidders on a 40% stake at c.&euro;1.1bn EV, benchmarking 9.2 to 10.4x EV/EBITDA and &euro;287 to 330m proceeds.</p></div></li>
-          <li><span class="thumb">DE</span><div><b>German life insurance</b><p>Seven Phase II diligence workstreams consolidated into one risk and valuation tracker for investment committee.</p></div></li>
-        </ul>
-    </article>
-
-    <article data-region="temporal" class="tl-entry">
-      <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2026<span class="tl-route">Jan &ndash; Apr 2026</span></p>
-      <div class="tl-top"><h3>LSE, Department of Psychological and Behavioural Science</h3></div>
-        <p class="tl-role">Research assistant to Dr Sakshi Ghai</p>
-        <p class="text">Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p>
-    </article>
-
-    <article data-region="occipital" class="tl-entry">
-      <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2026<span class="tl-route">Mar &ndash; May 2026</span></p>
-      <div class="tl-top"><h3>LinkSea</h3></div>
-        <p class="tl-role">UI/UX designer</p>
-        <p class="text">Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, for a middle school in Hong Kong. Field-tested it with the students themselves, then rebuilt the parts they could not complete.</p>
-    </article>
-
-    <article data-region="motor" class="tl-entry is-current">
+      <article data-region="hippocampus" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Mar 2026 &ndash; present</span></p>
       <div class="tl-top"><h3>Miku</h3></div>
@@ -304,34 +279,15 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </ul>
     </article>
 
-    <article data-region="tpj" class="tl-entry is-current">
+      <article data-region="prefrontal" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2026<span class="tl-route">May 2026 &ndash; present</span></p>
-      <div class="tl-top"><h3>Hyperknow</h3></div>
-        <p class="tl-role">EMEA campaign lead</p>
-        <p class="text">Own European market entry for a team with no read on the market. I took it because of a gap I keep returning to: A-level students whose families cannot afford a personal tutor. A system that teaches course content is worth a great deal to a child who has nobody.</p>
+      <p class="tl-year">2026<span class="tl-route">Nov 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Dissertation</h3></div>
+        <p class="tl-role">Supervised by Dr Luc Schneider</p>
+        <p class="text">When an AI assistant supports a learner's own judgement, and when it quietly replaces the work that would have built it.</p>
     </article>
 
-    <article data-region="motor" class="tl-entry">
-      <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2026<span class="tl-route">Jun &ndash; Aug 2026</span></p>
-      <div class="tl-top"><h3>ByteDance</h3></div>
-        <p class="tl-role">AI &amp; automation summer project intern</p>
-        <p class="text">Built LLM-powered automation for policy-enforcement messaging across TikTok Shop. More than 40 prompt-based workflows, seller satisfaction up from 5% to around 70% within a month, a ten-person team trained, and a procedure adopted by over 200 policy staff.</p>
-    </article>
-
-    <article data-region="tpj" class="tl-entry is-current">
-      <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2026<span class="tl-route">Jun 2026 &ndash; present</span></p>
-      <div class="tl-top"><h3>Noetic</h3></div>
-        <p class="tl-role">Co-founder</p>
-        <p class="text">One-day builds where students and engineers work with a frontier company's newest tools, and that company's engineers are in the room. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p>
-        <ul class="outputs">
-          <li><span class="thumb">NB</span><div><b>The Nebius day</b><p>103 applicants, 63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening.</p></div></li>
-        </ul>
-    </article>
-
-    <article data-region="prefrontal" class="tl-entry is-current">
+      <article data-region="prefrontal" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Oct 2026 &ndash; present</span></p>
       <div class="tl-top"><h3>Curiosity and misinformation</h3></div>
@@ -339,12 +295,60 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="text">Guess generation, processing fluency and susceptibility to misleading claims. It made me question one of my own design decisions: whether asking a learner to predict their performance anchors them to a judgement they then defend.</p>
     </article>
 
-    <article data-region="prefrontal" class="tl-entry is-current">
+      <article data-region="tpj" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
-      <p class="tl-year">2026<span class="tl-route">Nov 2026 &ndash; present</span></p>
-      <div class="tl-top"><h3>Dissertation</h3></div>
-        <p class="tl-role">Supervised by Dr Luc Schneider</p>
-        <p class="text">When an AI assistant supports a learner's own judgement, and when it quietly replaces the work that would have built it.</p>
+      <p class="tl-year">2026<span class="tl-route">May 2026 &ndash; present</span></p>
+      <div class="tl-top"><h3>Hyperknow</h3></div>
+        <p class="tl-role">EMEA campaign lead</p>
+        <p class="text">Own European market entry for a team with no read on the market. I took it because of a gap I keep returning to: A-level students whose families cannot afford a personal tutor. A system that teaches course content is worth a great deal to a child who has nobody.</p>
+    </article>
+
+      <article data-region="motor" class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Jun &ndash; Aug 2026</span></p>
+      <div class="tl-top"><h3>ByteDance</h3></div>
+        <p class="tl-role">AI &amp; automation summer project intern</p>
+        <p class="text">Built LLM-powered automation for policy-enforcement messaging across TikTok Shop. More than 40 prompt-based workflows, seller satisfaction up from 5% to around 70% within a month, a ten-person team trained, and a procedure adopted by over 200 policy staff.</p>
+    </article>
+
+      <article data-region="occipital" class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Mar &ndash; May 2026</span></p>
+      <div class="tl-top"><h3>LinkSea</h3></div>
+        <p class="tl-role">UI/UX designer</p>
+        <p class="text">Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, for a middle school in Hong Kong. Field-tested it with the students themselves, then rebuilt the parts they could not complete.</p>
+    </article>
+
+      <article data-region="temporal" class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2026<span class="tl-route">Jan &ndash; Apr 2026</span></p>
+      <div class="tl-top"><h3>LSE, Department of Psychological and Behavioural Science</h3></div>
+        <p class="tl-role">Research assistant to Dr Sakshi Ghai</p>
+        <p class="text">Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p>
+    </article>
+
+      <article data-region="orbital" class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2025<span class="tl-route">Jun 2025 &ndash; Jun 2026</span></p>
+      <div class="tl-top"><h3>Fosun International</h3></div>
+        <p class="tl-role">Private equity, banking &amp; insurance group</p>
+        <p class="text">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer. It taught me how a market puts a number on a product.</p>
+        <ul class="outputs">
+          <li><span class="thumb">PT</span><div><b>Portuguese healthcare operator</b><p>Models for three bidders on a 40% stake at c.&euro;1.1bn EV, benchmarking 9.2 to 10.4x EV/EBITDA and &euro;287 to 330m proceeds.</p></div></li>
+          <li><span class="thumb">DE</span><div><b>German life insurance</b><p>Seven Phase II diligence workstreams consolidated into one risk and valuation tracker for investment committee.</p></div></li>
+        </ul>
+    </article>
+
+      <article data-region="tpj" class="tl-entry">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tl-year">2025<span class="tl-route">Jan 2025 &ndash; Jun 2026</span></p>
+      <div class="tl-top"><h3>ASES London</h3></div>
+        <p class="tl-role">Co-director</p>
+        <p class="text">Won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter. I have been invited back to Stanford each year since. It was the first environment I had to design rather than attend.</p>
+        <ul class="outputs">
+          <li><span class="thumb">AS</span><div><b>A ten-week bootcamp</b><p>Around 70 fellows selected, the programme designed, and &pound;5k of sponsorship secured.</p></div></li>
+          <li><span class="thumb">SU</span><div><b>LSESU Entrepreneurs</b><p>Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></div></li>
+        </ul>
     </article>
     </div>
   </section>
@@ -690,6 +694,39 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   else window.addEventListener("resize", resize);
   try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readTokens); } catch (e) {}
   requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+  var tl = document.querySelector(".tl");
+  if (!tl) return;
+  var entries = [].slice.call(tl.querySelectorAll(".tl-entry"));
+  if (!entries.length) return;
+
+  var queued = false;
+  function update() {
+    queued = false;
+    var line = window.innerHeight * 0.5;
+    var r = tl.getBoundingClientRect();
+    tl.style.setProperty("--travelled", Math.max(0, Math.min(r.height, line - r.top)) + "px");
+    var now = -1, i;
+    for (i = 0; i < entries.length; i++) {
+      if (entries[i].getBoundingClientRect().top <= line) now = i;
+    }
+    for (i = 0; i < entries.length; i++) {
+      entries[i].classList.toggle("is-now", i === now);
+      entries[i].classList.toggle("is-past", i < now);
+    }
+  }
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
 })();
 </script>
 </body>

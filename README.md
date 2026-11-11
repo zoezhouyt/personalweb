@@ -20,16 +20,20 @@ engineering, not recruiters.
 
 ## Flight plan
 
-Twelve legs, 2020 to now. Education, then ASES and Fosun, then the 2026 cluster:
-Ghai's lab, LinkSea, Miku, Hyperknow, ByteDance, Noetic, Litovsky's lab, and the
-dissertation last.
+Ten entries, newest first. Education is deliberately absent: LSE and school are stated
+in the About essay and its footnotes, so repeating them as entries added length without
+adding anything.
 
-Miku's leg is the centre of gravity. Two prototypes were stopped on purpose and the
-page says why, because the reasoning is the evidence of judgement. Its entry states
-plainly that no child has used it and there is therefore no claim it works.
+Noetic and Miku lead, then the rest of the ongoing work, then the finished work newest
+first. That is one deliberate departure from strict reverse-chronological order, which
+would otherwise open on the dissertation. Everything after the ongoing block is in
+date order, so the year column never goes backwards.
 
-Nested output rows carry a small square where a thumbnail belongs. They currently show
-a two-character mark. Real screenshots drop straight in.
+The rail is interactive. A cursor dot sits at the middle of the viewport and travels
+down the rail as you scroll, the rail fills in behind it, and each entry's dot moves
+through three states: ahead, current, passed. The current entry's year and month range
+turn oxblood, so the date visibly ticks over as you read. All of it is hidden below
+46rem, where there is no rail.
 
 ## The atlas
 
@@ -46,15 +50,17 @@ Nine regions are in use, so nothing in the atlas is decorative:
 
 | Region | Holds |
 |---|---|
-| Temporal lobe | About, the three accents |
-| Hippocampus | Woldingham |
-| Parietal cortex | LSE and its methods |
-| Temporoparietal junction | ASES, Hyperknow, Noetic |
+| Temporal lobe | About, and the Ghai research |
+| Hippocampus | Miku |
+| Temporoparietal junction | Noetic, Hyperknow, ASES |
 | Orbitofrontal cortex | Fosun |
 | Occipital cortex | LinkSea |
-| Motor cortex | Miku, ByteDance |
-| Prefrontal cortex | Litovsky, the dissertation, Now |
+| Motor cortex | ByteDance |
+| Prefrontal cortex | the dissertation, Litovsky, Now |
 | Cerebellum | Off hours |
+
+The parietal anchor is defined but currently unused, since the entry that held it was
+the LSE one. Harmless, and there if something numerical earns it later.
 
 Two things that were wrong and are worth remembering. Lighting whole fibres painted
 lines clean across the drawing, because a fibre is a long arc; lighting is decided per
