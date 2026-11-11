@@ -40,7 +40,9 @@ viewport, which gives the exact x on the curve; the dot and the brain are placed
 each frame, so they lean through the bend instead of jumping between rails. Each
 entry's dot is placed the same way at its own y. The travelled portion is the same path
 drawn again in oxblood, revealed with `stroke-dasharray`, so the fill follows the curve
-by construction. The untravelled part is dashed, 2px on 3.5px off.
+by construction. The untravelled part is a solid hairline, not dashed: the reference
+dashes its rail, but on a curve at hairline contrast the gaps read as the line being
+broken rather than as a style.
 
 Two entries hold more behind a disclosure: the LSE entry opens into the Litovsky and
 Ghai projects, and ASES opens into the bootcamp, sponsorship and Stanford summit. Any

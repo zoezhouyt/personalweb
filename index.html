@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zoe Zhou</title>
 <meta name="description" content="Zoe Zhou. Psychological and Behavioural Science at LSE: research on metacognition and calibration, and the learning tools built on it.">
-<meta name="theme-color" content="#faf5f5" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#10100e" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23faf5f5'/%3E%3Ctext x='16' y='22' font-family='ui-monospace,monospace' font-size='15' font-weight='500' text-anchor='middle' fill='%238e2436'%3EZ%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191817" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfbfa'/%3E%3Ctext x='16' y='22' font-family='ui-monospace,monospace' font-size='15' font-weight='500' text-anchor='middle' fill='%238e2436'%3EZ%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="profile">
 <meta property="og:site_name" content="Zoe Zhou">
 <meta property="og:title" content="Zoe Zhou">
@@ -15,14 +15,14 @@
 <style>
 /* Layout: fixed identity rail far left, one 40rem measure, a dot rail with the year in its margin. */
 :root {
-  --paper: #faf5f5;
+  --paper: #fbfbfa;
   --ink: #060606;
   --title: #313030;
   --text: #434445;
   --mute: #6f6d6b;
   --faint: #6f6d6b;
-  --rule: #cbc9d6;
-  --sunken: #efeaea;
+  --rule: #e3e2e0;
+  --sunken: #f1f0ee;
   --accent: #8e2436;
   --dot-line: #c3c1c1;
   --dot-fill: #b4b2b2;
@@ -38,7 +38,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #191817; --ink: #f1eee9; --title: #ddd9d3; --text: #b4afa8;
-    --mute: #969087; --faint: #8b857d; --rule: #343139; --sunken: #211f1e;
+    --mute: #969087; --faint: #8b857d; --rule: #2f2d2b; --sunken: #211f1e;
     --accent: #d4687c; --dot-line: #4a4642; --dot-fill: #5c5853;
     color-scheme: dark;
   }
@@ -147,7 +147,9 @@ sup.ref a { color: var(--accent); }
     overflow: visible; pointer-events: none;
   }
   .tl-path path { fill: none; stroke-width: 1; }
-  .tl-path .base { stroke: var(--rule); stroke-dasharray: 2 3.5; }
+  /* solid, not dashed. The reference dashes its rail, but on a curve at this
+     contrast the gaps read as the line being broken. */
+  .tl-path .base { stroke: var(--dot-line); }
   .tl-path .lit { stroke: var(--accent); stroke-linecap: round; }
   .tl-cursor { display: block; position: sticky; top: 50vh; height: 0; z-index: 3; pointer-events: none; }
   .tl-cursor i {
@@ -591,7 +593,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   }
 
   var ctx = canvas.getContext("2d"), W = 1, H = 1, DPR = 1;
-  var ruleCol = "#cbc9d6", accentCol = "#8e2436";
+  var ruleCol = "#6f6d6b", accentCol = "#8e2436";
   function readTokens() {
     var cs = getComputedStyle(document.documentElement);
     ruleCol = (cs.getPropertyValue("--faint") || "#6f6d6b").trim();
