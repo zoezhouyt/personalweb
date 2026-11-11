@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cognitive Map</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #efe9e0; --ink: #221c18; --muted: #6e635a; --rule: #d6cbbc;
+    --plate: #17120f; --plate-muted: #8d8073; --accent: #8e2436;
+    --display: "Fraunces", Georgia, serif;
+    --body: "Inter", "Helvetica Neue", Arial, sans-serif;
+    --util: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    color-scheme: light;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14100e; --ink: #ece3d8; --muted: #9b8e81; --rule: #32281f; --plate: #0b0908;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; }
+
+  .wrap {
+    max-width: 60rem; margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.25rem 3rem;
+  }
+  .kicker { font-family: var(--util); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.5rem; }
+  h1 { font-family: var(--display); font-weight: 300; font-size: clamp(1.9rem, 6vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.04; margin: 0 0 0.7rem; text-wrap: balance; }
+  .lede { margin: 0 0 1.5rem; max-width: 56ch; color: var(--muted); }
+
+  .plate { position: relative; background: var(--plate); border-radius: 3px; overflow: hidden; aspect-ratio: 16 / 10; }
+  .plate canvas { display: block; width: 100%; height: 100%; }
+  .plate .state {
+    position: absolute; left: 0.85rem; top: 0.75rem; margin: 0; pointer-events: none;
+    font-family: var(--util); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--plate-muted);
+  }
+
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; margin-top: 1.1rem; }
+  .controls label { font-family: var(--util); font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  input[type="range"] { flex: 1 1 14rem; min-width: 0; accent-color: var(--accent); }
+  button {
+    font-family: var(--util); font-size: 0.7rem; letter-spacing: 0.06em; cursor: pointer;
+    background: var(--paper); color: var(--ink); border: 1px solid var(--rule);
+    border-radius: 999px; padding: 0.45rem 0.95rem;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .notes { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
+  .notes h2 { font-family: var(--util); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin: 0 0 0.8rem; }
+  .notes p { max-width: 60ch; margin: 0 0 0.75rem; }
+  .flag { border: 1px dashed var(--accent); border-radius: 3px; padding: 0.8rem 1rem; color: var(--accent); max-width: 56ch; }
+  .flag b { font-family: var(--util); font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Prototype &middot; concept test</p>
+  <h1>Cognitive Map</h1>
+  <p class="lede">The same set of lines, read two ways. Flat, they are flight paths between the places you have lived. Folded, they are the cortex. Drag the slider, or press Fold.</p>
+
+  <figure class="plate" style="margin:0">
+    <canvas id="c"></canvas>
+    <p class="state" id="state">Route map</p>
+  </figure>
+
+  <div class="controls">
+    <label for="m">Map</label>
+    <input id="m" type="range" min="0" max="1000" value="0" aria-label="Morph between route map and brain">
+    <label for="m">Brain</label>
+    <button id="play" type="button">Fold</button>
+    <button id="spin" type="button">Turn</button>
+  </div>
+
+  <div class="notes">
+    <h2>What this is testing</h2>
+    <p>Whether one visual can carry both metaphors without becoming mush in the middle. The fibres never change identity &mdash; each keeps its colour, which is its region of the brain at one end and its leg of the journey at the other. Only their positions move.</p>
+    <p>In the real site this would happen once, as the opening chapter about the four countries hands over to the rest. One transformation, then the brain stays a brain.</p>
+    <p class="flag"><b>Placeholder</b>The four nodes are unnamed because I still do not know which four countries. Tell me and I will set them, with coordinates, the way an airport board would.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var COLORS = ["#8e2436", "#c0562c", "#a33455", "#45688c", "#6b7a33", "#2f7a76", "#b5842a", "#7a5a86"];
+  var CITIES = [
+    { code: "01", x: -0.62, y:  0.26 },
+    { code: "02", x: -0.18, y:  0.40 },
+    { code: "03", x:  0.26, y: -0.04 },
+    { code: "04", x:  0.66, y: -0.30 }
+  ];
+
+  function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / m, v[1] / m, v[2] / m]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+
+  function mirror(list) {
+    var out = [];
+    list.forEach(function (b) {
+      out.push(b);
+      if (b.c[2] !== 0) out.push({ c: [b.c[0], b.c[1], -b.c[2]], s: b.s, w: b.w });
+    });
+    return out;
+  }
+  var CEREBRUM = mirror([
+    { c: [ 0.31,  0.14, 0.12], s: 0.26, w: 1.00 },
+    { c: [ 0.32, -0.09, 0.11], s: 0.21, w: 0.94 },
+    { c: [ 0.05,  0.26, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.19,  0.21, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.41,  0.00, 0.09], s: 0.21, w: 0.92 },
+    { c: [ 0.14, -0.25, 0.20], s: 0.20, w: 0.92 },
+    { c: [-0.10, -0.21, 0.20], s: 0.20, w: 0.90 },
+    { c: [-0.28, -0.08, 0.17], s: 0.19, w: 0.88 },
+    { c: [ 0.00,  0.02, 0.00], s: 0.30, w: 0.85 }
+  ]);
+  var CEREBELLUM = mirror([
+    { c: [-0.36, -0.27, 0.13], s: 0.17, w: 1.00 },
+    { c: [-0.46, -0.28, 0.00], s: 0.14, w: 0.90 }
+  ]);
+
+  function field(p, blobs) {
+    var f = 0;
+    for (var i = 0; i < blobs.length; i++) {
+      var b = blobs[i];
+      var dx = p[0] - b.c[0], dy = p[1] - b.c[1], dz = p[2] - b.c[2];
+      f += b.w * Math.exp(-(dx * dx + dy * dy + dz * dz) / (b.s * b.s));
+    }
+    return f;
+  }
+  function creases(p) {
+    var lateral = p[1] + 0.52 * p[0] + 0.10;
+    var side = Math.min(1, Math.abs(p[2]) / 0.18);
+    var lat = Math.exp(-(lateral * lateral) / 0.0035) * side * (p[0] > -0.30 ? 1 : 0.3);
+    var central = p[0] + 0.80 * p[1] - 0.17;
+    var cen = Math.exp(-(central * central) / 0.0016) * (p[1] > -0.10 ? 1 : 0);
+    return lat * 0.20 + cen * 0.085;
+  }
+  function gyriVal(u) {
+    return Math.sin(u[0] * 16 + u[1] * 10.5) * Math.sin(u[1] * 14 - u[2] * 12) * Math.sin(u[2] * 18 + u[0] * 8.5);
+  }
+  function surfaceR(u, blobs, T, o, crease) {
+    var lo = 0.01, hi = 1.0, m, p;
+    for (var i = 0; i < 17; i++) {
+      m = (lo + hi) * 0.5;
+      p = [o[0] + u[0] * m, o[1] + u[1] * m, o[2] + u[2] * m];
+      if (field(p, blobs) > T) lo = m; else hi = m;
+    }
+    var r = (lo + hi) * 0.5;
+    r *= 1 + gyriVal(u) * 0.028;
+    if (crease) r *= 1 - creases([o[0] + u[0] * r, o[1] + u[1] * r, o[2] + u[2] * r]);
+    return r;
+  }
+  var SQ = [1, 0.86, 0.95];
+  function place(u, r, o) {
+    return [(o[0] + u[0] * r) * SQ[0], (o[1] + u[1] * r) * SQ[1], (o[2] + u[2] * r) * SQ[2]];
+  }
+
+  var rng = (function (s) { return function () { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; }; })(20261111);
+  function randUnit() {
+    var z = rng() * 2 - 1, t = rng() * Math.PI * 2, r = Math.sqrt(Math.max(0, 1 - z * z));
+    return [r * Math.cos(t), r * Math.sin(t), z];
+  }
+  function contourDir(u, prev) {
+    var a = norm(cross(u, Math.abs(u[1]) > 0.9 ? [1, 0, 0] : [0, 1, 0]));
+    var b = cross(u, a);
+    var e = 0.03, f0 = gyriVal(u);
+    var ga = (gyriVal(norm([u[0] + a[0] * e, u[1] + a[1] * e, u[2] + a[2] * e])) - f0) / e;
+    var gb = (gyriVal(norm([u[0] + b[0] * e, u[1] + b[1] * e, u[2] + b[2] * e])) - f0) / e;
+    var cx = -gb, cy = ga, m = Math.hypot(cx, cy) || 1;
+    cx /= m; cy /= m;
+    var t = [a[0] * cx + b[0] * cy, a[1] * cx + b[1] * cy, a[2] * cx + b[2] * cy];
+    if (prev && dot(t, prev) < 0) t = [-t[0], -t[1], -t[2]];
+    return t;
+  }
+  function walk(blobs, T, o, steps, step, follow, crease, bias) {
+    var u = randUnit();
+    var t = norm(cross(u, randUnit()));
+    if (bias) {
+      t = [t[0] + bias[0], t[1] + bias[1], t[2] + bias[2]];
+      var d0 = dot(t, u); t = norm([t[0] - u[0] * d0, t[1] - u[1] * d0, t[2] - u[2] * d0]);
+    }
+    var pts = [];
+    for (var i = 0; i < steps; i++) {
+      pts.push(place(u, surfaceR(u, blobs, T, o, crease), o));
+      var un = norm([u[0] + t[0] * step, u[1] + t[1] * step, u[2] + t[2] * step]);
+      if (follow > 0) {
+        var c = contourDir(un, t);
+        t = [t[0] * (1 - follow) + c[0] * follow, t[1] * (1 - follow) + c[1] * follow, t[2] * (1 - follow) + c[2] * follow];
+      }
+      var j = randUnit();
+      t = [t[0] + j[0] * 0.03, t[1] + j[1] * 0.03, t[2] + j[2] * 0.03];
+      var d = dot(t, un);
+      t = norm([t[0] - un[0] * d, t[1] - un[1] * d, t[2] - un[2] * d]);
+      u = un;
+    }
+    return pts;
+  }
+
+  /* Each fibre's flat position: a bundled arc along one leg of the journey,
+     pinched at the city nodes the way an edge-bundled route map behaves. */
+  function legFor(colorIndex) {
+    if (colorIndex <= 2) return 0;
+    if (colorIndex <= 5) return 1;
+    return 2;
+  }
+  function mapPointsFor(n, colorIndex) {
+    var leg = legFor(colorIndex);
+    var a = CITIES[leg], b = CITIES[leg + 1];
+    var dx = b.x - a.x, dy = b.y - a.y;
+    var len = Math.hypot(dx, dy) || 1;
+    var px = -dy / len, py = dx / len;
+    var spread = (rng() * 2 - 1) * 0.13;
+    var bulge = (rng() * 2 - 1) * 0.16;
+    var wob = rng() * Math.PI * 2;
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var t = n === 1 ? 0 : i / (n - 1);
+      var pinch = Math.sin(Math.PI * t);
+      pts.push([
+        a.x + dx * t + px * spread * pinch,
+        a.y + dy * t + py * spread * pinch + Math.sin(wob + t * 3) * 0.012,
+        bulge * pinch
+      ]);
+    }
+    return pts;
+  }
+
+  var fibres = [];
+  function build() {
+    var i, pts, ci;
+    for (i = 0; i < 400; i++) {
+      pts = walk(CEREBRUM, 1.0, [0, 0.02, 0], 26, 0.075, 0.55, true, null);
+      ci = i % 8;
+      fibres.push({ brain: pts, map: mapPointsFor(pts.length, ci), c: COLORS[ci] });
+    }
+    for (i = 0; i < 110; i++) {
+      pts = walk(CEREBELLUM, 0.92, [-0.39, -0.27, 0], 16, 0.085, 0, false, [0, 0, 1]);
+      fibres.push({ brain: pts, map: mapPointsFor(pts.length, 6), c: COLORS[6] });
+    }
+  }
+
+  var canvas = document.getElementById("c"), ctx = canvas.getContext("2d");
+  var W = 1, H = 1, DPR = 1;
+  var m = 0, spin = 0, spinning = false;
+  var playing = false, playDir = 1;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function resize() {
+    var r = canvas.getBoundingClientRect();
+    if (!r.width) return;
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.round(r.width); H = Math.round(r.height);
+    canvas.width = Math.max(1, W * DPR); canvas.height = Math.max(1, H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  var cY = 1, sY = 0, cX = 1, sX = 0;
+  function rot(p) {
+    var x = p[0] * cY + p[2] * sY;
+    var z = -p[0] * sY + p[2] * cY;
+    return [x, p[1] * cX - z * sX, p[1] * sX + z * cX];
+  }
+  function project(q, scale) {
+    var k = 2.3 / (3.0 - q[2]);
+    return [W / 2 + q[0] * k * scale, H / 2 - q[1] * k * scale];
+  }
+  function smooth(t) { return t * t * (3 - 2 * t); }
+
+  function draw() {
+    var e = smooth(m);
+    var yaw = (-0.52 * e) + spin;
+    var pitch = -0.08 * e;
+    cY = Math.cos(yaw); sY = Math.sin(yaw);
+    cX = Math.cos(pitch); sX = Math.sin(pitch);
+    var scale = Math.min(W, H) * (0.74 + 0.18 * e) * (W > H ? 1 : 0.92);
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+
+    var byColor = {};
+    for (var i = 0; i < fibres.length; i++) {
+      var f = fibres[i], prev = null;
+      var path = byColor[f.c] || (byColor[f.c] = { front: new Path2D(), back: new Path2D() });
+      for (var j = 0; j < f.brain.length; j++) {
+        var a = f.map[j], b = f.brain[j];
+        var q = rot([a[0] + (b[0] - a[0]) * e, a[1] + (b[1] - a[1]) * e, a[2] + (b[2] - a[2]) * e]);
+        var s = project(q, scale);
+        if (prev) {
+          var p = ((q[2] + prev[2]) * 0.5) < -0.02 ? path.back : path.front;
+          p.moveTo(prev[1], prev[2]); p.lineTo(s[0], s[1]);
+        }
+        prev = [q[2], s[0], s[1]];
+      }
+    }
+    Object.keys(byColor).forEach(function (c) {
+      ctx.strokeStyle = c; ctx.lineWidth = 0.68;
+      ctx.globalAlpha = 0.24; ctx.stroke(byColor[c].back);
+      ctx.globalAlpha = 0.62; ctx.stroke(byColor[c].front);
+    });
+    ctx.globalAlpha = 1;
+
+    // city nodes, fading as the map folds
+    var cityAlpha = Math.max(0, 1 - e * 1.9);
+    if (cityAlpha > 0.01) {
+      ctx.globalAlpha = cityAlpha;
+      ctx.font = "500 9.5px ui-monospace, Menlo, monospace";
+      ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+      CITIES.forEach(function (city) {
+        var s = project(rot([city.x, city.y, 0]), scale);
+        ctx.strokeStyle = "#efe6d9"; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(s[0], s[1], 3.4, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(s[0], s[1] - 6); ctx.lineTo(s[0], s[1] - 14); ctx.stroke();
+        ctx.fillStyle = "#efe6d9";
+        ctx.fillText(city.code, s[0], s[1] - 17);
+      });
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  var stateEl = document.getElementById("state");
+  function label() {
+    stateEl.textContent = m < 0.08 ? "Route map" : m > 0.92 ? "Cortex" : "Folding";
+  }
+
+  var slider = document.getElementById("m");
+  slider.addEventListener("input", function () {
+    playing = false;
+    m = slider.value / 1000;
+    label();
+  });
+  document.getElementById("play").addEventListener("click", function () {
+    playDir = m > 0.5 ? -1 : 1;
+    playing = true;
+  });
+  document.getElementById("spin").addEventListener("click", function () { spinning = !spinning; });
+
+  var last = 0;
+  function frame(t) {
+    var dt = last ? Math.min(t - last, 50) : 16; last = t;
+    if (playing && !reduce.matches) {
+      m += playDir * dt / 2600;
+      if (m >= 1) { m = 1; playing = false; }
+      if (m <= 0) { m = 0; playing = false; }
+      slider.value = Math.round(m * 1000);
+      label();
+    }
+    if (spinning && !reduce.matches) spin += dt * 0.00018;
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  build();
+  resize();
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+  else window.addEventListener("resize", resize);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
