@@ -4,61 +4,52 @@ Zoe Zhou's personal site. One self-contained HTML file, no build step, no framew
 
 ## The idea
 
-The site is a **cognitive map**: a brain you navigate, where each region holds the part
-of the work that region is actually responsible for. It is not decoration. The mapping
-is defensible because each region's best-established function corresponds honestly to
-what is filed under it, and the footer says plainly that strict localisation is a
-simplification.
+The site is a **flight plan**. Zoe grew up between Beijing, Abu Dhabi and Riyadh before
+boarding school and LSE, so the journey is not a borrowed metaphor; it is the actual
+shape of the story. Each leg of the page is a leg of that journey, marked with airport
+codes and a year, and what she did there sits beside it.
 
-The second metaphor is the journey. "Cognitive map" is a real term in psychology
-(Tolman, 1948), and the hippocampus handles spatial navigation and episodic memory with
-the same machinery. So for someone who has lived in several countries and who studies
-how minds build maps, travel and learning are the same structure seen twice. That is
-the join, and it is why the opening chapter is about places.
+The structure is borrowed from [mikes.cv](https://www.mikes.cv/): a fixed identity rail,
+a vertical plan of legs, route codes as the navigation grammar, and a personal coda at
+the end once the professional case is closed. The execution is not borrowed. That site
+is monochrome Helvetica; this one uses Zoe's own palette of oxblood, terracotta, olive
+and slate on warm paper, with Fraunces for display.
 
 The audience is graduate admissions readers in learning design and learning
 engineering, not recruiters. That decides what leads and what gets demoted.
 
 ## Structure
 
-Eight chapters. The brain is sticky on the left at laptop width; the story scrolls on
-the right. Each chapter carries a `data-region` attribute, an `IntersectionObserver`
-watches them, and the camera eases to the yaw and pitch that bring that region round to
-face the viewer.
-
-| # | Chapter | Region | Why that region |
+| Leg | Route | When | What |
 |---|---|---|---|
-| 01 | Beijing, Abu Dhabi, London | Temporal lobe | Language comprehension |
-| 02 | Reading psychology at LSE | Hippocampus | Encoding and consolidation |
-| 03 | The question I keep returning to | Prefrontal cortex | Judgement about one's own judgement |
-| 04 | Evidence, not plausibility | Parietal cortex | Number sense, intraparietal sulcus |
-| 05 | Case studies | Premotor & motor cortex | Intention becoming action |
-| 06 | Designing the room people learn in | Temporoparietal junction | Perspective-taking |
-| 07 | Adjacent work | Orbitofrontal cortex | Value-based decision-making |
-| 08 | Away from the desk | Cerebellum | Timing and procedural learning |
+| 1 | PEK | before 2020 | Beijing, Abu Dhabi, Riyadh. Three accents. |
+| 2 | AUH › LON | 2020–2024 | Boarding school |
+| 3 | LON | 2024–2027 | LSE, Psychological and Behavioural Science |
+| 4 | LON › SFO | 2025–2026 | ASES London and Stanford |
+| 5 | LON | 2025–2026 | Fosun, private equity |
+| 6 | LON | 2026 | Research: Schneider, Litovsky, Ghai |
+| 7 | LON › HKG | 2026 | Three prototypes, two of them stopped |
+| 8 | LON | 2026– | Noetic, ByteDance, Hyperknow |
 
-Chapter 5 is the centre of gravity. Each case study follows the shape a learning
-engineering programme asks for: the problem, my role, what the design rests on, what I
-built, **the evidence and its limits**, and what I would test next. Stating what the
-evidence does not cover is the point, not a hedge.
+Then **Arrivals**, which is the personal half, and contact.
 
-## How the brain is drawn
+Leg 7 is the centre of gravity. Two prototypes were stopped on purpose and the page
+says why, because the reasoning is the evidence of judgement. Miku's entry states
+plainly that no child has used it and that there is therefore no claim it works.
 
-There is no 3D model file and no WebGL. The shape is generated in the browser:
+## The brain, parked
 
-- Overlapping gaussian blobs (a metaball field) define the cerebrum and cerebellum.
-  A binary search along each ray finds the surface.
-- Two creases are cut into that surface for the lateral (Sylvian) fissure and the
-  central sulcus. Those landmarks are what make it read as a brain rather than a blob.
-- Around 500 fibres are walked across the surface following **contour lines of a noise
-  field**, which is what produces parallel bands that look like gyri.
-- Everything is stroked into a 2D canvas, depth-sorted front and back, and coloured by
-  region.
+`prototypes/brain-scroll.html` is the previous version: a generated brain, sticky on
+the left, turning to the region that holds each chapter. The geometry is a metaball
+field for the cerebrum and cerebellum, two creases cut for the lateral fissure and
+central sulcus, and around 500 fibres walked along contour lines of a noise field to
+produce gyri, all stroked into a 2D canvas. No WebGL, no model file.
 
-`prototypes/map-to-brain.html` tests the unbuilt idea: the same fibres laid flat as
-edge-bundled flight paths between cities, folding into the cortex. Fibre colour stays
-constant, so it is a leg of the journey at one end and a brain region at the other.
-Not yet wired into the site.
+`prototypes/map-to-brain.html` tests folding one into the other: the same fibres laid
+flat as bundled flight paths between cities, then folded into the cortex.
+
+The plan is to bring the brain back on top of the flight plan rather than instead of
+it. Build the journey first, then let it fold.
 
 ## Writing rules
 
@@ -76,20 +67,20 @@ The copy follows Zoe's own rules, which are not optional:
 
 ```
 index.html                        the site
-prototypes/map-to-brain.html      the fold test, standalone
+prototypes/brain-scroll.html      the brain version, kept for the next stage
+prototypes/map-to-brain.html      the fold test
 archive/                          earlier versions, not part of the live site
 .nojekyll                         serve files as-is, no Jekyll
 ```
 
-The two files in `archive/` were written for the Claude Artifact platform, which wraps
-pages in its own document skeleton, so they have no doctype of their own and will
-render in quirks mode if opened directly. They are kept for reference only.
+Files in `archive/`, and `prototypes/brain-scroll.html`'s ancestors, were written for
+the Claude Artifact platform, which wraps pages in its own document skeleton. Some have
+no doctype of their own and will render in quirks mode if opened directly.
 
-## Editing
+## Local preview
 
-Everything is in `index.html`. Chapter text is plain HTML in the middle of the file.
-Colours are tokens in the `:root` block at the top of `<style>`; region colours are in
-the `REGIONS` object in the script. Brain shape is the `CEREBRUM` and `CEREBELLUM`
-arrays.
+```
+python3 -m http.server 4321 --directory .
+```
 
-Commit to `main` and GitHub Pages redeploys.
+Then open http://localhost:4321. Append `?v=2` to bypass the browser cache after an edit.
