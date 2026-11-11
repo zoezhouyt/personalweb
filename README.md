@@ -29,10 +29,18 @@ The year is the structure. A large numeral sits in the left margin, sticky, hold
 middle of the viewport while its entries pass, and turning oxblood while its group is
 the one being read. Months are gone; the group year is the only date.
 
-Each year sits on **its own rail, one step further right**, joined by a short diagonal.
-That course change is the year turning over, and the cursor dot and the brain slide
-across onto the new rail as you cross it. A cursor holds mid-viewport and travels down,
-the rail fills behind it, and each dot moves through ahead, current and passed.
+The rail is **one drawn SVG path**, not a stack of straight lines. It runs down each
+year, then sweeps across to the next on a long cubic curve, 56px of travel across 128px
+of drop, with the control points at 0.62 of the gap so it holds its vertical and then
+turns hard through the middle.
+
+Everything rides that path rather than approximating it. The cursor's position comes
+from bisecting `getPointAtLength` for the length whose y matches the middle of the
+viewport, which gives the exact x on the curve; the dot and the brain are placed there
+each frame, so they lean through the bend instead of jumping between rails. Each
+entry's dot is placed the same way at its own y. The travelled portion is the same path
+drawn again in oxblood, revealed with `stroke-dasharray`, so the fill follows the curve
+by construction. The untravelled part is dashed, 2px on 3.5px off.
 
 Two entries hold more behind a disclosure: the LSE entry opens into the Litovsky and
 Ghai projects, and ASES opens into the bootcamp, sponsorship and Stanford summit. Any

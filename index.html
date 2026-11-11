@@ -84,7 +84,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 @media (min-width: 66rem) {
   .page { margin-left: 18rem; margin-right: 2.5rem; padding-block: 3rem 8rem; }
-  .page > section, .masthead, footer.end { padding-left: 19.5rem; }
+  .page > section, .masthead, footer.end { padding-left: 22.5rem; }
 }
 
 section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
@@ -118,38 +118,23 @@ sup.ref a { color: var(--accent); }
 .tl-rows { min-width: 0; }
 .tl-entry { position: relative; padding-block: 1.9rem; border-bottom: 1px solid var(--rule); }
 .tl-group:last-of-type .tl-rows .tl-entry:last-child { border-bottom: 0; }
-.tl-dot, .tl-cursor, .tl-fill { display: none; }
+.tl-dot, .tl-cursor, .tl-path { display: none; }
 
-@media (min-width: 66rem) {
-  .tl { margin-left: -19.5rem; }
-  /* each year sits on its own rail, one step further right, joined by a short
-     diagonal: the course change that says the year has turned over */
+@media (min-width: 72rem) {
+  .tl { margin-left: -22.5rem; }
+  /* one drawn path for the whole timeline: straight down each year, then a long
+     smooth curve across to the next. Everything else is positioned onto it. */
   .tl-group { position: relative; }
-  .tl-group + .tl-group { margin-top: 3rem; }
-  .tl-group::after {
-    content: ""; position: absolute; left: var(--rx); top: 0; bottom: 0.75rem;
-    width: 1px; background: var(--rule);
-  }
-  .tl-group:first-of-type::after { top: 0.75rem; }
-  .tl-group + .tl-group::before {
-    content: ""; position: absolute; left: calc(var(--rx) - 1rem); top: -3rem;
-    width: 1px; height: 50.6px; background: var(--rule);
-    transform-origin: top center; transform: rotate(-18.435deg);
-  }
-  .tl-fill {
-    display: block; position: absolute; left: var(--rx); top: 0; width: 1px;
-    height: var(--fill, 0px); background: var(--accent); opacity: 0.5;
-  }
-  .tl-group:first-of-type .tl-fill { top: 0.75rem; }
+  .tl-group + .tl-group { margin-top: 8rem; }
   .tl-group { grid-template-columns: 7rem minmax(0, 1fr); }
   .tl-yr {
     position: sticky; top: 50vh; align-self: start; transform: translateY(-50%);
     width: 6.5rem; text-align: right; margin: 0;
     font-size: clamp(1.9rem, 3vw, 2.7rem);
   }
-  .tl-rows { padding-left: 12.5rem; }
+  .tl-rows { padding-left: 15.5rem; }
   .tl-dot {
-    display: block; position: absolute; left: calc(var(--rx) - 19.5rem); margin-left: -6.5px; top: 2.35rem;
+    display: block; position: absolute; margin-left: -6.5px; top: 2.35rem;
     width: 13px; height: 13px; border-radius: 50%;
     background: var(--paper); border: 1px solid var(--dot-line);
   }
@@ -157,9 +142,16 @@ sup.ref a { color: var(--accent); }
     content: ""; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px;
     transform: translate(-50%, -50%); border-radius: 50%; background: var(--dot-fill);
   }
+  .tl-path {
+    display: block; position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    overflow: visible; pointer-events: none;
+  }
+  .tl-path path { fill: none; stroke-width: 1; }
+  .tl-path .base { stroke: var(--rule); stroke-dasharray: 2 3.5; }
+  .tl-path .lit { stroke: var(--accent); stroke-linecap: round; }
   .tl-cursor { display: block; position: sticky; top: 50vh; height: 0; z-index: 3; pointer-events: none; }
   .tl-cursor i {
-    position: absolute; left: var(--cursor-x, 7.5rem); margin-left: -4.5px; top: -4.5px;
+    position: absolute; left: var(--cursor-x, 120px); margin-left: -4.5px; top: -4.5px;
     width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
   }
   .tl-cursor i::after {
@@ -167,12 +159,10 @@ sup.ref a { color: var(--accent); }
     transform: translate(-50%, -50%); border-radius: 50%;
     border: 1px solid var(--accent); opacity: 0.22;
   }
-  .tl-cursor canvas { position: absolute; left: calc(var(--cursor-x, 7.5rem) + 0.9rem); top: -4rem; width: 8rem; height: 8rem; display: block; }
-  .tl-cursor i, .tl-cursor canvas, .tl-cursor .atlas-cap { transition: left 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
-  @media (prefers-reduced-motion: reduce) { .tl-cursor i, .tl-cursor canvas, .tl-cursor .atlas-cap { transition: none; } }
+  .tl-cursor canvas { position: absolute; left: calc(var(--cursor-x, 120px) + 0.8rem); top: -3.25rem; width: 6.5rem; height: 6.5rem; display: block; }
   .tl-cursor .atlas-cap {
-    position: absolute; left: calc(var(--cursor-x, 7.5rem) + 0.9rem); top: 4.15rem;
-    width: 8rem; text-align: center;
+    position: absolute; left: calc(var(--cursor-x, 120px) + 0.8rem); top: 3.45rem;
+    width: 6.5rem; text-align: center;
   }
   .tl-cursor .atlas-cap b {
     display: block; font-family: var(--mono); font-size: 8px; letter-spacing: 0.9px;
@@ -282,7 +272,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <div class="section-head"><h2>Flight plan</h2><span class="label">2020 &rarr; now</span></div>
 
     <div class="tl">
-    <div class="tl-cursor" aria-hidden="true">
+    <svg class="tl-path" aria-hidden="true"><path class="base"></path><path class="lit"></path></svg>
+      <div class="tl-cursor" aria-hidden="true">
         <i></i>
         <canvas id="atlas"></canvas>
         <span class="atlas-cap"><b id="atlas-label"></b><em id="atlas-gloss"></em></span>
@@ -290,11 +281,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
       <section class="tl-group" style="--rx: 7.5rem">
         <p class="tl-yr">2026</p>
-        <span class="tl-fill" aria-hidden="true"></span>
         <div class="tl-rows">
         <article data-region="hippocampus" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Miku</h3></div>
         <p class="tl-role">Founder</p>
@@ -305,8 +293,6 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </article>
 
         <article data-region="tpj" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Noetic</h3></div>
         <p class="tl-role">Co-founder</p>
@@ -329,16 +315,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
         <article data-region="tpj" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Hyperknow</h3></div>
         <p class="tl-role">EMEA campaign lead</p>
         <p class="text">Own European market entry for a team with no read on the market. I took it because of a gap I keep returning to: A-level students whose families cannot afford a personal tutor. A system that teaches course content is worth a great deal to a child who has nobody.</p>
         </article>
 
         <article data-region="motor" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>ByteDance</h3></div>
         <p class="tl-role">AI &amp; automation summer project intern</p>
@@ -347,8 +329,6 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
         <article data-region="occipital" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>LinkSea</h3></div>
         <p class="tl-role">UI/UX designer</p>
         <p class="text">Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, for a middle school in Hong Kong. Field-tested it with the students themselves, then rebuilt the parts they could not complete.</p>
@@ -356,9 +336,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </div>
       </section>
 
-      <section class="tl-group" style="--rx: 8.5rem">
+      <section class="tl-group" style="--rx: 11rem">
         <p class="tl-yr">2025</p>
-        <span class="tl-fill" aria-hidden="true"></span>
         <div class="tl-rows">
         <article data-region="tpj" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
@@ -372,8 +351,6 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
         <article data-region="orbital" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
-          <span class="tl-dot" aria-hidden="true"></span>
       <div class="tl-top"><h3>Fosun International</h3></div>
         <p class="tl-role">Private equity, banking &amp; insurance group</p>
         <p class="text">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer. It taught me how a market puts a number on a product.</p>
@@ -385,9 +362,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </div>
       </section>
 
-      <section class="tl-group" style="--rx: 9.5rem">
+      <section class="tl-group" style="--rx: 14.5rem">
         <p class="tl-yr">2024</p>
-        <span class="tl-fill" aria-hidden="true"></span>
         <div class="tl-rows">
         <article data-region="tpj" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
@@ -719,20 +695,85 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   "use strict";
   var tl = document.querySelector(".tl");
   if (!tl) return;
+  var svg = tl.querySelector(".tl-path");
+  var base = svg && svg.querySelector(".base");
+  var lit = svg && svg.querySelector(".lit");
   var entries = [].slice.call(tl.querySelectorAll(".tl-entry"));
-  if (!entries.length) return;
+  var groups = [].slice.call(tl.querySelectorAll(".tl-group"));
+  if (!lit || !entries.length) return;
+
+  var total = 0, built = false, rootPx = 16;
+
+  function rxOf(g) {
+    var v = getComputedStyle(g).getPropertyValue("--rx").trim();
+    var n = parseFloat(v) || 0;
+    return v.indexOf("rem") > -1 ? n * rootPx : n;
+  }
+
+  /* Straight down each year, then a long cubic across to the next. The control
+     points sit half the gap above and below, which is what makes the join read
+     as one continuous curve rather than a corner. */
+  function build() {
+    if (getComputedStyle(svg).display === "none") { built = false; return; }
+    rootPx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var tlTop = tl.getBoundingClientRect().top + window.pageYOffset;
+    var d = "", i, g, r, x, yTop, yBot, k, prevX = null, prevY = null;
+    for (i = 0; i < groups.length; i++) {
+      g = groups[i];
+      r = g.getBoundingClientRect();
+      x = rxOf(g);
+      yTop = r.top + window.pageYOffset - tlTop;
+      yBot = yTop + r.height;
+      if (prevX === null) {
+        d += "M " + x + " " + (yTop + 12);
+      } else {
+        k = (yTop - prevY) * 0.62;
+        d += " C " + prevX + " " + (prevY + k) + " " + x + " " + (yTop - k) + " " + x + " " + yTop;
+      }
+      d += " L " + x + " " + yBot;
+      prevX = x; prevY = yBot;
+    }
+    base.setAttribute("d", d);
+    lit.setAttribute("d", d);
+    total = lit.getTotalLength();
+    lit.style.strokeDasharray = total + " " + total;
+    lit.style.strokeDashoffset = total;
+    built = true;
+    placeDots();
+    update();
+  }
+
+  // the path only ever descends, so a bisection finds the length at any y
+  function lengthAtY(y) {
+    var lo = 0, hi = total, mid, i;
+    for (i = 0; i < 20; i++) {
+      mid = (lo + hi) / 2;
+      if (lit.getPointAtLength(mid).y < y) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  function placeDots() {
+    var box = tl.getBoundingClientRect();
+    entries.forEach(function (e) {
+      var dot = e.querySelector(".tl-dot");
+      if (!dot) return;
+      var eb = e.getBoundingClientRect();
+      var y = eb.top - box.top + dot.offsetTop + dot.offsetHeight / 2;
+      dot.style.left = (lit.getPointAtLength(lengthAtY(y)).x - (eb.left - box.left)) + "px";
+    });
+  }
 
   var queued = false;
   function update() {
     queued = false;
-    var line = window.innerHeight * 0.5;
-    var groups = tl.querySelectorAll(".tl-group"), g, gr, fill;
-    for (i = 0; i < groups.length; i++) {
-      g = groups[i]; gr = g.getBoundingClientRect();
-      fill = g.querySelector(".tl-fill");
-      if (fill) fill.style.setProperty("--fill", Math.max(0, Math.min(gr.height, line - gr.top)) + "px");
+    var line = window.innerHeight * 0.5, i;
+    if (built) {
+      var len = lengthAtY(line - tl.getBoundingClientRect().top);
+      lit.style.strokeDashoffset = (total - len);
+      tl.style.setProperty("--cursor-x", lit.getPointAtLength(len).x + "px");
     }
-    var now = -1, i;
+    var now = -1;
     for (i = 0; i < entries.length; i++) {
       if (entries[i].getBoundingClientRect().top <= line) now = i;
     }
@@ -744,18 +785,18 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     for (i = 0; i < groups.length; i++) {
       groups[i].classList.toggle("is-now", groups[i] === active);
     }
-    var onRail = active || groups[0];
-    var mark = onRail && onRail.querySelector(".tl-fill");
-    if (mark) tl.style.setProperty("--cursor-x", mark.offsetLeft + "px");
   }
   function onScroll() {
     if (queued) return;
     queued = true;
     requestAnimationFrame(update);
   }
+
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  update();
+  window.addEventListener("resize", build);
+  if (window.ResizeObserver) new ResizeObserver(build).observe(tl);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+  build();
 })();
 </script>
 </body>
