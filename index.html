@@ -165,6 +165,23 @@ footer.end a, footer.end button {
 }
 footer.end a:hover, footer.end button:hover { color: var(--accent); }
 footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6px; color: var(--faint); margin-left: auto; }
+
+/* ---- the atlas: a hairline brain in the right margin, lit by whatever you are reading ---- */
+.atlas { display: none; }
+@media (min-width: 80rem) and (prefers-reduced-motion: no-preference) {
+  .atlas {
+    display: block; position: fixed; right: 2.5rem; top: 50%; transform: translateY(-50%);
+    width: 15rem; margin: 0; pointer-events: none; z-index: 5;
+  }
+}
+@media (min-width: 80rem) and (prefers-reduced-motion: reduce) {
+  .atlas { display: block; position: fixed; right: 2.5rem; top: 50%; transform: translateY(-50%); width: 15rem; margin: 0; pointer-events: none; z-index: 5; }
+}
+.atlas canvas { display: block; width: 100%; height: 15rem; }
+.atlas figcaption {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase;
+  color: var(--faint); margin-top: 0.5rem; text-align: center; min-height: 1.2em;
+}
 </style>
 </head>
 <body>
@@ -192,7 +209,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <p class="sub">Psychological and Behavioural Science at LSE. I study the gap between feeling you know something and actually knowing it, and build learning tools that try to close it.</p>
   </header>
 
-  <section id="about" class="about">
+  <section id="about" class="about" data-region="temporal">
     <div class="section-head"><h2>About</h2><span class="label">Beijing &middot; Abu Dhabi &middot; London</span></div>
     <p>My English changed shape three times. In Beijing I spoke American, copied from a teacher. At boarding school in England it turned British inside a year.<sup class="ref"><a href="#note-1" id="ref-1">1</a></sup> In Abu Dhabi, with stretches in Riyadh, I could not copy the accent at all, so I copied something else: the manner of the Emirati women who were friends of my parents, who were courteous to everyone and certain when they spoke.</p>
     <p>They were the ones who asked what I wanted to study, what I should go and see, and what I would need to show before anyone took an idea of mine seriously.</p>
@@ -214,7 +231,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <div class="section-head"><h2>Flight plan</h2><span class="label">2020 &rarr; now</span></div>
 
     <div class="tl">
-    <article class="tl-entry">
+    <article data-region="hippocampus" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2020<span class="tl-route">Sep 2020 &ndash; Jun 2024</span></p>
       <div class="tl-top"><h3>Woldingham School</h3></div>
@@ -222,7 +239,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="text">Boarding school in Surrey. The accent turned British inside a year. Maths, Psychology, Economics, Biology, and an Extended Project Qualification, which was the first time anyone asked me to pick a question and defend it rather than answer one that was set.</p>
     </article>
 
-    <article class="tl-entry is-current">
+    <article data-region="parietal" class="tl-entry is-current">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2024<span class="tl-route">Sep 2024 &ndash; May 2027</span></p>
       <div class="tl-top"><h3>London School of Economics</h3></div>
@@ -233,7 +250,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </ul>
     </article>
 
-    <article class="tl-entry">
+    <article data-region="tpj" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2025<span class="tl-route">Jan 2025 &ndash; Jun 2026</span></p>
       <div class="tl-top"><h3>ASES London</h3></div>
@@ -245,7 +262,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </ul>
     </article>
 
-    <article class="tl-entry">
+    <article data-region="orbital" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2025<span class="tl-route">Jun 2025 &ndash; Jun 2026</span></p>
       <div class="tl-top"><h3>Fosun International</h3></div>
@@ -257,7 +274,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </ul>
     </article>
 
-    <article class="tl-entry">
+    <article data-region="temporal" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Jan &ndash; Apr 2026</span></p>
       <div class="tl-top"><h3>LSE, Department of Psychological and Behavioural Science</h3></div>
@@ -265,7 +282,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="text">Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p>
     </article>
 
-    <article class="tl-entry">
+    <article data-region="occipital" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Mar &ndash; May 2026</span></p>
       <div class="tl-top"><h3>LinkSea</h3></div>
@@ -273,7 +290,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="text">Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, for a middle school in Hong Kong. Field-tested it with the students themselves, then rebuilt the parts they could not complete.</p>
     </article>
 
-    <article class="tl-entry is-current">
+    <article data-region="motor" class="tl-entry is-current">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Mar 2026 &ndash; present</span></p>
       <div class="tl-top"><h3>Miku</h3></div>
@@ -287,7 +304,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </ul>
     </article>
 
-    <article class="tl-entry is-current">
+    <article data-region="tpj" class="tl-entry is-current">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">May 2026 &ndash; present</span></p>
       <div class="tl-top"><h3>Hyperknow</h3></div>
@@ -295,7 +312,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="text">Own European market entry for a team with no read on the market. I took it because of a gap I keep returning to: A-level students whose families cannot afford a personal tutor. A system that teaches course content is worth a great deal to a child who has nobody.</p>
     </article>
 
-    <article class="tl-entry">
+    <article data-region="motor" class="tl-entry">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Jun &ndash; Aug 2026</span></p>
       <div class="tl-top"><h3>ByteDance</h3></div>
@@ -303,7 +320,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="text">Built LLM-powered automation for policy-enforcement messaging across TikTok Shop. More than 40 prompt-based workflows, seller satisfaction up from 5% to around 70% within a month, a ten-person team trained, and a procedure adopted by over 200 policy staff.</p>
     </article>
 
-    <article class="tl-entry is-current">
+    <article data-region="tpj" class="tl-entry is-current">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Jun 2026 &ndash; present</span></p>
       <div class="tl-top"><h3>Noetic</h3></div>
@@ -314,7 +331,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </ul>
     </article>
 
-    <article class="tl-entry is-current">
+    <article data-region="prefrontal" class="tl-entry is-current">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Oct 2026 &ndash; present</span></p>
       <div class="tl-top"><h3>Curiosity and misinformation</h3></div>
@@ -322,7 +339,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="text">Guess generation, processing fluency and susceptibility to misleading claims. It made me question one of my own design decisions: whether asking a learner to predict their performance anchors them to a judgement they then defend.</p>
     </article>
 
-    <article class="tl-entry is-current">
+    <article data-region="prefrontal" class="tl-entry is-current">
       <span class="tl-dot" aria-hidden="true"></span>
       <p class="tl-year">2026<span class="tl-route">Nov 2026 &ndash; present</span></p>
       <div class="tl-top"><h3>Dissertation</h3></div>
@@ -332,7 +349,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     </div>
   </section>
 
-  <section id="now">
+  <section id="now" data-region="prefrontal">
     <div class="section-head"><h2>Now</h2><span class="label">November 2026</span></div>
     <div class="now-grid">
       <div class="now-item">
@@ -362,7 +379,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     </div>
   </section>
 
-  <section id="hours">
+  <section id="hours" data-region="cerebellum">
     <div class="section-head"><h2>Off hours</h2><span class="label">Away from the desk</span></div>
     <div class="hours-grid">
       <div><h3>Competitive dance</h3><p>Hip-hop, commercial and contemporary. Competing in the United Kingdom.</p></div>
@@ -425,6 +442,254 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     } catch (e) {}
     fallback();
   });
+})();
+</script>
+<figure class="atlas" aria-hidden="true">
+  <canvas id="atlas"></canvas>
+  <figcaption id="atlas-label"></figcaption>
+</figure>
+
+<script>
+(function () {
+  "use strict";
+  var canvas = document.getElementById("atlas");
+  if (!canvas || !canvas.getContext) return;
+
+  var ANCHOR = {
+    temporal:    [ 0.10, -0.26, 0.23],
+    hippocampus: [ 0.02, -0.12, 0.18],
+    prefrontal:  [ 0.42,  0.12, 0.13],
+    parietal:    [-0.20,  0.24, 0.13],
+    orbital:     [ 0.36, -0.15, 0.12],
+    tpj:         [-0.26, -0.06, 0.20],
+    motor:       [ 0.07,  0.30, 0.13],
+    cerebellum:  [-0.36, -0.30, 0.14],
+    occipital:   [-0.46,  0.02, 0.08]
+  };
+  var NAME = {
+    temporal: "Temporal lobe", hippocampus: "Hippocampus", prefrontal: "Prefrontal cortex",
+    parietal: "Parietal cortex", orbital: "Orbitofrontal cortex",
+    tpj: "Temporoparietal junction", motor: "Motor cortex", cerebellum: "Cerebellum",
+    occipital: "Occipital cortex"
+  };
+
+  function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0]/m, v[1]/m, v[2]/m]; }
+  function dot(a, b) { return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; }
+  function cross(a, b) { return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+  function mirror(l) {
+    var o = [];
+    l.forEach(function (b) { o.push(b); if (b.c[2] !== 0) o.push({ c: [b.c[0], b.c[1], -b.c[2]], s: b.s, w: b.w }); });
+    return o;
+  }
+  var CEREBRUM = mirror([
+    { c: [ 0.31,  0.14, 0.12], s: 0.26, w: 1.00 },
+    { c: [ 0.32, -0.09, 0.11], s: 0.21, w: 0.94 },
+    { c: [ 0.05,  0.26, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.19,  0.21, 0.13], s: 0.24, w: 1.00 },
+    { c: [-0.41,  0.00, 0.09], s: 0.21, w: 0.92 },
+    { c: [ 0.14, -0.25, 0.20], s: 0.20, w: 0.92 },
+    { c: [-0.10, -0.21, 0.20], s: 0.20, w: 0.90 },
+    { c: [-0.28, -0.08, 0.17], s: 0.19, w: 0.88 },
+    { c: [ 0.00,  0.02, 0.00], s: 0.30, w: 0.85 }
+  ]);
+  var CEREBELLUM = mirror([
+    { c: [-0.36, -0.27, 0.13], s: 0.17, w: 1.00 },
+    { c: [-0.46, -0.28, 0.00], s: 0.14, w: 0.90 }
+  ]);
+  function field(p, b) {
+    var f = 0, i, q, dx, dy, dz;
+    for (i = 0; i < b.length; i++) {
+      q = b[i]; dx = p[0]-q.c[0]; dy = p[1]-q.c[1]; dz = p[2]-q.c[2];
+      f += q.w * Math.exp(-(dx*dx + dy*dy + dz*dz) / (q.s*q.s));
+    }
+    return f;
+  }
+  function creases(p) {
+    var lat = p[1] + 0.52*p[0] + 0.10;
+    var side = Math.min(1, Math.abs(p[2]) / 0.18);
+    var a = Math.exp(-(lat*lat)/0.0035) * side * (p[0] > -0.30 ? 1 : 0.3);
+    var cen = p[0] + 0.80*p[1] - 0.17;
+    var b = Math.exp(-(cen*cen)/0.0016) * (p[1] > -0.10 ? 1 : 0);
+    return a*0.20 + b*0.085;
+  }
+  function gyri(u) {
+    return Math.sin(u[0]*16 + u[1]*10.5) * Math.sin(u[1]*14 - u[2]*12) * Math.sin(u[2]*18 + u[0]*8.5);
+  }
+  function surfaceR(u, blobs, T, o, crease) {
+    var lo = 0.01, hi = 1.0, m, p, i;
+    for (i = 0; i < 16; i++) {
+      m = (lo + hi) * 0.5;
+      p = [o[0]+u[0]*m, o[1]+u[1]*m, o[2]+u[2]*m];
+      if (field(p, blobs) > T) lo = m; else hi = m;
+    }
+    var r = (lo + hi) * 0.5;
+    r *= 1 + gyri(u) * 0.028;
+    if (crease) r *= 1 - creases([o[0]+u[0]*r, o[1]+u[1]*r, o[2]+u[2]*r]);
+    return r;
+  }
+  var SQ = [1, 0.86, 0.95];
+  function place(u, r, o) { return [(o[0]+u[0]*r)*SQ[0], (o[1]+u[1]*r)*SQ[1], (o[2]+u[2]*r)*SQ[2]]; }
+
+  var seed = 20261111;
+  function rnd() { seed = (seed*1664525 + 1013904223) % 4294967296; return seed/4294967296; }
+  function unit() { var z = rnd()*2-1, t = rnd()*Math.PI*2, r = Math.sqrt(Math.max(0, 1-z*z)); return [r*Math.cos(t), r*Math.sin(t), z]; }
+  function contour(u, prev) {
+    var a = norm(cross(u, Math.abs(u[1]) > 0.9 ? [1,0,0] : [0,1,0])), b = cross(u, a), e = 0.03, f0 = gyri(u);
+    var ga = (gyri(norm([u[0]+a[0]*e, u[1]+a[1]*e, u[2]+a[2]*e])) - f0)/e;
+    var gb = (gyri(norm([u[0]+b[0]*e, u[1]+b[1]*e, u[2]+b[2]*e])) - f0)/e;
+    var cx = -gb, cy = ga, m = Math.hypot(cx, cy) || 1; cx /= m; cy /= m;
+    var t = [a[0]*cx+b[0]*cy, a[1]*cx+b[1]*cy, a[2]*cx+b[2]*cy];
+    if (prev && dot(t, prev) < 0) t = [-t[0], -t[1], -t[2]];
+    return t;
+  }
+  function walk(blobs, T, o, steps, step, follow, crease, bias) {
+    var u = unit(), t = norm(cross(u, unit())), pts = [], i, un, c, j, d;
+    if (bias) { t = [t[0]+bias[0], t[1]+bias[1], t[2]+bias[2]]; d = dot(t, u); t = norm([t[0]-u[0]*d, t[1]-u[1]*d, t[2]-u[2]*d]); }
+    for (i = 0; i < steps; i++) {
+      pts.push(place(u, surfaceR(u, blobs, T, o, crease), o));
+      un = norm([u[0]+t[0]*step, u[1]+t[1]*step, u[2]+t[2]*step]);
+      if (follow > 0) { c = contour(un, t); t = [t[0]*(1-follow)+c[0]*follow, t[1]*(1-follow)+c[1]*follow, t[2]*(1-follow)+c[2]*follow]; }
+      j = unit(); t = [t[0]+j[0]*0.03, t[1]+j[1]*0.03, t[2]+j[2]*0.03];
+      d = dot(t, un); t = norm([t[0]-un[0]*d, t[1]-un[1]*d, t[2]-un[2]*d]); u = un;
+    }
+    return pts;
+  }
+
+  var KEYS = Object.keys(ANCHOR), SEATS = [];
+  KEYS.forEach(function (k) {
+    if (k === "hippocampus") return;
+    [1, -1].forEach(function (sg) {
+      SEATS.push({ k: k, p: [ANCHOR[k][0]*SQ[0], ANCHOR[k][1]*SQ[1], sg*ANCHOR[k][2]*SQ[2]] });
+    });
+  });
+  function regionAt(p) {
+    var best = SEATS[0].k, bd = Infinity, i, a, dx, dy, dz, d;
+    for (i = 0; i < SEATS.length; i++) {
+      a = SEATS[i].p; dx = p[0]-a[0]; dy = p[1]-a[1]; dz = p[2]-a[2];
+      d = dx*dx + dy*dy + dz*dz;
+      if (d < bd) { bd = d; best = SEATS[i].k; }
+    }
+    return best;
+  }
+
+  var fibres = [], i, pts;
+  function push(pts) { fibres.push({ pts: pts, mid: pts[Math.floor(pts.length / 2)] }); }
+  for (i = 0; i < 260; i++) { push(walk(CEREBRUM, 1.0, [0, 0.02, 0], 22, 0.082, 0.55, true, null)); }
+  for (i = 0; i < 70; i++) { push(walk(CEREBELLUM, 0.92, [-0.39, -0.27, 0], 14, 0.085, 0, false, [0, 0, 1])); }
+
+  /* Light a fixed radius around the anchor rather than a nearest-anchor partition.
+     The partition handed whole lobes to one region, so a third of the drawing lit up. */
+  var LIT_R2 = 0.042, focusSeats = null;
+  function setFocusSeats(k) {
+    if (!k || !ANCHOR[k]) { focusSeats = null; return; }
+    var a = ANCHOR[k];
+    focusSeats = [[a[0]*SQ[0], a[1]*SQ[1], a[2]*SQ[2]], [a[0]*SQ[0], a[1]*SQ[1], -a[2]*SQ[2]]];
+  }
+  function near(pt) {
+    if (!focusSeats) return false;
+    var s, dx, dy, dz, n;
+    for (n = 0; n < 2; n++) {
+      s = focusSeats[n]; dx = pt[0]-s[0]; dy = pt[1]-s[1]; dz = pt[2]-s[2];
+      if (dx*dx + dy*dy + dz*dz < LIT_R2) return true;
+    }
+    return false;
+  }
+
+  var ctx = canvas.getContext("2d"), W = 1, H = 1, DPR = 1;
+  var ruleCol = "#cbc9d6", accentCol = "#8e2436";
+  function readTokens() {
+    var cs = getComputedStyle(document.documentElement);
+    ruleCol = (cs.getPropertyValue("--faint") || "#6f6d6b").trim();
+    accentCol = (cs.getPropertyValue("--accent") || "#8e2436").trim();
+  }
+  function resize() {
+    var r = canvas.getBoundingClientRect();
+    if (!r.width) return;
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.round(r.width); H = Math.round(r.height);
+    canvas.width = Math.max(1, W*DPR); canvas.height = Math.max(1, H*DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  var yaw = -0.5, pitch = -0.08, tYaw = -0.5, tPitch = -0.08, focus = null;
+  var cY = 1, sY = 0, cX = 1, sX = 0;
+  function rot(p) {
+    var x = p[0]*cY + p[2]*sY, z = -p[0]*sY + p[2]*cY;
+    return [x, p[1]*cX - z*sX, p[1]*sX + z*cX];
+  }
+  function proj(q, sc) { var k = 2.3/(3.0 - q[2]); return [W/2 + q[0]*k*sc, H/2 - q[1]*k*sc]; }
+
+  function draw() {
+    cY = Math.cos(yaw); sY = Math.sin(yaw); cX = Math.cos(pitch); sX = Math.sin(pitch);
+    var sc = Math.min(W, H) * 0.84;
+    ctx.clearRect(0, 0, W, H);
+    /* decide lit per segment, not per fibre: a fibre is a long arc and lighting
+       the whole of one paints a line clean across the drawing */
+    var quiet = new Path2D(), lit = new Path2D(), f, j, q, s, prev, prevLit, now, p;
+    for (i = 0; i < fibres.length; i++) {
+      f = fibres[i]; prev = null; prevLit = false;
+      for (j = 0; j < f.pts.length; j++) {
+        now = near(f.pts[j]);
+        q = rot(f.pts[j]); s = proj(q, sc);
+        if (prev) {
+          p = (now || prevLit) ? lit : quiet;
+          p.moveTo(prev[0], prev[1]); p.lineTo(s[0], s[1]);
+        }
+        prev = s; prevLit = now;
+      }
+    }
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.strokeStyle = ruleCol; ctx.globalAlpha = 0.45; ctx.lineWidth = 0.6; ctx.stroke(quiet);
+    ctx.strokeStyle = accentCol; ctx.globalAlpha = 1; ctx.lineWidth = 0.75; ctx.stroke(lit);
+    ctx.globalAlpha = 1;
+  }
+
+  function aim(k) {
+    if (!k || !ANCHOR[k]) { tYaw = -0.5; tPitch = -0.08; return; }
+    var a = ANCHOR[k];
+    tYaw = -Math.atan2(a[0]*SQ[0], a[2]*SQ[2]);
+    tPitch = Math.max(-0.5, Math.min(0.5, Math.atan2(a[1]*SQ[1], 0.62) * 0.7));
+  }
+  function shortest(from, to) {
+    var d = (to - from) % (Math.PI*2);
+    if (d > Math.PI) d -= Math.PI*2;
+    if (d < -Math.PI) d += Math.PI*2;
+    return d;
+  }
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var last = 0;
+  function frame(t) {
+    var dt = last ? Math.min(t - last, 50) : 16; last = t;
+    if (reduce.matches) { yaw = tYaw; pitch = tPitch; }
+    else {
+      var e = 1 - Math.pow(0.004, dt/1000);
+      yaw += shortest(yaw, tYaw) * e;
+      pitch += (tPitch - pitch) * e;
+    }
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  var label = document.getElementById("atlas-label");
+  var marks = [].slice.call(document.querySelectorAll("[data-region]"));
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var k = e.target.getAttribute("data-region");
+      if (k === focus) return;
+      focus = k; aim(k); setFocusSeats(k);
+      label.textContent = NAME[k] || "";
+    });
+  }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+  marks.forEach(function (m) { io.observe(m); });
+
+  readTokens(); resize(); aim(null); setFocusSeats(null);
+  yaw = tYaw; pitch = tPitch;
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+  else window.addEventListener("resize", resize);
+  try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readTokens); } catch (e) {}
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>

@@ -31,19 +31,42 @@ plainly that no child has used it and there is therefore no claim it works.
 Nested output rows carry a small square where a thumbnail belongs. They currently show
 a two-character mark. Real screenshots drop straight in.
 
-## The brain, parked
+## The atlas
 
-`prototypes/brain-scroll.html` is the previous version: a generated brain, sticky on
-the left, turning to the region that holds each chapter. The geometry is a metaball
-field for the cerebrum and cerebellum, two creases cut for the lateral fissure and
-central sulcus, and around 500 fibres walked along contour lines of a noise field to
-produce gyri, all stroked into a 2D canvas. No WebGL, no model file.
+The brain is back, redrawn in the page's own idiom. It is not the dark specimen plate
+of the earlier version; that clashed with the ivory restraint of this layout. It is a
+hairline figure in the right margin, drawn in the same grey as the body text at low
+alpha, with one region lit in oxblood.
 
-`prototypes/map-to-brain.html` tests folding one into the other: the same fibres laid
-flat as bundled flight paths between cities, then folded into the cortex.
+Every entry and section carries a `data-region`. An `IntersectionObserver` watches them,
+and when one becomes the active entry the camera eases to the yaw and pitch that turn
+that region to face you, while the caption underneath names it.
 
-The plan is to bring the brain back on top of the flight plan rather than instead of
-it. Build the journey first, then let it fold.
+Nine regions are in use, so nothing in the atlas is decorative:
+
+| Region | Holds |
+|---|---|
+| Temporal lobe | About, the three accents |
+| Hippocampus | Woldingham |
+| Parietal cortex | LSE and its methods |
+| Temporoparietal junction | ASES, Hyperknow, Noetic |
+| Orbitofrontal cortex | Fosun |
+| Occipital cortex | LinkSea |
+| Motor cortex | Miku, ByteDance |
+| Prefrontal cortex | Litovsky, the dissertation, Now |
+| Cerebellum | Off hours |
+
+Two things that were wrong and are worth remembering. Lighting whole fibres painted
+lines clean across the drawing, because a fibre is a long arc; lighting is decided per
+segment now. And a nearest-anchor partition handed whole lobes to single regions, so a
+third of the figure lit at once; it is a fixed radius around the anchor instead.
+
+The geometry is unchanged from `prototypes/brain-scroll.html`: a metaball field for the
+cerebrum and cerebellum, creases cut for the lateral fissure and central sulcus, and
+fibres walked along contour lines of a noise field to produce gyri. No WebGL, no model
+file, no library.
+
+Hidden below 80rem, where there is no margin to put it in.
 
 ## Writing rules
 
