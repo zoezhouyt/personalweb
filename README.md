@@ -20,59 +20,61 @@ engineering, not recruiters.
 
 ## Flight plan
 
-Ten entries, newest first. Education is deliberately absent: LSE and school are stated
-in the About essay and its footnotes, so repeating them as entries added length without
-adding anything.
+Eight entries in two year groups, newest first. The year is the structure: a large
+numeral sits in the left margin, sticky, and holds the middle of the viewport while its
+entries scroll past. It turns oxblood while its group is the one you are reading, so
+the year visibly changes over. Months are gone; the group year is the only date.
 
-Noetic and Miku lead, then the rest of the ongoing work, then the finished work newest
-first. That is one deliberate departure from strict reverse-chronological order, which
-would otherwise open on the dissertation. Everything after the ongoing block is in
-date order, so the year column never goes backwards.
+2026 holds Miku, Noetic, a research assistantship, Hyperknow, ByteDance, LinkSea and a
+second research assistantship. 2025 holds Fosun.
 
-The rail is interactive. A cursor dot sits at the middle of the viewport and travels
-down the rail as you scroll, the rail fills in behind it, and each entry's dot moves
-through three states: ahead, current, passed. The current entry's year and month range
-turn oxblood, so the date visibly ticks over as you read. All of it is hidden below
-46rem, where there is no rail.
+ASES London is not an entry of its own. It sits inside Noetic as an expandable row,
+since it is the programme that came before it. Any output row can take the same
+treatment.
+
+Education and the dissertation are deliberately absent. All three are stated in the
+About essay and its footnotes, so entries for them added length without adding
+anything.
+
+The rail is interactive: a cursor dot holds the middle of the viewport and travels down
+it, the rail fills behind it, and each entry's dot moves through ahead, current and
+passed. All of the furniture is hidden below 66rem, where there is no margin for it.
 
 ## The atlas
 
-The brain is back, redrawn in the page's own idiom. It is not the dark specimen plate
-of the earlier version; that clashed with the ivory restraint of this layout. It is a
-hairline figure in the right margin, drawn in the same grey as the body text at low
-alpha, with one region lit in oxblood.
+The brain rides the cursor. It sits immediately right of the travelling dot, at 8rem
+square, drawn as hairlines in the body grey with one region lit in oxblood and named
+underneath. It was in the right margin before; putting it on the rail gives it a reason
+to be where it is and frees the whole right side for text.
 
 Every entry and section carries a `data-region`. An `IntersectionObserver` watches them,
-and when one becomes the active entry the camera eases to the yaw and pitch that turn
-that region to face you, while the caption underneath names it.
-
-Nine regions are in use, so nothing in the atlas is decorative:
+and the camera eases to the yaw and pitch that turn that region to face you.
 
 | Region | Holds |
 |---|---|
-| Temporal lobe | About, and the Ghai research |
 | Hippocampus | Miku |
-| Temporoparietal junction | Noetic, Hyperknow, ASES |
-| Orbitofrontal cortex | Fosun |
-| Occipital cortex | LinkSea |
+| Temporoparietal junction | Noetic, Hyperknow |
+| Prefrontal cortex | the Litovsky assistantship, Now |
 | Motor cortex | ByteDance |
-| Prefrontal cortex | the dissertation, Litovsky, Now |
+| Occipital cortex | LinkSea |
+| Temporal lobe | the Ghai assistantship, About |
+| Orbitofrontal cortex | Fosun |
 | Cerebellum | Off hours |
 
-The parietal anchor is defined but currently unused, since the entry that held it was
-the LSE one. Harmless, and there if something numerical earns it later.
+The parietal anchor is defined but unused since the LSE entry went. Harmless, and there
+if something numerical earns it later.
 
-Two things that were wrong and are worth remembering. Lighting whole fibres painted
-lines clean across the drawing, because a fibre is a long arc; lighting is decided per
-segment now. And a nearest-anchor partition handed whole lobes to single regions, so a
-third of the figure lit at once; it is a fixed radius around the anchor instead.
+Three things that were wrong and are worth remembering. Lighting whole fibres painted
+lines clean across the drawing, because a fibre is a long arc; lighting is per segment
+now. A nearest-anchor partition handed whole lobes to single regions, so a third of the
+figure lit at once; it is a fixed radius around the anchor instead. And the cursor sat
+104px off the rail, because elements in normal flow inherit the timeline's left padding
+while absolutely positioned ones do not.
 
 The geometry is unchanged from `prototypes/brain-scroll.html`: a metaball field for the
 cerebrum and cerebellum, creases cut for the lateral fissure and central sulcus, and
 fibres walked along contour lines of a noise field to produce gyri. No WebGL, no model
 file, no library.
-
-Hidden below 80rem, where there is no margin to put it in.
 
 ## Writing rules
 
