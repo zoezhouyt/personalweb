@@ -4,38 +4,32 @@ Zoe Zhou's personal site. One self-contained HTML file, no build step, no framew
 
 ## The idea
 
-The site is a **flight plan**. Zoe grew up between Beijing, Abu Dhabi and Riyadh before
-boarding school and LSE, so the journey is not a borrowed metaphor; it is the actual
-shape of the story. Each leg of the page is a leg of that journey, marked with airport
-codes and a year, and what she did there sits beside it.
+The site follows the structure and aesthetic of [mikes.cv](https://www.mikes.cv/):
+a fixed identity rail at the far left with coordinates and a live London clock, one
+narrow reading column, hairline rules, very small type, and tiny uppercase mono labels
+on an ivory ground. An About essay carries its credentials in numbered footnotes rather
+than in the prose. A Flight plan lists the legs. A Now section holds four numbered
+items. Off hours closes it.
 
-The structure is borrowed from [mikes.cv](https://www.mikes.cv/): a fixed identity rail,
-a vertical plan of legs, route codes as the navigation grammar, and a personal coda at
-the end once the professional case is closed. The execution is not borrowed. That site
-is monochrome Helvetica; this one uses Zoe's own palette of oxblood, terracotta, olive
-and slate on warm paper, with Fraunces for display.
+Content is ordered by **date**, oldest first, not by location. Earlier drafts used
+airport codes as the organising grammar; that is gone. The one deliberate departure
+from the reference is the accent, which is Zoe's oxblood rather than its periwinkle.
 
 The audience is graduate admissions readers in learning design and learning
-engineering, not recruiters. That decides what leads and what gets demoted.
+engineering, not recruiters.
 
-## Structure
+## Flight plan
 
-| Leg | Route | When | What |
-|---|---|---|---|
-| 1 | PEK | before 2020 | Beijing, Abu Dhabi, Riyadh. Three accents. |
-| 2 | AUH › LON | 2020–2024 | Boarding school |
-| 3 | LON | 2024–2027 | LSE, Psychological and Behavioural Science |
-| 4 | LON › SFO | 2025–2026 | ASES London and Stanford |
-| 5 | LON | 2025–2026 | Fosun, private equity |
-| 6 | LON | 2026 | Research: Schneider, Litovsky, Ghai |
-| 7 | LON › HKG | 2026 | Three prototypes, two of them stopped |
-| 8 | LON | 2026– | Noetic, ByteDance, Hyperknow |
+Twelve legs, 2020 to now. Education, then ASES and Fosun, then the 2026 cluster:
+Ghai's lab, LinkSea, Miku, Hyperknow, ByteDance, Noetic, Litovsky's lab, and the
+dissertation last.
 
-Then **Arrivals**, which is the personal half, and contact.
+Miku's leg is the centre of gravity. Two prototypes were stopped on purpose and the
+page says why, because the reasoning is the evidence of judgement. Its entry states
+plainly that no child has used it and there is therefore no claim it works.
 
-Leg 7 is the centre of gravity. Two prototypes were stopped on purpose and the page
-says why, because the reasoning is the evidence of judgement. Miku's entry states
-plainly that no child has used it and that there is therefore no claim it works.
+Nested output rows carry a small square where a thumbnail belongs. They currently show
+a two-character mark. Real screenshots drop straight in.
 
 ## The brain, parked
 
@@ -68,6 +62,7 @@ The copy follows Zoe's own rules, which are not optional:
 ```
 index.html                        the site
 prototypes/brain-scroll.html      the brain version, kept for the next stage
+prototypes/flightplan-v1.html     the first flight plan, organised by airport code
 prototypes/map-to-brain.html      the fold test
 archive/                          earlier versions, not part of the live site
 .nojekyll                         serve files as-is, no Jekyll

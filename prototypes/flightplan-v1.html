@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zoe Zhou</title>
+<meta name="description" content="Zoe Zhou. Psychological and Behavioural Science at LSE: research on metacognition and calibration, and the learning tools built on it.">
+<meta name="theme-color" content="#efe9e0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14100e" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Zoe Zhou">
+<meta property="og:title" content="Zoe Zhou">
+<meta property="og:description" content="Psychological and Behavioural Science at LSE. Research on metacognition and calibration, and the learning tools built on it.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
+<style>
+/* Layout: a fixed identity rail on the left, a flight plan of legs scrolling on the right. */
+:root {
+  --paper: #efe9e0;
+  --paper-2: #e6ded2;
+  --ink: #221c18;
+  --muted: #6e635a;
+  --rule: #d6cbbc;
+  --accent: #8e2436;
+
+  --l1: #8e2436;
+  --l2: #c0562c;
+  --l3: #a33455;
+  --l4: #45688c;
+  --l5: #6b7a33;
+  --l6: #2f7a76;
+  --l7: #b5842a;
+  --l8: #7a5a86;
+
+  --display: "Fraunces", Georgia, serif;
+  --body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --util: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  color-scheme: light;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14100e; --paper-2: #1c1714; --ink: #ece3d8;
+    --muted: #9b8e81; --rule: #32281f;
+    --l1: #c9566a; --l2: #e08a5b; --l3: #d4678a; --l4: #7fa6c9;
+    --l5: #a3b55c; --l6: #6fbdb5; --l7: #dcb45e; --l8: #ab87b8;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.62; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 30; }
+
+.shell {
+  max-width: 78rem; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 2rem 0;
+  display: grid; grid-template-columns: 1fr; gap: 2rem;
+}
+@media (min-width: 60rem) {
+  .shell { grid-template-columns: 13rem minmax(0, 1fr); column-gap: 4rem; padding-block: 3rem 0; }
+}
+
+/* ---- identity rail ---- */
+.rail { min-width: 0; }
+@media (min-width: 60rem) {
+  .rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 3rem); align-self: start; }
+}
+.rail dl, .rail p { margin: 0; }
+.rail .who {
+  font-family: var(--util); font-size: 0.7rem; letter-spacing: 0.18em;
+  text-transform: uppercase; font-weight: 500; margin-bottom: 0.9rem;
+}
+.rail .coords { font-family: var(--util); font-size: 0.64rem; letter-spacing: 0.08em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rail .coords span { display: block; }
+.rail nav { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; }
+@media (min-width: 60rem) { .rail nav { flex-direction: column; gap: 0.45rem; } }
+.rail nav a {
+  font-family: var(--util); font-size: 0.64rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); text-decoration: none;
+}
+.rail nav a:hover { color: var(--accent); }
+
+/* ---- hero ---- */
+main { min-width: 0; }
+.hero { padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+.hero h1 {
+  font-family: var(--display); font-weight: 300; letter-spacing: -0.025em;
+  font-size: clamp(2.6rem, 9vw, 4.6rem); line-height: 0.96; margin: 0;
+}
+.hero .line {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-size: clamp(1.1rem, 3.2vw, 1.45rem); line-height: 1.4;
+  margin: 1.1rem 0 0; max-width: 32ch;
+}
+.hero .blurb { margin: 1.1rem 0 0; color: var(--muted); max-width: 52ch; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.6rem; }
+.chip {
+  font-family: var(--util); font-size: 0.7rem; letter-spacing: 0.04em;
+  padding: 0.42rem 0.85rem; border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--paper-2); color: var(--ink); cursor: pointer; text-decoration: none;
+  display: inline-flex; gap: 0.5rem; align-items: center;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---- flight plan ---- */
+.band {
+  font-family: var(--util); font-size: 0.66rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted);
+  margin: 3rem 0 0; padding-bottom: 0.7rem; border-bottom: 1px solid var(--rule);
+  display: flex; justify-content: space-between; gap: 1rem;
+}
+
+.leg { display: grid; grid-template-columns: 1fr; gap: 0.5rem; padding-block: 2.5rem; border-bottom: 1px solid var(--rule); }
+@media (min-width: 46rem) {
+  .leg { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); column-gap: 2.5rem; align-items: start; }
+}
+.leg-meta { min-width: 0; }
+@media (min-width: 46rem) {
+  .leg-meta { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 3rem); }
+}
+.route {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.4rem, 7vw, 4rem); line-height: 0.92; letter-spacing: -0.045em;
+  margin: 0; color: var(--tone); font-variant-numeric: tabular-nums;
+}
+.route .arrow { opacity: 0.4; }
+.when {
+  font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); margin: 0.45rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+.place { font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--muted); margin: 0.2rem 0 0; }
+
+.leg-body { min-width: 0; padding-top: 0.4rem; }
+.leg-body h3 { font-family: var(--display); font-weight: 500; font-size: 1.45rem; letter-spacing: -0.01em; margin: 0 0 0.15rem; }
+.leg-body .role { font-family: var(--util); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tone); margin: 0 0 0.9rem; }
+.leg-body p.text { margin: 0 0 0.7rem; max-width: 58ch; }
+
+.outputs { list-style: none; margin: 1.3rem 0 0; padding: 0; display: flex; flex-direction: column; }
+.outputs li { padding: 0.8rem 0; border-top: 1px solid var(--rule); max-width: 58ch; }
+.outputs .top { display: flex; flex-wrap: wrap; gap: 0.4rem 0.75rem; align-items: baseline; }
+.outputs b { font-weight: 500; }
+.outputs .tag { font-family: var(--util); font-size: 0.64rem; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+.outputs p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.92rem; }
+
+/* ---- arrivals ---- */
+.arrivals { padding-block: 3rem; border-bottom: 1px solid var(--rule); }
+.arrivals h2 { font-family: var(--display); font-weight: 400; font-size: 1.8rem; margin: 0 0 0.6rem; letter-spacing: -0.01em; }
+.arrivals p.text { margin: 0 0 1.2rem; max-width: 58ch; color: var(--muted); }
+.grid { display: grid; grid-template-columns: 1fr; gap: 1.4rem; }
+@media (min-width: 42rem) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.grid h4 { font-family: var(--util); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.35rem; }
+.grid p { margin: 0; max-width: 42ch; }
+
+footer.end { padding-block: 2.5rem 3.5rem; }
+footer.end p { margin: 0 0 0.5rem; max-width: 56ch; color: var(--muted); font-size: 0.92rem; }
+.ink { font-family: var(--util); font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <p class="who">Zoe Zhou</p>
+    <p class="coords">
+      <span>London, UK</span>
+      <span>51.5074&deg; N, 0.1278&deg; W</span>
+      <span>GMT+0</span>
+    </p>
+    <nav>
+      <a href="#plan">Flight plan</a>
+      <a href="#arrivals">Arrivals</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <h1>Zoe Zhou</h1>
+      <p class="line">I study the gap between feeling you know something and actually knowing it, and I build learning tools that try to close it.</p>
+      <p class="blurb">Psychological and Behavioural Science at the London School of Economics. Four cities, one question, and a teachable agent called Miku that is still being tested.</p>
+      <div class="chips">
+        <button class="chip" id="copy-email" type="button"><span class="ink" id="email-text">zoezhou0912@gmail.com</span><span id="copy-label">Copy</span></button>
+        <a class="chip" href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>
+        <a class="chip" href="https://www.mynoetic.com/">Noetic</a>
+        <a class="chip" href="https://www.mikulearnbyteach.com/">Miku</a>
+      </div>
+    </header>
+
+    <p class="band" id="plan"><span>Flight plan</span><span>PEK &rsaquo; AUH &rsaquo; LON &rsaquo; SFO</span></p>
+
+    <article class="leg" style="--tone: var(--l1)">
+      <div class="leg-meta">
+        <p class="route">PEK</p>
+        <p class="when">Before 2020</p>
+        <p class="place">Beijing &middot; Abu Dhabi &middot; Riyadh</p>
+      </div>
+      <div class="leg-body">
+        <h3>Where it starts</h3>
+        <p class="role">Three accents</p>
+        <p class="text">My English changed shape three times. In Beijing I spoke American, copied from a teacher. In Abu Dhabi, with stretches in Riyadh, I could not copy the accent at all, so I copied something else: the manner of the Emirati women who were friends of my parents, who were courteous to everyone and certain when they spoke.</p>
+        <p class="text">Those women mentored me. They asked what I wanted to study, what I should go and see, whether I should start something at university, and what I would need to show before anyone took an idea of mine seriously.</p>
+        <p class="text">Moving that often teaches you that the same explanation does not land the same way twice. It is why I am wary of a learning design that works in one classroom and is assumed to travel.</p>
+        <ul class="outputs">
+          <li><div class="top"><b>English and Mandarin</b><span class="tag">Native</span></div><p>Both from the beginning, neither as a second language.</p></li>
+          <li><div class="top"><b>Cantonese and French</b><span class="tag">Working</span></div><p>Enough to follow a room, and to notice what a translation drops.</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="leg" style="--tone: var(--l2)">
+      <div class="leg-meta">
+        <p class="route">AUH <span class="arrow">&rsaquo;</span> LON</p>
+        <p class="when">2020 &ndash; 2024</p>
+        <p class="place">Woldingham, Surrey</p>
+      </div>
+      <div class="leg-body">
+        <h3>Boarding school</h3>
+        <p class="role">A-Levels, A*A*A*AA</p>
+        <p class="text">The accent turned British inside a year. Maths, Psychology, Economics, Biology and an Extended Project Qualification, which was the first time anyone asked me to pick a question and defend it rather than answer one that was set.</p>
+      </div>
+    </article>
+
+    <article class="leg" style="--tone: var(--l3)">
+      <div class="leg-meta">
+        <p class="route">LON</p>
+        <p class="when">2024 &ndash; 2027</p>
+        <p class="place">London School of Economics</p>
+      </div>
+      <div class="leg-body">
+        <h3>Reading psychology</h3>
+        <p class="role">BSc Psychological and Behavioural Science</p>
+        <p class="text">I chose it because it refused to separate the two halves of the question I cared about: what a mind does on its own, and what it does once other people, incentives and institutions are in the room. The degree gave me a way of testing claims about behaviour instead of collecting opinions about it.</p>
+        <ul class="outputs">
+          <li><div class="top"><b>Expected First Class Honours</b><span class="tag">May 2027</span></div><p>PB101 Psychological Science; PB330/MY202 Statistics; R and machine learning.</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="leg" style="--tone: var(--l4)">
+      <div class="leg-meta">
+        <p class="route">LON <span class="arrow">&rsaquo;</span> SFO</p>
+        <p class="when">2025 &ndash; 2026</p>
+        <p class="place">ASES London &middot; Stanford</p>
+      </div>
+      <div class="leg-body">
+        <h3>The first room I designed</h3>
+        <p class="role">Co-director, ASES London</p>
+        <p class="text">Won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter. I have been invited back to Stanford each year since, which is also where the first prototype started.</p>
+        <ul class="outputs">
+          <li><div class="top"><b>A ten-week bootcamp</b><span class="tag">~70 fellows</span></div><p>Selected the cohort, designed the programme, and secured &pound;5k of sponsorship.</p></li>
+          <li><div class="top"><b>LSESU Entrepreneurs</b><span class="tag">2025 &ndash; 2026</span></div><p>Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="leg" style="--tone: var(--l5)">
+      <div class="leg-meta">
+        <p class="route">LON</p>
+        <p class="when">2025 &ndash; 2026</p>
+        <p class="place">Fosun International</p>
+      </div>
+      <div class="leg-body">
+        <h3>The other side of the table</h3>
+        <p class="role">Private equity, banking &amp; insurance group</p>
+        <p class="text">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer. It taught me how a market puts a number on a product, and seeing a product valued from the outside changed how I think about building one.</p>
+        <ul class="outputs">
+          <li><div class="top"><b>Portuguese healthcare operator</b><span class="tag">c.&euro;1.1bn EV</span></div><p>Models for three bidders on a 40% stake, benchmarking 9.2 to 10.4x EV/EBITDA and &euro;287 to 330m proceeds.</p></li>
+          <li><div class="top"><b>German life insurance</b><span class="tag">Phase II</span></div><p>Seven diligence workstreams consolidated into one risk and valuation tracker for investment committee.</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="leg" style="--tone: var(--l6)">
+      <div class="leg-meta">
+        <p class="route">LON</p>
+        <p class="when">2026</p>
+        <p class="place">LSE, three labs</p>
+      </div>
+      <div class="leg-body">
+        <h3>The question I keep returning to</h3>
+        <p class="role">Research</p>
+        <p class="text">Calibration is the fit between how confident a learner is and how well they actually perform. Generative AI has made it urgent: a fluent answer feels like understanding, and that feeling arrives whether or not the understanding does.</p>
+        <ul class="outputs">
+          <li><div class="top"><b>Dissertation</b><span class="tag">Dr Luc Schneider</span></div><p>When an AI assistant supports a learner's own judgement, and when it quietly replaces the work that would have built it.</p></li>
+          <li><div class="top"><b>Curiosity and misinformation</b><span class="tag">Dr Yana Litovsky</span></div><p>Guess generation and susceptibility to misleading claims. It made me question one of my own design decisions, which is in the next leg.</p></li>
+          <li><div class="top"><b>Digital safety for at-risk youth</b><span class="tag">Dr Sakshi Ghai</span></div><p>Mapped which interventions might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk.</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="leg" style="--tone: var(--l7)">
+      <div class="leg-meta">
+        <p class="route">LON <span class="arrow">&rsaquo;</span> HKG</p>
+        <p class="when">2026</p>
+        <p class="place">Three prototypes</p>
+      </div>
+      <div class="leg-body">
+        <h3>Building for learners</h3>
+        <p class="role">Two of them stopped on purpose</p>
+        <p class="text">The first ran into a problem I had not considered. The second into one I had, and had got backwards.</p>
+        <ul class="outputs">
+          <li><div class="top"><b>A reflective chatbot</b><span class="tag">Stopped</span></div><p>Started at Stanford GSE's AI Tinkery. A father told me he was relieved: he had been out of school for years and could not answer his child's questions, and now something could. His relief unsettled me. I had built a tool a parent could use to step back.</p></li>
+          <li><div class="top"><b>A story-relay game</b><span class="tag">Stopped</span></div><p>Adapted from a Berkeley project. I set it aside before any child used it. Extending a story rewards building on an idea, and the habit I wanted to train was questioning one.</p></li>
+          <li><div class="top"><b>Miku, a teachable agent</b><span class="tag">Current</span></div><p>The learner teaches Miku, who is deliberately blank and answers only from what it has been taught, then predicts question by question what Miku will get right. The distance between prediction and result is the calibration measure.</p></li>
+          <li><div class="top"><b>Where Miku stands</b><span class="tag">Honest status</span></div><p>Adult friends have used it. I am interviewing parents before any child does. No child data yet, so no claim that it works.</p></li>
+          <li><div class="top"><b>LinkSea</b><span class="tag">Hong Kong</span></div><p>Built the student-facing interface of a school workflow platform in JavaScript, field-tested it with the students, and rebuilt the parts they could not complete.</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="leg" style="--tone: var(--l8)">
+      <div class="leg-meta">
+        <p class="route">LON</p>
+        <p class="when">2026 &ndash; now</p>
+        <p class="place">Noetic &middot; ByteDance &middot; Hyperknow</p>
+      </div>
+      <div class="leg-body">
+        <h3>Current</h3>
+        <p class="role">Co-founder, and two things alongside</p>
+        <p class="text">Noetic runs one-day builds where students and engineers work with a frontier company's newest tools and that company's engineers are in the room. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p>
+        <ul class="outputs">
+          <li><div class="top"><b>The Nebius day</b><span class="tag">103 applicants</span></div><p>63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening, which is the question I care about.</p></li>
+          <li><div class="top"><b>ByteDance</b><span class="tag">AI &amp; automation</span></div><p>More than 40 LLM workflows for policy messaging across TikTok Shop; seller satisfaction up from 5% to around 70% in a month, and a procedure adopted by over 200 staff.</p></li>
+          <li><div class="top"><b>Hyperknow</b><span class="tag">EMEA campaign</span></div><p>I took it because of a gap I keep returning to: A-level students whose families cannot afford a personal tutor. A system that teaches course content is worth a great deal to a child who has nobody.</p></li>
+        </ul>
+      </div>
+    </article>
+
+    <section class="arrivals" id="arrivals">
+      <h2>Arrivals</h2>
+      <p class="text">The parts that are not work, and that explain most of the rest.</p>
+      <div class="grid">
+        <div><h4>Competitive dance</h4><p>Hip-hop, commercial and contemporary. Competing in the United Kingdom.</p></div>
+        <div><h4>Earlier training</h4><p>Ballet, cello and guzheng to vocational diploma level, though I have put the instruments down.</p></div>
+        <div><h4>Curation</h4><p>Curatorial work in the UAE and Saudi Arabia.</p></div>
+        <div><h4>Still in transit</h4><p>Applying for learning design and learning engineering master's programmes for 2027 entry.</p></div>
+      </div>
+    </section>
+
+    <footer class="end" id="contact">
+      <p>If you work on how children learn with AI, or on measuring whether a tool actually helps, I would like to hear from you.</p>
+      <p>Reach me at <span class="ink">zoezhou0912@gmail.com</span> or on <a href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var btn = document.getElementById("copy-email");
+  var label = document.getElementById("copy-label");
+  var text = document.getElementById("email-text");
+  btn.addEventListener("click", function () {
+    function fallback() {
+      try {
+        var r = document.createRange();
+        r.selectNodeContents(text);
+        var sel = window.getSelection();
+        sel.removeAllRanges(); sel.addRange(r);
+        label.textContent = "Select";
+      } catch (e) {}
+      setTimeout(function () { label.textContent = "Copy"; }, 2200);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text.textContent.trim()).then(function () {
+          label.textContent = "Copied";
+          setTimeout(function () { label.textContent = "Copy"; }, 1800);
+        }, fallback);
+        return;
+      }
+    } catch (e) {}
+    fallback();
+  });
+})();
+</script>
+</body>
+</html>
