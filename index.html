@@ -89,8 +89,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* ---- identity rail ---- */
 .rail { padding-block: 1.75rem 0; }
 .rail .name { font-family: var(--mono); font-size: 11px; letter-spacing: 2.16px; text-transform: uppercase; color: var(--ink); margin: 0 0 1rem; }
-.rail .meta { margin: 0; }
-.rail .meta span { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; color: var(--mute); line-height: 1.8; font-variant-numeric: tabular-nums; }
+.rail .meta { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.2rem 1.6rem; }
+.rail .meta li { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; color: var(--mute); line-height: 1.8; font-variant-numeric: tabular-nums; }
+.rail .meta .top { display: flex; justify-content: space-between; gap: 0.75rem; }
+.rail .meta b { font-weight: 500; text-transform: uppercase; color: var(--faint); }
+.rail .meta .hr { font-variant-numeric: tabular-nums; }
+.rail .meta li.here b, .rail .meta li.here .hr { color: var(--ink); }
+.rail .meta .co { display: block; }
 .rail nav { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.2rem; }
 .rail nav a { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--mute); line-height: 1.9; }
 .rail nav a:hover { color: var(--ink); }
@@ -99,6 +104,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     position: fixed; top: calc(env(safe-area-inset-top, 0px) + 3rem);
     left: max(2.5rem, env(safe-area-inset-left, 0px)); width: 11rem; z-index: 10; padding: 0;
   }
+  .rail .meta { flex-direction: column; gap: 0.8rem; }
   .rail nav { flex-direction: column; gap: 0; margin-top: 2.25rem; }
 }
 
@@ -174,9 +180,13 @@ sup.ref a { color: var(--accent); }
     overflow: visible; pointer-events: none;
   }
   .tl-path path { fill: none; stroke-width: 1; }
-  /* solid, not dashed. The reference dashes its rail, but on a curve at this
-     contrast the gaps read as the line being broken. */
-  .tl-path .base { stroke: var(--dot-line); }
+  /* the route ahead is dotted, the part already flown is drawn solid over it.
+     Round caps on a near-zero dash give true round dots: an earlier version used
+     dashes, and at this contrast the gaps read as the line being broken. */
+  .tl-path .base {
+    stroke: var(--dot-line); stroke-width: 1.5;
+    stroke-linecap: round; stroke-dasharray: 0.1 7;
+  }
   .tl-path .lit { stroke: var(--accent); stroke-linecap: round; }
   .tl-cursor { display: block; position: sticky; top: 50vh; height: 0; z-index: 3; pointer-events: none; }
   .tl-cursor i {
@@ -219,6 +229,16 @@ sup.ref a { color: var(--accent); }
 .outputs b { font-weight: 500; display: block; font-size: 14px; color: var(--title); line-height: 1.5; }
 .outputs p { margin: 0.15rem 0 0; color: var(--mute); font-size: 13px; line-height: 1.65; }
 
+/* an output row that opens a page of its own */
+.outputs li.go { display: block; }
+.outputs li.go > a {
+  display: grid; grid-template-columns: 2.6rem minmax(0, 1fr);
+  gap: 0.95rem; align-items: start;
+}
+.outputs li.go b::after { content: " \2192"; color: var(--accent); font-family: var(--mono); font-size: 11px; }
+.outputs li.go > a:hover b { color: var(--accent); }
+.outputs li.go > a:hover .thumb { color: var(--accent); }
+
 /* an output row with more behind it */
 .drop details { min-width: 0; }
 .drop summary { cursor: pointer; display: block; list-style: none; }
@@ -230,19 +250,25 @@ sup.ref a { color: var(--accent); }
 .drop-body p { margin: 0 0 0.55rem; color: var(--mute); font-size: 12.5px; line-height: 1.7; }
 .drop-body p:last-child { margin-bottom: 0; }
 
-/* ---- now ---- */
-.now-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-@media (min-width: 46rem) { .now-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 2.5rem; } }
-.now-item .n { font-family: var(--mono); font-size: 9px; color: var(--faint); margin: 0 0 0.45rem; letter-spacing: 1.05px; }
-.now-item h3 { font-size: 14px; font-weight: 500; color: var(--ink); margin: 0 0 0.15rem; }
-.now-item .org { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--accent); margin: 0 0 0.5rem; }
-.now-item p { margin: 0; color: var(--mute); max-width: 26em; font-size: 13px; line-height: 1.7; }
-
-/* ---- off hours ---- */
-.hours-grid { display: grid; grid-template-columns: 1fr; gap: 1.6rem; }
-@media (min-width: 46rem) { .hours-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.9rem 2.5rem; } }
-.hours-grid h3 { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--faint); margin: 0 0 0.35rem; }
-.hours-grid p { margin: 0; color: var(--mute); max-width: 26em; font-size: 13px; line-height: 1.7; }
+/* ---- sign-off ---- */
+.farewell {
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem); font-weight: 300; letter-spacing: -0.03em;
+  line-height: 1.3; color: var(--ink); margin: 0 0 2.5rem; max-width: 18em;
+}
+.strip { display: grid; grid-template-columns: 1fr; gap: 1.9rem; }
+@media (min-width: 46rem) { .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 1.5rem; } }
+.strip figure { margin: 0; }
+.strip .plate {
+  display: block; position: relative; aspect-ratio: 4 / 5;
+  background: var(--sunken); border-radius: 2px; overflow: hidden;
+}
+.strip .plate img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.strip figure.noimg .plate img { display: none; }
+.strip figcaption { margin-top: 0.8rem; color: var(--mute); font-size: 13px; line-height: 1.65; max-width: 26em; }
+.strip figcaption b {
+  display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--faint); font-weight: 500; margin-bottom: 0.35rem;
+}
 
 /* ---- footer ---- */
 footer.end { margin-top: 5rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; align-items: baseline; }
@@ -259,15 +285,26 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
 <aside class="rail">
   <p class="name">Zoe Zhou</p>
-  <p class="meta">
-    <span>London, UK</span>
-    <span>51.5074&deg; N, 0.1278&deg; W</span>
-    <span id="clock">GMT+0</span>
-  </p>
+  <ul class="meta">
+    <li class="here">
+      <span class="top"><b>London</b><span class="hr" data-tz="Europe/London">&nbsp;</span></span>
+      <span class="co">51.5074&deg; N, 0.1278&deg; W</span>
+    </li>
+    <li>
+      <span class="top"><b>Abu Dhabi</b><span class="hr" data-tz="Asia/Dubai">&nbsp;</span></span>
+      <span class="co">Saadiyat Island</span>
+      <span class="co">24.5393&deg; N, 54.4370&deg; E</span>
+    </li>
+    <li>
+      <span class="top"><b>Beijing</b><span class="hr" data-tz="Asia/Shanghai">&nbsp;</span></span>
+      <span class="co">Shunyi &middot; &#26085;&#31077;&#24191;&#22330;</span>
+      <span class="co">40.1300&deg; N, 116.6540&deg; E</span>
+    </li>
+  </ul>
   <nav>
     <a href="#about">About</a>
     <a href="#plan">Flight plan</a>
-    <a href="#hours">Off hours</a>
+    <a href="#signoff">Sign-off</a>
     <a href="#contact">Contact</a>
   </nav>
 </aside>
@@ -280,7 +317,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   </header>
 
   <section id="about" class="about" data-region="temporal">
-    <div class="section-head"><h2>About</h2><span class="label">Beijing &middot; Abu Dhabi &middot; London</span></div>
+    <div class="section-head"><h2>About</h2></div>
     <p>My English changed shape three times. In Beijing I spoke American, copied from a teacher. At boarding school in England it turned British inside a year.<sup class="ref"><a href="#note-1" id="ref-1">1</a></sup> In Abu Dhabi, with stretches in Riyadh, I could not copy the accent at all, so I copied something else: the manner of the Emirati women who were friends of my parents, who were courteous to everyone and certain when they spoke.</p>
     <p>They were the ones who asked what I wanted to study, what I should go and see, and what I would need to show before anyone took an idea of mine seriously.</p>
     <p>Moving that often teaches you that the same explanation does not land the same way twice. It is probably why I ended up studying how people judge what they know,<sup class="ref"><a href="#note-2" id="ref-2">2</a></sup> and why I am wary of a learning design that works in one classroom and is assumed to travel.</p>
@@ -317,7 +354,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="tl-role">Founder</p>
         <p class="text">A teachable agent. The learner teaches Miku, who is deliberately blank and answers only from what it has been taught, then predicts question by question what Miku will get right. The distance between prediction and result is the calibration measure, shown back as a map of what the learner actually managed to convey.</p>
         <ul class="outputs">
-          <li><span class="thumb">03</span><div><b>Where Miku stands</b><p>Adult friends have used it. I am interviewing parents before any child does. No child data yet, so no claim that it works.</p></div></li>
+          <li class="go"><a href="/case/miku"><span class="thumb">03</span><div><b>Where Miku stands</b><p>Adult friends have used it. I am interviewing parents before any child does. No child data yet, so no claim that it works.</p></div></a></li>
         </ul>
         </article>
 
@@ -327,7 +364,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="tl-role">Co-founder</p>
         <p class="text">One-day builds where students and engineers work with a frontier company's newest tools, and that company's engineers are in the room. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p>
         <ul class="outputs">
-          <li><span class="thumb">NB</span><div><b>The Nebius day</b><p>103 applicants, 63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening.</p></div></li>
+          <li class="go"><a href="/case/nebius"><span class="thumb">NB</span><div><b>The Nebius day</b><p>103 applicants, 63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening.</p></div></a></li>
         </ul>
         </article>
 
@@ -340,13 +377,6 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
             <li class="drop"><span class="thumb">YL</span><details><summary><b>Dr Yana Litovsky</b><span>Curiosity, guessing and misinformation.</span></summary><div class="drop-body"><p>Guess generation, processing fluency and susceptibility to misleading claims. It made me question one of my own design decisions: whether asking a learner to predict their performance anchors them to a judgement they then defend.</p></div></details></li>
             <li class="drop"><span class="thumb">SG</span><details><summary><b>Dr Sakshi Ghai</b><span>Digital safety for young people in Kenya.</span></summary><div class="drop-body"><p>Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p></div></details></li>
           </ul>
-        </article>
-
-        <article data-region="tpj" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>Hyperknow</h3></div>
-        <p class="tl-role">EMEA campaign lead</p>
-        <p class="text">Own European market entry for a team with no read on the market. I took it because of a gap I keep returning to: A-level students whose families cannot afford a personal tutor. A system that teaches course content is worth a great deal to a child who has nobody.</p>
         </article>
 
         <article data-region="motor" class="tl-entry">
@@ -384,8 +414,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         <p class="tl-role">Private equity, banking &amp; insurance group</p>
         <p class="text">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer. It taught me how a market puts a number on a product.</p>
         <ul class="outputs">
-          <li><span class="thumb">PT</span><div><b>Portuguese healthcare operator</b><p>Models for three bidders on a 40% stake at c.&euro;1.1bn EV, benchmarking 9.2 to 10.4x EV/EBITDA and &euro;287 to 330m proceeds.</p></div></li>
-          <li><span class="thumb">DE</span><div><b>German life insurance</b><p>Seven Phase II diligence workstreams consolidated into one risk and valuation tracker for investment committee.</p></div></li>
+          <li class="go"><a href="/case/fosun-portugal"><span class="thumb">PT</span><div><b>Portuguese healthcare operator</b><p>Models for three bidders on a 40% stake at c.&euro;1.1bn EV, benchmarking 9.2 to 10.4x EV/EBITDA and &euro;287 to 330m proceeds.</p></div></a></li>
+          <li class="go"><a href="/case/fosun-germany"><span class="thumb">DE</span><div><b>German life insurance</b><p>Seven Phase II diligence workstreams consolidated into one risk and valuation tracker for investment committee.</p></div></a></li>
         </ul>
         </article>
         </div>
@@ -402,14 +432,33 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         </article>
         </div>
       </section>
+    </div>
+  </section>
 
-  <section id="hours" data-region="cerebellum">
-    <div class="section-head"><h2>Off hours</h2><span class="label">Away from the desk</span></div>
-    <div class="hours-grid">
-      <div><h3>Competitive dance</h3><p>Hip-hop, commercial and contemporary. Competing in the United Kingdom.</p></div>
-      <div><h3>Earlier training</h3><p>Ballet, cello and guzheng to vocational diploma level, though I have put the instruments down.</p></div>
-      <div><h3>Curation</h3><p>Curatorial work in the UAE and Saudi Arabia.</p></div>
-      <div><h3>Languages</h3><p>Native English and Mandarin. Cantonese and French well enough to follow a room.</p></div>
+  <section id="signoff" data-region="cerebellum">
+    <div class="section-head"><h2>Sign-off</h2><span class="label">Cabin crew, doors to manual</span></div>
+    <p class="farewell">Thank you for flying with me.</p>
+    <div class="strip">
+      <!-- drop a photo at assets/photos/dance.jpg to fill this plate -->
+      <figure>
+        <span class="plate"><img src="assets/photos/dance.jpg" alt="Competing with my dance crew" loading="lazy" decoding="async"></span>
+        <figcaption><b>Competitive dance</b>Hip-hop, commercial and contemporary, competing in the United Kingdom. It is the one thing I do where being watched is the point.</figcaption>
+      </figure>
+      <!-- assets/photos/training.jpg -->
+      <figure>
+        <span class="plate"><img src="assets/photos/training.jpg" alt="At the guzheng" loading="lazy" decoding="async"></span>
+        <figcaption><b>Earlier training</b>Ballet, cello and guzheng to vocational diploma level. The instruments are down now, which I am told is temporary.</figcaption>
+      </figure>
+      <!-- assets/photos/curation.jpg -->
+      <figure>
+        <span class="plate"><img src="assets/photos/curation.jpg" alt="Hanging work for an exhibition" loading="lazy" decoding="async"></span>
+        <figcaption><b>Curation</b>Curatorial work in the UAE and Saudi Arabia, which is where I learned that an audience arrives with its own context.</figcaption>
+      </figure>
+      <!-- assets/photos/rooms.jpg -->
+      <figure>
+        <span class="plate"><img src="assets/photos/rooms.jpg" alt="A room I was working in" loading="lazy" decoding="async"></span>
+        <figcaption><b>Four languages</b>English and Mandarin natively, Cantonese and French well enough to follow a room. Most of what I know about explaining things I learned by being the one who did not follow.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -426,20 +475,31 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 (function () {
   "use strict";
 
-  var clock = document.getElementById("clock");
+  var zones = [].slice.call(document.querySelectorAll("[data-tz]"));
   function tick() {
-    try {
-      var t = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hour12: false
-      }).format(new Date());
-      var z = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/London", timeZoneName: "short"
-      }).formatToParts(new Date()).find(function (p) { return p.type === "timeZoneName"; });
-      clock.textContent = t + " " + (z ? z.value : "GMT");
-    } catch (e) {}
+    var now = new Date();
+    zones.forEach(function (el) {
+      try {
+        el.textContent = new Intl.DateTimeFormat("en-GB", {
+          timeZone: el.getAttribute("data-tz"),
+          hour: "2-digit", minute: "2-digit", hour12: false
+        }).format(now);
+      } catch (e) {}
+    });
   }
   tick();
   setInterval(tick, 20000);
+
+  /* until a photo is dropped into assets/photos/, the plate stays empty rather
+     than showing a broken-image glyph */
+  [].slice.call(document.querySelectorAll(".strip img")).forEach(function (img) {
+    function miss() {
+      var fig = img.parentNode && img.parentNode.parentNode;
+      if (fig && fig.classList) fig.classList.add("noimg");
+    }
+    if (img.complete && img.naturalWidth === 0) miss();
+    img.addEventListener("error", miss);
+  });
 
   var btn = document.getElementById("copy-email");
   var sig = document.getElementById("sig");

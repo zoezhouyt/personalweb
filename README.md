@@ -126,3 +126,40 @@ python3 -m http.server 4321 --directory .
 ```
 
 Then open http://localhost:4321. Append `?v=2` to bypass the browser cache after an edit.
+
+
+## Case pages
+
+Each output row on the flight plan that has a page of its own links to a folder
+under `case/`:
+
+| Row | Page |
+|---|---|
+| Where Miku stands | `case/miku/` |
+| The Nebius day | `case/nebius/` |
+| Portuguese healthcare operator | `case/fosun-portugal/` |
+| German life insurance | `case/fosun-germany/` |
+
+They are stubs. Each carries the paragraph that is already on the flight plan,
+a note saying the case study is still being written, and an HTML comment holding
+the scaffold to fill in. Every one of them is `<meta name="robots" content="noindex">`
+on purpose; take that line out when the page is finished.
+
+They share `assets/case.css`. `index.html` keeps its styles inline because it is
+the page that has to paint in one request, so the tokens exist in two places. If
+a colour changes, change it in both.
+
+## Photo plates
+
+The sign-off ends on four 4:5 plates fed from `assets/photos/`. See the README in
+that folder for the filenames. A plate with no file renders as an empty block,
+not a broken image, so the page is safe to ship before the photos arrive.
+
+## Why not React or three.js
+
+Asked and considered, November 2026. The page is one file of about 45KB with no
+build step. three.js is roughly 170KB gzipped and React about 45KB plus a
+toolchain; the content security policy in `vercel.json` is `script-src 'self'`,
+so a CDN would mean loosening it; and a client-rendered page is a blank screen
+when the script fails. The brain is a Canvas 2D hairline drawing on purpose, to
+match the rules and hairlines everything else is built from.

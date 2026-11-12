@@ -1,0 +1,73 @@
+/* Shared by the pages under /case. The tokens mirror index.html, which keeps its
+   styles inline because it is the page that has to paint in one request. */
+:root {
+  --paper: #fbfbfa;
+  --ink: #060606;
+  --title: #313030;
+  --text: #434445;
+  --mute: #6f6d6b;
+  --faint: #6f6d6b;
+  --rule: #e3e2e0;
+  --sunken: #f1f0ee;
+  --accent: #8e2436;
+
+  --sans: system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #191817; --ink: #f1eee9; --title: #ddd9d3; --text: #b4afa8;
+    --mute: #969087; --faint: #8b857d; --rule: #2f2d2b; --sunken: #211f1e;
+    --accent: #d4687c;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--text);
+  font-family: var(--sans); font-size: 16px; line-height: 1.7;
+  letter-spacing: -0.12px; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+img { max-width: 100%; }
+
+.wrap {
+  max-width: 40rem; margin: 0 auto;
+  padding: 3rem max(20px, env(safe-area-inset-left, 0px)) 6rem;
+}
+@media (min-width: 60rem) { .wrap { padding-top: 5rem; } }
+
+.back {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--mute); display: inline-block; margin-bottom: 3rem;
+}
+.back:hover { color: var(--accent); }
+
+.kicker {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.84px;
+  text-transform: uppercase; color: var(--faint); margin: 0 0 0.9rem;
+}
+h1 {
+  font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 300; letter-spacing: -0.03em;
+  line-height: 1.25; color: var(--ink); margin: 0 0 1.6rem;
+}
+.stand { margin: 0 0 1.15rem; max-width: 34em; }
+.stand:last-of-type { margin-bottom: 0; }
+
+.wip {
+  margin-top: 3rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+  font-size: 13px; line-height: 1.7; color: var(--mute); max-width: 34em;
+}
+
+footer.end {
+  margin-top: 4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; align-items: baseline;
+}
+footer.end a {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--mute); line-height: 1.9;
+}
+footer.end a:hover { color: var(--accent); }
