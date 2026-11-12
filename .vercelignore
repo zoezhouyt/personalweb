@@ -1,0 +1,9 @@
+# Kept in the repository, not served on the domain.
+# These are the versions of the site that came before this one, plus the
+# experiments that fed it. They are useful history and they are not for visitors.
+prototypes/
+archive/
+
+# Notes that belong to the repository rather than to the site.
+README.md
+assets/photos/README.md
