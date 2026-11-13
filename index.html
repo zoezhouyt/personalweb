@@ -132,11 +132,38 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 /* ---- about, with footnotes ---- */
 .about p { margin: 0 0 1.15rem; max-width: 34em; }
 .about p:last-of-type { margin-bottom: 0; }
-sup.ref { font-size: 9px; vertical-align: super; line-height: 0; margin-left: 1px; font-family: var(--mono); }
-sup.ref a { color: var(--accent); }
-.notes { margin: 2.5rem 0 0; padding-top: 1.1rem; border-top: 1px solid var(--rule); list-style: none; counter-reset: n; }
-.notes li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.4rem; margin-bottom: 0.7rem; font-size: 12px; line-height: 1.8; color: var(--mute); max-width: 42em; }
-.notes li::before { counter-increment: n; content: counter(n); font-family: var(--mono); font-size: 9px; color: var(--faint); padding-top: 0.3rem; }
+/* A citation is a mark in the text and a note in the gutter. Touch the mark and
+   the note appears beside the line it belongs to, rather than at the foot of the
+   page where it would have to be hunted for. Below the gutter breakpoint there is
+   nowhere to put it, so it opens under the line instead. */
+.refmark {
+  font-family: var(--mono); font-size: 9px; line-height: 0; vertical-align: super;
+  color: var(--accent); background: none; border: 0; margin: 0; padding: 0 0 0 1px;
+  cursor: help; font-variant-numeric: tabular-nums;
+}
+.refmark:hover { text-decoration: underline; }
+.note { display: none; }
+.note b {
+  font-family: var(--mono); font-size: 9px; font-weight: 500; color: var(--accent);
+  letter-spacing: 0.6px; display: block; margin-bottom: 0.3rem;
+}
+.sidenote.on .note {
+  display: block; margin: 0.65rem 0; padding-left: 0.9rem;
+  border-left: 1px solid var(--rule);
+  font-size: 12.5px; line-height: 1.7; color: var(--mute);
+}
+@media (min-width: 66rem) {
+  .about { position: relative; }
+  .note {
+    display: block; position: absolute; left: 0; top: 0; width: 18.5rem; margin: 0;
+    padding-left: 0.9rem; border-left: 1px solid var(--rule);
+    font-size: 12px; line-height: 1.75; color: var(--mute);
+    opacity: 0; transform: translateY(3px); pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .sidenote.on .note { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .note { transition: none; } }
 
 /* ---- the rail: a big sticky year, a cursor that travels, the brain riding beside it ---- */
 .tl { position: relative; }
@@ -318,20 +345,10 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
   <section id="about" class="about" data-region="temporal">
     <div class="section-head"><h2>About</h2></div>
-    <p>My English changed shape three times. In Beijing I spoke American, copied from a teacher. At boarding school in England it turned British inside a year.<sup class="ref"><a href="#note-1" id="ref-1">1</a></sup> In Abu Dhabi, with stretches in Riyadh, I could not copy the accent at all, so I copied something else: the manner of the Emirati women who were friends of my parents, who were courteous to everyone and certain when they spoke.</p>
-    <p>They were the ones who asked what I wanted to study, what I should go and see, and what I would need to show before anyone took an idea of mine seriously.</p>
-    <p>Moving that often teaches you that the same explanation does not land the same way twice. It is probably why I ended up studying how people judge what they know,<sup class="ref"><a href="#note-2" id="ref-2">2</a></sup> and why I am wary of a learning design that works in one classroom and is assumed to travel.</p>
-    <p>The question I keep returning to is calibration: the fit between how confident a learner is and how well they actually perform. Generative AI has made it urgent. A fluent answer feels like understanding, and that feeling arrives whether or not the understanding does.<sup class="ref"><a href="#note-3" id="ref-3">3</a></sup></p>
-    <p>So I build things that try to put the gap back where a learner can see it,<sup class="ref"><a href="#note-4" id="ref-4">4</a></sup> and I spend the rest of my time on the environments people learn in.<sup class="ref"><a href="#note-5" id="ref-5">5</a></sup> I have stopped two prototypes on the way here, which is the more useful half of the story.</p>
-    <p>There was also a year in private equity,<sup class="ref"><a href="#note-6" id="ref-6">6</a></sup> which taught me how a market puts a number on a product. Seeing one valued from the other side of the table changed how I think about building.</p>
-    <ol class="notes">
-      <li id="note-1">Woldingham School, 2020 to 2024. A-Levels in Maths, Psychology, Economics and Biology, with an Extended Project Qualification. A*A*A*AA.</li>
-      <li id="note-2">BSc Psychological and Behavioural Science, London School of Economics, 2024 to 2027. Expected First Class Honours.</li>
-      <li id="note-3">Dissertation supervised by Dr Luc Schneider, alongside research apprenticeships to Dr Yana Litovsky and Dr Sakshi Ghai in the LSE Department of Psychological and Behavioural Science.</li>
-      <li id="note-4">Miku, a teachable agent founded in 2026. No child has used it yet, so there is no claim that it works.</li>
-      <li id="note-5">Noetic, co-founded in 2026, and ASES London before it.</li>
-      <li id="note-6">Fosun International, Banking and Insurance Group, 2025 to 2026. Summer intern, then a return offer in the group investment team.</li>
-    </ol>
+    <p>I grew up between China, Canada and the UAE, and moved to a boarding school in England at fourteen.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 1">1</button><span class="note" role="note"><b>1</b>Woldingham School, 2020 to 2024. A-Levels in Maths, Psychology, Economics and Biology, with an Extended Project Qualification. A*A*A*AA.</span></span> I&rsquo;m now in my last year of Psychological and Behavioural Science at LSE.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 2">2</button><span class="note" role="note"><b>2</b>BSc Psychological and Behavioural Science, London School of Economics, 2024 to 2027. Expected First Class Honours.</span></span></p>
+    <p>Looking back on those moves, I can see how much I changed in each place, some of it by choice and some of it without my noticing. That made me curious about how people reflect on their own thinking, and whether anything can help them do it better. In my research, I&rsquo;ve started exploring metacognitive calibration: whether the confidence people feel in their understanding matches what they actually understand.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 3">3</button><span class="note" role="note"><b>3</b>Dissertation supervised by Dr Luc Schneider. Research assistant to Dr Yana Litovsky and Dr Sakshi Ghai, LSE Department of Psychological and Behavioural Science.</span></span></p>
+    <p>Most of what I build comes from that question. When I design a learning tool, I start from a theory of how people learn, build around it, then test it with the people it&rsquo;s for. Miku is the one I&rsquo;m working on now.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 4">4</button><span class="note" role="note"><b>4</b>Miku, 2026. Learners teach a blank AI pupil from a daily curriculum, then predict what it will get right, so they practise metacognitive calibration. It grew out of two earlier versions, a reflection chatbot and a story-relay game, both aimed at helping children reflect on their own thinking.</span></span> To better understand UI/UX for learners, I joined LinkSea to rebuild a school platform that students use every day.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 5">5</button><span class="note" role="note"><b>5</b>LinkSea, UI/UX designer, built in JavaScript for a middle school in Hong Kong. ByteDance, AI and automation summer intern, building LLM workflows for TikTok Shop sellers.</span></span></p>
+    <p>Alongside my own product, I like spending time with people who care about building as much as I do, so I build learning environments for them. With Stanford ASES London, I helped bring Stanford&rsquo;s building culture to students in London.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 6">6</button><span class="note" role="note"><b>6</b>ASES London, co-director, 2025.</span></span> I then co-founded Noetic, which runs one-day builds across Europe where AI builders learn a frontier company&rsquo;s newest tools with its engineers in the room.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 7">7</button><span class="note" role="note"><b>7</b>Noetic, co-founded 2026.</span></span></p>
   </section>
 
   <section id="plan">
@@ -489,6 +506,57 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   }
   tick();
   setInterval(tick, 20000);
+
+  /* margin notes: hover, focus or tap the mark, and the note is placed beside
+     the line it sits on. Only one is ever open. */
+  (function () {
+    var about = document.querySelector(".about");
+    if (!about) return;
+    var marks = [].slice.call(about.querySelectorAll(".sidenote"));
+    var open = null;
+    var wide = window.matchMedia("(min-width: 66rem)");
+
+    function place(sn) {
+      if (!wide.matches) return;
+      var note = sn.querySelector(".note");
+      var mark = sn.querySelector(".refmark");
+      note.style.top = (mark.getBoundingClientRect().top -
+                        about.getBoundingClientRect().top - 2) + "px";
+    }
+    function hide() {
+      if (!open) return;
+      open.classList.remove("on");
+      open.querySelector(".refmark").setAttribute("aria-expanded", "false");
+      open = null;
+    }
+    function show(sn) {
+      if (open === sn) return;
+      hide();
+      place(sn);
+      sn.classList.add("on");
+      sn.querySelector(".refmark").setAttribute("aria-expanded", "true");
+      open = sn;
+    }
+
+    marks.forEach(function (sn) {
+      var mark = sn.querySelector(".refmark");
+      sn.addEventListener("mouseenter", function () { show(sn); });
+      sn.addEventListener("mouseleave", function () { if (document.activeElement !== mark) hide(); });
+      mark.addEventListener("focus", function () { show(sn); });
+      mark.addEventListener("blur", hide);
+      /* a tap fires focus and then click. If click toggled, the note would open
+         and shut in the same tap, so click only ever opens; tapping anywhere
+         else closes. */
+      mark.addEventListener("click", function (ev) { ev.preventDefault(); show(sn); });
+    });
+    document.addEventListener("click", function (ev) {
+      if (!ev.target || !ev.target.closest || !ev.target.closest(".sidenote")) hide();
+    });
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape") hide();
+    });
+    window.addEventListener("resize", function () { if (open) place(open); });
+  })();
 
   /* until a photo is dropped into assets/photos/, the plate stays empty rather
      than showing a broken-image glyph */

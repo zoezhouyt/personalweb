@@ -5,11 +5,13 @@ Zoe Zhou's personal site. One self-contained HTML file, no build step, no framew
 ## The idea
 
 The site follows the structure and aesthetic of [mikes.cv](https://www.mikes.cv/):
-a fixed identity rail at the far left with coordinates and a live London clock, one
-narrow reading column, hairline rules, very small type, and tiny uppercase mono labels
-on an ivory ground. An About essay carries its credentials in numbered footnotes rather
-than in the prose. A Flight plan lists the legs. A Now section holds four numbered
-items. Off hours closes it.
+a fixed identity rail at the far left carrying three cities with coordinates and live
+local time, one narrow reading column, hairline rules, very small type, and tiny
+uppercase mono labels on a near-white ground. An About essay carries its credentials in
+margin notes: the citation is a mark in the text and the note appears in the left gutter
+beside the line it belongs to, on hover, focus or tap. Below 66rem there is no gutter,
+so the note opens under the line instead. A Flight plan lists the legs. A sign-off
+closes it.
 
 Content is ordered by **date**, oldest first, not by location. Earlier drafts used
 airport codes as the organising grammar; that is gone. The one deliberate departure
