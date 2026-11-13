@@ -6,7 +6,8 @@ Zoe Zhou's personal site. One self-contained HTML file, no build step, no framew
 
 The site follows the structure and aesthetic of [mikes.cv](https://www.mikes.cv/):
 a fixed identity rail at the far left carrying three cities with coordinates and live
-local time, one narrow reading column, hairline rules, very small type, and tiny
+local time (coordinates only, with `format-detection` off, so iOS does not turn them
+into tappable addresses), one narrow reading column, hairline rules, very small type, and tiny
 uppercase mono labels on a near-white ground. An About essay carries its credentials in
 margin notes: the citation is a mark in the text and the note appears in the left gutter
 beside the line it belongs to, on hover, focus or tap. Below 66rem there is no gutter,
@@ -49,12 +50,21 @@ broken rather than as a style.
 
 ### What an entry shows
 
-Four things are visible without any interaction: the brain region and a plain-language
-line on what that region does, the name and role, one sentence, and one 4:3 thumbnail.
-Six of the eight entries then hold a breakdown and their larger photos behind a
-`<details>`, which is the whole mechanism, so the fold works with JavaScript off and
-needs no script of its own. Fosun and Women in Entrepreneurship are single lines with
-nothing behind them, so they are plain `<div>`s rather than folds.
+Three things are visible without any interaction: the name and role, one sentence, and
+one 4:3 thumbnail. The region name and its gloss are printed under the brain only; they
+were on each entry for a while and read as a second headline competing with the real
+one. Five entries hold a breakdown and their larger photos behind a `<details>`, which
+is the whole mechanism, so the fold works with JavaScript off and needs no script of
+its own. Fosun and Women in Entrepreneurship are single lines with nothing behind them,
+so they are plain `<div>`s rather than folds.
+
+The LSE entry is the exception: two separate `<details>`, one per supervisor, sitting
+under its one-line description. A single breakdown would have made a reader open both
+projects to find either.
+
+Miku's heading links out to mikulearnbyteach.com. A link inside a `<summary>` would
+otherwise both follow the link and toggle the fold, so the click handler calls
+`preventDefault` and navigates by hand, leaving modifier-clicks alone.
 
 Hovering an entry scales its thumbnail by 3.5% and turns the region label and the name
 oxblood; both are dropped under `prefers-reduced-motion`. Opening a fold changes the
@@ -177,9 +187,12 @@ The sign-off ends on four 4:5 plates fed from `assets/photos/`. A plate with no
 file renders as an empty block, not a broken image.
 
 Every flight plan entry carries a 4:3 thumbnail, and a fold may hold one or two
-16:10 photos behind it, all from `assets/photos/flightplan/`. A slot with no file
-prints the filename it wants and a line saying what belongs there, so an empty
-flight plan is still a shot list. Both folders have a README naming every file.
+16:10 photos behind it, all from `assets/photos/flightplan/`. The thumbnails are
+the organisations' logos, held in a light card and contained rather than cropped,
+and that card keeps its light ground in dark mode because several of the marks are
+drawn on white. The 16:10 slots are still empty: each prints the filename it wants
+and a line saying what belongs there, so an unfilled flight plan is still a shot
+list. Both folders have a README naming every file.
 
 The fallback is the same in both cases: `index.html` listens for the image's
 `error` event and marks the plate, which hides the broken `img` and leaves the

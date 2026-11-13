@@ -1,34 +1,38 @@
 # Flight plan photos
 
-Drop files in here with these exact names. Until a file exists, its slot on the
-page shows a grey plate printing the filename and what belongs there, so nothing
-looks broken and the gap is self-explanatory.
+Two kinds of image live here.
 
-Thumbnails are cropped **4:3**, the larger photos inside a fold are **16:10**.
-Export at roughly twice the display size: about 400 x 300 for a thumbnail and
-1200 x 750 for a large one. JPEG, under ~300KB each.
+## Logos, already in place
 
-| File | What goes there | Crop |
-|---|---|---|
-| `miku-thumb.jpg` | Miku teaching screen | 4:3 |
-| `miku-predict.jpg` | The prediction step | 16:10 |
-| `miku-map.jpg` | Calibration map shown back to the learner | 16:10 |
-| `lse-thumb.jpg` | You at LSE or in the department | 4:3 |
-| `lse-notes.jpg` | Review notes or a mapping table from the Mukuru work | 16:10 |
-| `linksea-thumb.jpg` | Student interface screenshot | 4:3 |
-| `linksea-before-after.jpg` | One screen before and after the rebuild | 16:10 |
-| `noetic-thumb.jpg` | Room shot from the Nebius day | 4:3 |
-| `noetic-teams.jpg` | Teams building | 16:10 |
-| `noetic-judging.jpg` | A team presenting to judges | 16:10 |
-| `bytedance-thumb.jpg` | Office or team photo, no internal screens | 4:3 |
-| `ases-thumb.jpg` | Stanford Summit | 4:3 |
-| `ases-bootcamp.jpg` | A bootcamp session in London | 16:10 |
-| `fosun-thumb.jpg` | Office or city photo, nothing confidential | 4:3 |
-| `wie-thumb.jpg` | An event photo | 4:3 |
+Every entry's 4:3 thumbnail is the organisation's mark, held inside a light card
+and contained rather than cropped, so nothing is cut off:
 
-Fifteen slots, eight of them thumbnails. The alt text already in the page is the
-description above, so a new photo needs no code change unless the picture shows
-something different from what the description says.
+`miku-thumb.png` `lse-thumb.png` `linksea-thumb.png` `noetic-thumb.png`
+`bytedance-thumb.png` `ases-thumb.png` `fosun-thumb.png` `wie-thumb.png`
 
-Two of these carry a constraint worth keeping: the ByteDance and Fosun plates
-should show a room, a building or a team, never an internal screen or a document.
+All eight are capped at 360px on the long edge, which is twice their display
+size. The card keeps the same light ground in dark mode, because several of
+these marks are drawn on white and would otherwise glare.
+
+To swap one, replace the file and keep the name. If a file goes missing the
+plate renders as an empty block rather than a broken image.
+
+## Photos still to add
+
+These sit inside a fold and are cropped **16:10**. Until a file exists, its slot
+prints the filename and the line below, so an unfilled flight plan is still a
+shot list. Export around 1200 x 750, JPEG, under ~300KB each.
+
+| File | What goes there |
+|---|---|
+| `miku-predict.jpg` | The prediction step |
+| `miku-map.jpg` | Calibration map shown back to the learner |
+| `lse-notes.jpg` | Review notes or a mapping table from the Mukuru work |
+| `linksea-before-after.jpg` | One screen before and after the rebuild |
+| `noetic-teams.jpg` | Teams building |
+| `noetic-judging.jpg` | A team presenting to judges |
+| `ases-bootcamp.jpg` | A team presenting, or a session in London |
+
+Seven slots. The alt text already in the page is the description above, so a new
+photo needs no code change unless it shows something different from what the
+description says.
