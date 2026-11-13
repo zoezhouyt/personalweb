@@ -13,7 +13,7 @@ beside the line it belongs to, on hover, focus or tap. Below 66rem there is no g
 so the note opens under the line instead. A Flight plan lists the legs. A sign-off
 closes it.
 
-Content is ordered by **date**, oldest first, not by location. Earlier drafts used
+Content is ordered by **date**, newest first, not by location. Earlier drafts used
 airport codes as the organising grammar; that is gone. The one deliberate departure
 from the reference is the accent, which is Zoe's oxblood rather than its periwinkle.
 
@@ -22,9 +22,9 @@ engineering, not recruiters.
 
 ## Flight plan
 
-Nine entries in three year groups, newest first.
+Eight entries in three year groups, newest first.
 
-**2026** Miku, Noetic, the LSE assistantships, Hyperknow, ByteDance, LinkSea.
+**2026** Miku, the LSE assistantships, LinkSea, Noetic, ByteDance.
 **2025** ASES London, Fosun. **2024** Women in Entrepreneurship.
 
 The year is the structure. A large numeral sits in the left margin, sticky, holding the
@@ -42,13 +42,24 @@ viewport, which gives the exact x on the curve; the dot and the brain are placed
 each frame, so they lean through the bend instead of jumping between rails. Each
 entry's dot is placed the same way at its own y. The travelled portion is the same path
 drawn again in oxblood, revealed with `stroke-dasharray`, so the fill follows the curve
-by construction. The untravelled part is a solid hairline, not dashed: the reference
-dashes its rail, but on a curve at hairline contrast the gaps read as the line being
+by construction. The route ahead is dotted and the part already flown is drawn solid
+over it. The dots are a near-zero `stroke-dasharray` with round caps, not dashes: an
+earlier version used dashes and at hairline contrast the gaps read as the line being
 broken rather than as a style.
 
-Two entries hold more behind a disclosure: the LSE entry opens into the Litovsky and
-Ghai projects, and ASES opens into the bootcamp, sponsorship and Stanford summit. Any
-output row can take the same treatment.
+### What an entry shows
+
+Four things are visible without any interaction: the brain region and a plain-language
+line on what that region does, the name and role, one sentence, and one 4:3 thumbnail.
+Six of the eight entries then hold a breakdown and their larger photos behind a
+`<details>`, which is the whole mechanism, so the fold works with JavaScript off and
+needs no script of its own. Fosun and Women in Entrepreneurship are single lines with
+nothing behind them, so they are plain `<div>`s rather than folds.
+
+Hovering an entry scales its thumbnail by 3.5% and turns the region label and the name
+oxblood; both are dropped under `prefers-reduced-motion`. Opening a fold changes the
+height of the timeline, which the `ResizeObserver` on `.tl` already watches, so the
+curve and every dot are rebuilt against the new layout.
 
 Education, the dissertation and the Now section are deliberately absent. The first two
 are in the About footnotes; the third said nothing the entries did not.
@@ -67,17 +78,27 @@ and the camera eases to the yaw and pitch that turn that region to face you.
 
 | Region | Holds | Shown as |
 |---|---|---|
-| Hippocampus | Miku | where learning turns into memory |
-| Temporoparietal junction | Noetic, Hyperknow, ASES, WiE | taking someone else's point of view |
-| Prefrontal cortex | the LSE assistantships | judgement, and knowing what you know |
-| Motor cortex | ByteDance | turning a decision into action |
-| Occipital cortex | LinkSea | making sense of what you see |
+| Anterior prefrontal cortex | Miku | judging how well you know something |
+| Anterior cingulate cortex | the LSE assistantships | noticing when something doesn't add up |
+| Dorsal visual stream | LinkSea | seeing something and knowing how to act on it |
+| Hippocampus | Noetic | where new learning gets laid down |
+| Basal ganglia | ByteDance | turning repeated actions into routines |
+| Ventral striatum | ASES London | the pull to try something new |
 | Orbitofrontal cortex | Fosun | working out what something is worth |
+| Temporoparietal junction | Women in Entrepreneurship | seeing from someone else's point of view |
 | Temporal lobe | About | language, and the meaning carried in it |
-| Cerebellum | Off hours | timing, and skill built by repetition |
+| Cerebellum | the sign-off | timing, and skill built by repetition |
 
-The third column is printed under the brain, because a region name on its own means
-nothing to a reader who has not studied neuroscience.
+One region per entry now, where several used to share the temporoparietal junction.
+The third column is printed under the brain and again on the entry itself, because a
+region name on its own means nothing to a reader who has not studied neuroscience.
+
+Three of these regions sit deep inside the brain rather than on its surface: the basal
+ganglia, the ventral striatum and the anterior cingulate. The lit patch used to be a
+sphere around the anchor point, which could not reach them, so those regions lit nothing
+at all. It is now an angular neighbourhood of the anchor's direction, which lights the
+surface above a deep structure, at the same apparent size the sphere gave. The drawing
+is a hairline atlas, not a dissection, and this is the honest version of that compromise.
 
 The parietal anchor is defined but unused since the LSE entry went. Harmless, and there
 if something numerical earns it later.
@@ -132,15 +153,12 @@ Then open http://localhost:4321. Append `?v=2` to bypass the browser cache after
 
 ## Case pages
 
-Each output row on the flight plan that has a page of its own links to a folder
-under `case/`:
+Two flight plan entries link to a page of their own, from inside the fold:
 
-| Row | Page |
+| Entry | Page |
 |---|---|
-| Where Miku stands | `case/miku/` |
-| The Nebius day | `case/nebius/` |
-| Portuguese healthcare operator | `case/fosun-portugal/` |
-| German life insurance | `case/fosun-germany/` |
+| Miku | `case/miku/` |
+| Noetic, the Nebius day | `case/nebius/` |
 
 They are stubs. Each carries the paragraph that is already on the flight plan,
 a note saying the case study is still being written, and an HTML comment holding
@@ -153,9 +171,20 @@ a colour changes, change it in both.
 
 ## Photo plates
 
-The sign-off ends on four 4:5 plates fed from `assets/photos/`. See the README in
-that folder for the filenames. A plate with no file renders as an empty block,
-not a broken image, so the page is safe to ship before the photos arrive.
+Two sets, both safe to ship before the photos arrive.
+
+The sign-off ends on four 4:5 plates fed from `assets/photos/`. A plate with no
+file renders as an empty block, not a broken image.
+
+Every flight plan entry carries a 4:3 thumbnail, and a fold may hold one or two
+16:10 photos behind it, all from `assets/photos/flightplan/`. A slot with no file
+prints the filename it wants and a line saying what belongs there, so an empty
+flight plan is still a shot list. Both folders have a README naming every file.
+
+The fallback is the same in both cases: `index.html` listens for the image's
+`error` event and marks the plate, which hides the broken `img` and leaves the
+placeholder showing. With JavaScript off a missing photo shows its alt text
+instead, which is the same description the placeholder prints.
 
 ## Why not React or three.js
 

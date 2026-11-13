@@ -244,38 +244,88 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   .tl-entry.is-now .tl-dot::after { background: var(--accent); }
 }
 
-.tl-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.7rem; }
-.tl-top h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0; }
-.tl-role { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--faint); margin: 0.45rem 0 0.85rem; }
-.tl-entry p.text { margin: 0 0 0.8rem; max-width: 34em; }
-.tl-entry p.text:last-child { margin-bottom: 0; }
+/* ---- a flight-plan entry ---- */
+/* Always visible: the region and what it does, the name and role, one line, one
+   plate. The breakdown and the bigger photos sit behind a <details>, so the fold
+   works with no JavaScript at all. */
+.tl-grid { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0 1rem; min-width: 0; }
+.tl-grid > .shot { grid-column: 1; grid-row: 1 / span 20; }
+.tl-grid > :not(.shot) { grid-column: 2; }
+@media (min-width: 46rem) { .tl-grid { grid-template-columns: 8rem minmax(0, 1fr); gap: 0 1.3rem; } }
 
-.outputs { list-style: none; margin: 1.35rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
-.outputs li { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.95rem; align-items: start; max-width: 34em; }
-.thumb { width: 2.6rem; height: 2.6rem; background: var(--sunken); border-radius: 2px; display: grid; place-items: center; font-family: var(--mono); font-size: 10px; letter-spacing: 0.6px; color: var(--faint); }
-.outputs b { font-weight: 500; display: block; font-size: 14px; color: var(--title); line-height: 1.5; }
-.outputs p { margin: 0.15rem 0 0; color: var(--mute); font-size: 13px; line-height: 1.65; }
+.tl-fold { min-width: 0; }
+.tl-fold > summary { cursor: pointer; list-style: none; }
+.tl-fold > summary::-webkit-details-marker { display: none; }
 
-/* an output row that opens a page of its own */
-.outputs li.go { display: block; }
-.outputs li.go > a {
-  display: grid; grid-template-columns: 2.6rem minmax(0, 1fr);
-  gap: 0.95rem; align-items: start;
+/* name over gloss, the same two-line shape the atlas caption uses. Side by side
+   they wrapped mid-phrase at this column width and left a word hanging. */
+.tl-reg { display: block; margin-bottom: 0.55rem; }
+.tl-reg b {
+  display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--faint); font-weight: 500; transition: color 0.18s ease;
 }
-.outputs li.go b::after { content: " \2192"; color: var(--accent); font-family: var(--mono); font-size: 11px; }
-.outputs li.go > a:hover b { color: var(--accent); }
-.outputs li.go > a:hover .thumb { color: var(--accent); }
+.tl-reg i {
+  display: block; font-style: normal; font-size: 11.5px; line-height: 1.5;
+  color: var(--mute); margin-top: 0.1rem; max-width: 26em;
+}
 
-/* an output row with more behind it */
-.drop details { min-width: 0; }
-.drop summary { cursor: pointer; display: block; list-style: none; }
-.drop summary::-webkit-details-marker { display: none; }
-.drop summary b::after { content: " +"; color: var(--accent); font-family: var(--mono); font-size: 11px; }
-.drop details[open] summary b::after { content: " \2212"; }
-.drop summary span { display: block; color: var(--mute); font-size: 13px; line-height: 1.65; margin-top: 0.15rem; }
-.drop-body { margin-top: 0.7rem; padding-left: 0.9rem; border-left: 1px solid var(--rule); }
-.drop-body p { margin: 0 0 0.55rem; color: var(--mute); font-size: 12.5px; line-height: 1.7; }
-.drop-body p:last-child { margin-bottom: 0; }
+.tl-grid h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0; transition: color 0.18s ease; }
+.tl-role {
+  display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--faint); margin: 0.35rem 0 0.7rem;
+}
+.tl-line { display: block; color: var(--text); max-width: 34em; }
+.tl-open {
+  display: block; margin-top: 0.75rem; font-family: var(--mono); font-size: 9px;
+  letter-spacing: 1.05px; text-transform: uppercase; color: var(--mute);
+}
+.tl-open::before { content: "Breakdown"; }
+.tl-open::after { content: " +"; color: var(--accent); }
+.tl-fold[open] .tl-open::before { content: "Close"; }
+.tl-fold[open] .tl-open::after { content: " \2212"; }
+
+/* a photo slot. Until the file is dropped in, the plate shows the filename and
+   what belongs there, so an empty slot still says what to shoot. */
+.shot { display: block; position: relative; overflow: hidden; background: var(--sunken); border-radius: 2px; }
+.shot-t { aspect-ratio: 4 / 3; }
+.shot-x { aspect-ratio: 16 / 10; }
+.shot-in {
+  position: absolute; inset: 0; display: grid; align-content: center; gap: 0.25rem;
+  padding: 0.45rem; text-align: center; overflow: hidden; transition: transform 0.25s ease;
+}
+.shot-in img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot.noimg img { display: none; }
+.shot em {
+  font-style: normal; font-family: var(--mono); font-size: 8px; letter-spacing: 0.3px;
+  line-height: 1.3; color: var(--mute); overflow-wrap: anywhere;
+}
+.shot .cap { font-size: 9.5px; line-height: 1.35; color: var(--faint); }
+.shot-x em { font-size: 10px; }
+.shot-x .cap { font-size: 11.5px; }
+
+@media (hover: hover) {
+  .tl-fold > summary:hover .shot-in { transform: scale(1.035); }
+  .tl-fold > summary:hover .tl-reg b { color: var(--accent); }
+  .tl-fold > summary:hover h3 { color: var(--accent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shot-in, .tl-reg b, .tl-grid h3 { transition: none; }
+  .tl-fold > summary:hover .shot-in { transform: none; }
+}
+
+.fold-body { margin-top: 1.15rem; padding-left: 0.9rem; border-left: 1px solid var(--rule); }
+@media (min-width: 46rem) { .fold-body { margin-left: 9.3rem; } }
+.fold-body p { margin: 0 0 0.7rem; max-width: 34em; font-size: 13.5px; line-height: 1.7; color: var(--mute); }
+.fold-body p:last-child { margin-bottom: 0; }
+.fold-body p b { font-weight: 500; color: var(--title); }
+.fold-body a.more {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--accent);
+}
+.fold-body a.more::after { content: " \2192"; }
+.fold-body a.more:hover { text-decoration: underline; }
+.plates { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.25rem; max-width: 34em; }
+@media (min-width: 52rem) { .plates { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); } }
 
 /* ---- sign-off ---- */
 .farewell {
@@ -352,7 +402,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   </section>
 
   <section id="plan">
-    <div class="section-head"><h2>Flight plan</h2><span class="label">2020 &rarr; now</span></div>
+    <div class="section-head"><h2>Flight plan</h2><span class="label">2024 &rarr; now</span></div>
 
     <div class="tl">
     <svg class="tl-path" aria-hidden="true"><path class="base"></path><path class="lit"></path></svg>
@@ -365,88 +415,172 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
       <section class="tl-group" style="--rx: 7.5rem">
         <p class="tl-yr">2026</p>
         <div class="tl-rows">
+
+        <article data-region="apfc" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <details class="tl-fold">
+            <summary class="tl-grid">
+              <span class="shot shot-t"><span class="shot-in"><em>miku-thumb.jpg</em><span class="cap">Miku teaching screen</span><img src="/assets/photos/flightplan/miku-thumb.jpg" alt="Miku teaching screen" loading="lazy" decoding="async"></span></span>
+              <span class="tl-reg"><b>Anterior prefrontal cortex</b><i>judging how well you know something</i></span>
+              <h3>Miku</h3>
+              <span class="tl-role">Founder</span>
+              <span class="tl-line">A teachable AI that helps learners practise metacognitive calibration.</span>
+              <span class="tl-open" aria-hidden="true"></span>
+            </summary>
+            <div class="fold-body">
+              <p><b>How it works.</b> The learner teaches Miku, an AI pupil that starts blank and answers only from what it has been taught. Before each question, the learner predicts whether Miku will get it right. The gap between prediction and result is the calibration measure.</p>
+              <p><b>Where it came from.</b> Two earlier versions, a reflection chatbot and a story-relay game, both aimed at helping children reflect on their own thinking.</p>
+              <p><b>Where it stands.</b> Adult friends have used it. I&rsquo;m interviewing parents before any child does.</p>
+              <p><a class="more" href="/case/miku">Case study</a></p>
+              <div class="plates">
+                <span class="shot shot-x"><span class="shot-in"><em>miku-predict.jpg</em><span class="cap">Prediction step</span><img src="/assets/photos/flightplan/miku-predict.jpg" alt="Prediction step" loading="lazy" decoding="async"></span></span>
+                <span class="shot shot-x"><span class="shot-in"><em>miku-map.jpg</em><span class="cap">Calibration map shown back to the learner</span><img src="/assets/photos/flightplan/miku-map.jpg" alt="Calibration map shown back to the learner" loading="lazy" decoding="async"></span></span>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article data-region="acc" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <details class="tl-fold">
+            <summary class="tl-grid">
+              <span class="shot shot-t"><span class="shot-in"><em>lse-thumb.jpg</em><span class="cap">Me at LSE or in the department</span><img src="/assets/photos/flightplan/lse-thumb.jpg" alt="Me at LSE or in the department" loading="lazy" decoding="async"></span></span>
+              <span class="tl-reg"><b>Anterior cingulate cortex</b><i>noticing when something doesn&rsquo;t add up</i></span>
+              <h3>LSE, Department of Psychological and Behavioural Science</h3>
+              <span class="tl-role">Research assistant</span>
+              <span class="tl-line">Two research projects on how people judge what they know.</span>
+              <span class="tl-open" aria-hidden="true"></span>
+            </summary>
+            <div class="fold-body">
+              <p><b>Dr Yana Litovsky: curiosity, guessing and misinformation.</b> How guessing and processing fluency affect susceptibility to misleading claims. It made me ask whether Miku&rsquo;s prediction step anchors learners to their first judgement.</p>
+              <p><b>Dr Sakshi Ghai: digital safety for young people in Kenya.</b> I reviewed digital-safety interventions and mapped which might suit young people in Mukuru. It made me rethink my first chatbot, which invited children to confide in an AI.</p>
+              <div class="plates">
+                <span class="shot shot-x"><span class="shot-in"><em>lse-notes.jpg</em><span class="cap">Review notes or a mapping table from the Mukuru work</span><img src="/assets/photos/flightplan/lse-notes.jpg" alt="Review notes or a mapping table from the Mukuru work" loading="lazy" decoding="async"></span></span>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article data-region="dorsal" class="tl-entry">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <details class="tl-fold">
+            <summary class="tl-grid">
+              <span class="shot shot-t"><span class="shot-in"><em>linksea-thumb.jpg</em><span class="cap">Student interface screenshot</span><img src="/assets/photos/flightplan/linksea-thumb.jpg" alt="Student interface screenshot" loading="lazy" decoding="async"></span></span>
+              <span class="tl-reg"><b>Dorsal visual stream</b><i>seeing something and knowing how to act on it</i></span>
+              <h3>LinkSea</h3>
+              <span class="tl-role">UI/UX designer</span>
+              <span class="tl-line">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</span>
+              <span class="tl-open" aria-hidden="true"></span>
+            </summary>
+            <div class="fold-body">
+              <p><b>What I built.</b> The student interface, in JavaScript. The platform also has interfaces for teachers and administrators.</p>
+              <p><b>How I tested it.</b> With the students themselves. I rebuilt the parts they couldn&rsquo;t complete.</p>
+              <div class="plates">
+                <span class="shot shot-x"><span class="shot-in"><em>linksea-before-after.jpg</em><span class="cap">One screen before and after the rebuild</span><img src="/assets/photos/flightplan/linksea-before-after.jpg" alt="One screen before and after the rebuild" loading="lazy" decoding="async"></span></span>
+              </div>
+            </div>
+          </details>
+        </article>
+
         <article data-region="hippocampus" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>Miku</h3></div>
-        <p class="tl-role">Founder</p>
-        <p class="text">A teachable agent. The learner teaches Miku, who is deliberately blank and answers only from what it has been taught, then predicts question by question what Miku will get right. The distance between prediction and result is the calibration measure, shown back as a map of what the learner actually managed to convey.</p>
-        <ul class="outputs">
-          <li class="go"><a href="/case/miku"><span class="thumb">03</span><div><b>Where Miku stands</b><p>Adult friends have used it. I am interviewing parents before any child does. No child data yet, so no claim that it works.</p></div></a></li>
-        </ul>
+          <details class="tl-fold">
+            <summary class="tl-grid">
+              <span class="shot shot-t"><span class="shot-in"><em>noetic-thumb.jpg</em><span class="cap">Room shot from the Nebius day</span><img src="/assets/photos/flightplan/noetic-thumb.jpg" alt="Room shot from the Nebius day" loading="lazy" decoding="async"></span></span>
+              <span class="tl-reg"><b>Hippocampus</b><i>where new learning gets laid down</i></span>
+              <h3>Noetic</h3>
+              <span class="tl-role">Co-founder</span>
+              <span class="tl-line">One-day builds where AI builders learn a frontier company&rsquo;s newest tools with its engineers in the room.</span>
+              <span class="tl-open" aria-hidden="true"></span>
+            </summary>
+            <div class="fold-body">
+              <p><b>How a day is designed.</b> Tracks are split by experience, so first-timers aren&rsquo;t scored against people who have already shipped. Judges reward teams that can explain why they chose a model.</p>
+              <p><b>The Nebius day.</b> 103 applicants, 63 selected, and all 63 came.</p>
+              <p><a class="more" href="/case/nebius">Case study</a></p>
+              <div class="plates">
+                <span class="shot shot-x"><span class="shot-in"><em>noetic-teams.jpg</em><span class="cap">Teams building</span><img src="/assets/photos/flightplan/noetic-teams.jpg" alt="Teams building" loading="lazy" decoding="async"></span></span>
+                <span class="shot shot-x"><span class="shot-in"><em>noetic-judging.jpg</em><span class="cap">A team presenting to judges</span><img src="/assets/photos/flightplan/noetic-judging.jpg" alt="A team presenting to judges" loading="lazy" decoding="async"></span></span>
+              </div>
+            </div>
+          </details>
         </article>
 
-        <article data-region="tpj" class="tl-entry">
+        <article data-region="basal" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>Noetic</h3></div>
-        <p class="tl-role">Co-founder</p>
-        <p class="text">One-day builds where students and engineers work with a frontier company's newest tools, and that company's engineers are in the room. Tracks are split by experience, so a first-timer is never scored against someone who has already shipped. Judging rewards whether a team can explain why they chose a model, ahead of how finished it looks.</p>
-        <ul class="outputs">
-          <li class="go"><a href="/case/nebius"><span class="thumb">NB</span><div><b>The Nebius day</b><p>103 applicants, 63 selected, and 63 came. Those are attendance numbers. They say nothing about whether anyone learned something that lasted past the evening.</p></div></a></li>
-        </ul>
+          <details class="tl-fold">
+            <summary class="tl-grid">
+              <span class="shot shot-t"><span class="shot-in"><em>bytedance-thumb.jpg</em><span class="cap">Office or team photo; no internal screens</span><img src="/assets/photos/flightplan/bytedance-thumb.jpg" alt="Office or team photo, no internal screens" loading="lazy" decoding="async"></span></span>
+              <span class="tl-reg"><b>Basal ganglia</b><i>turning repeated actions into routines</i></span>
+              <h3>ByteDance</h3>
+              <span class="tl-role">AI &amp; automation summer project intern</span>
+              <span class="tl-line">Built LLM automation for policy-enforcement messaging across TikTok Shop.</span>
+              <span class="tl-open" aria-hidden="true"></span>
+            </summary>
+            <div class="fold-body">
+              <p><b>What I built.</b> More than 40 prompt-based workflows. Seller satisfaction rose from 5% to around 70% within a month.</p>
+              <p><b>Adoption.</b> I trained a ten-person team, and over 200 policy staff adopted the procedure.</p>
+            </div>
+          </details>
         </article>
 
-        <article data-region="prefrontal" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <div class="tl-top"><h3>LSE, Department of Psychological and Behavioural Science</h3></div>
-          <p class="tl-role">Research assistant</p>
-          <p class="text">Two projects in the department, both about how people judge what they know.</p>
-          <ul class="outputs">
-            <li class="drop"><span class="thumb">YL</span><details><summary><b>Dr Yana Litovsky</b><span>Curiosity, guessing and misinformation.</span></summary><div class="drop-body"><p>Guess generation, processing fluency and susceptibility to misleading claims. It made me question one of my own design decisions: whether asking a learner to predict their performance anchors them to a judgement they then defend.</p></div></details></li>
-            <li class="drop"><span class="thumb">SG</span><details><summary><b>Dr Sakshi Ghai</b><span>Digital safety for young people in Kenya.</span></summary><div class="drop-body"><p>Reviewed digital-safety interventions and mapped which might suit young people in Mukuru, Kenya. An intervention can be coherent inside a framework and still miss how a community meets risk. It also made me look again at my own chatbot, which was inviting children to confide in an AI.</p></div></details></li>
-          </ul>
-        </article>
-
-        <article data-region="motor" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>ByteDance</h3></div>
-        <p class="tl-role">AI &amp; automation summer project intern</p>
-        <p class="text">Built LLM-powered automation for policy-enforcement messaging across TikTok Shop. More than 40 prompt-based workflows, seller satisfaction up from 5% to around 70% within a month, a ten-person team trained, and a procedure adopted by over 200 policy staff.</p>
-        </article>
-
-        <article data-region="occipital" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>LinkSea</h3></div>
-        <p class="tl-role">UI/UX designer</p>
-        <p class="text">Built the student-facing interface of a school workflow platform in JavaScript, one of three interfaces, for a middle school in Hong Kong. Field-tested it with the students themselves, then rebuilt the parts they could not complete.</p>
-        </article>
         </div>
       </section>
 
       <section class="tl-group" style="--rx: 11rem">
         <p class="tl-yr">2025</p>
         <div class="tl-rows">
-        <article data-region="tpj" class="tl-entry">
+
+        <article data-region="striatum" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-          <div class="tl-top"><h3>ASES London</h3></div>
-          <p class="tl-role">Co-director &middot; Affiliated Stanford Entrepreneurial Students</p>
-          <p class="text">The programme that came before Noetic, and the first environment I had to design rather than attend.</p>
-          <ul class="outputs">
-            <li class="drop"><span class="thumb">AS</span><details><summary><b>What it involved</b><span>Bootcamp, sponsorship, and the Stanford summit.</span></summary><div class="drop-body"><p>Won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter. I have been invited back to Stanford each year since. It was the first environment I had to design rather than attend.</p><p>AS A ten-week bootcamp Around 70 fellows selected, the programme designed, and &pound;5k of sponsorship secured.</p><p>SU LSESU Entrepreneurs Two years on the executive. Rebuilt recruitment, onboarding and cross-team planning; membership grew 40%.</p></div></details></li>
-          </ul>
+          <details class="tl-fold">
+            <summary class="tl-grid">
+              <span class="shot shot-t"><span class="shot-in"><em>ases-thumb.jpg</em><span class="cap">Stanford Summit</span><img src="/assets/photos/flightplan/ases-thumb.jpg" alt="Stanford Summit" loading="lazy" decoding="async"></span></span>
+              <span class="tl-reg"><b>Ventral striatum</b><i>the pull to try something new</i></span>
+              <h3>ASES London</h3>
+              <span class="tl-role">Co-director &middot; Affiliated Stanford Entrepreneurial Students</span>
+              <span class="tl-line">Brought Stanford&rsquo;s building culture to students in London.</span>
+              <span class="tl-open" aria-hidden="true"></span>
+            </summary>
+            <div class="fold-body">
+              <p><b>How I got there.</b> I won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter.</p>
+              <p><b>The bootcamp.</b> I designed a ten-week programme for around 70 selected fellows and secured &pound;5k of sponsorship.</p>
+              <p><b>LSESU Entrepreneurs.</b> Two years on the executive. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%.</p>
+              <div class="plates">
+                <span class="shot shot-x"><span class="shot-in"><em>ases-bootcamp.jpg</em><span class="cap">A bootcamp session in London</span><img src="/assets/photos/flightplan/ases-bootcamp.jpg" alt="A bootcamp session in London" loading="lazy" decoding="async"></span></span>
+              </div>
+            </div>
+          </details>
         </article>
 
         <article data-region="orbital" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-      <div class="tl-top"><h3>Fosun International</h3></div>
-        <p class="tl-role">Private equity, banking &amp; insurance group</p>
-        <p class="text">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer. It taught me how a market puts a number on a product.</p>
-        <ul class="outputs">
-          <li class="go"><a href="/case/fosun-portugal"><span class="thumb">PT</span><div><b>Portuguese healthcare operator</b><p>Models for three bidders on a 40% stake at c.&euro;1.1bn EV, benchmarking 9.2 to 10.4x EV/EBITDA and &euro;287 to 330m proceeds.</p></div></a></li>
-          <li class="go"><a href="/case/fosun-germany"><span class="thumb">DE</span><div><b>German life insurance</b><p>Seven Phase II diligence workstreams consolidated into one risk and valuation tracker for investment committee.</p></div></a></li>
-        </ul>
+          <div class="tl-grid">
+            <span class="shot shot-t"><span class="shot-in"><em>fosun-thumb.jpg</em><span class="cap">Office or city photo; nothing confidential</span><img src="/assets/photos/flightplan/fosun-thumb.jpg" alt="Office or city photo, nothing confidential" loading="lazy" decoding="async"></span></span>
+            <span class="tl-reg"><b>Orbitofrontal cortex</b><i>working out what something is worth</i></span>
+            <h3>Fosun International</h3>
+            <span class="tl-role">Private equity, banking &amp; insurance group</span>
+            <span class="tl-line">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.</span>
+          </div>
         </article>
+
         </div>
       </section>
 
       <section class="tl-group" style="--rx: 14.5rem">
         <p class="tl-yr">2024</p>
         <div class="tl-rows">
+
         <article data-region="tpj" class="tl-entry">
           <span class="tl-dot" aria-hidden="true"></span>
-          <div class="tl-top"><h3>Women in Entrepreneurship</h3></div>
-          <p class="tl-role">Event project director &middot; LSESU Entrepreneurs</p>
-          <p class="text">Directed the events programme for Women in Entrepreneurship within LSESU Entrepreneurs.</p>
+          <div class="tl-grid">
+            <span class="shot shot-t"><span class="shot-in"><em>wie-thumb.jpg</em><span class="cap">An event photo</span><img src="/assets/photos/flightplan/wie-thumb.jpg" alt="An event photo" loading="lazy" decoding="async"></span></span>
+            <span class="tl-reg"><b>Temporoparietal junction</b><i>seeing from someone else&rsquo;s point of view</i></span>
+            <h3>Women in Entrepreneurship</h3>
+            <span class="tl-role">Event project director &middot; LSESU Entrepreneurs</span>
+            <span class="tl-line">Directed the events programme for Women in Entrepreneurship.</span>
+          </div>
         </article>
+
         </div>
       </section>
     </div>
@@ -558,12 +692,13 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     window.addEventListener("resize", function () { if (open) place(open); });
   })();
 
-  /* until a photo is dropped into assets/photos/, the plate stays empty rather
-     than showing a broken-image glyph */
-  [].slice.call(document.querySelectorAll(".strip img")).forEach(function (img) {
+  /* until a photo is dropped in, the plate falls back to its placeholder rather
+     than showing a broken-image glyph. The sign-off marks the figure, a flight
+     plan slot marks the plate itself. */
+  [].slice.call(document.querySelectorAll(".strip img, .shot img")).forEach(function (img) {
     function miss() {
-      var fig = img.parentNode && img.parentNode.parentNode;
-      if (fig && fig.classList) fig.classList.add("noimg");
+      var box = img.closest(".shot") || img.closest("figure");
+      if (box) box.classList.add("noimg");
     }
     if (img.complete && img.naturalWidth === 0) miss();
     img.addEventListener("error", miss);
@@ -602,27 +737,31 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   var canvas = document.getElementById("atlas");
   if (!canvas || !canvas.getContext) return;
 
+  /* x anterior, y superior, z lateral. Deep structures are given the direction
+     of the surface above them: the drawing is a hairline atlas, not a dissection. */
   var ANCHOR = {
-    temporal:    [ 0.10, -0.26, 0.23],
+    apfc:        [ 0.46,  0.06, 0.12],
+    acc:         [ 0.24,  0.20, 0.04],
+    dorsal:      [-0.28,  0.24, 0.14],
     hippocampus: [ 0.02, -0.12, 0.18],
-    prefrontal:  [ 0.42,  0.12, 0.13],
-    parietal:    [-0.20,  0.24, 0.13],
+    basal:       [ 0.14,  0.00, 0.12],
+    striatum:    [ 0.26, -0.12, 0.09],
     orbital:     [ 0.36, -0.15, 0.12],
     tpj:         [-0.26, -0.06, 0.20],
-    motor:       [ 0.07,  0.30, 0.13],
-    cerebellum:  [-0.36, -0.30, 0.14],
-    occipital:   [-0.46,  0.02, 0.08]
+    temporal:    [ 0.10, -0.26, 0.23],
+    cerebellum:  [-0.36, -0.30, 0.14]
   };
   var NAME = {
-    temporal:    ["Temporal lobe", "language, and the meaning carried in it"],
-    hippocampus: ["Hippocampus", "where learning turns into memory"],
-    prefrontal:  ["Prefrontal cortex", "judgement, and knowing what you know"],
-    parietal:    ["Parietal cortex", "number, space and scale"],
+    apfc:        ["Anterior prefrontal cortex", "judging how well you know something"],
+    acc:         ["Anterior cingulate cortex", "noticing when something doesn't add up"],
+    dorsal:      ["Dorsal visual stream", "seeing something and knowing how to act on it"],
+    hippocampus: ["Hippocampus", "where new learning gets laid down"],
+    basal:       ["Basal ganglia", "turning repeated actions into routines"],
+    striatum:    ["Ventral striatum", "the pull to try something new"],
     orbital:     ["Orbitofrontal cortex", "working out what something is worth"],
-    tpj:         ["Temporoparietal junction", "taking someone else's point of view"],
-    motor:       ["Motor cortex", "turning a decision into action"],
-    cerebellum:  ["Cerebellum", "timing, and skill built by repetition"],
-    occipital:   ["Occipital cortex", "making sense of what you see"]
+    tpj:         ["Temporoparietal junction", "seeing from someone else's point of view"],
+    temporal:    ["Temporal lobe", "language, and the meaning carried in it"],
+    cerebellum:  ["Cerebellum", "timing, and skill built by repetition"]
   };
 
   function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0]/m, v[1]/m, v[2]/m]; }
@@ -707,43 +846,25 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     return pts;
   }
 
-  var KEYS = Object.keys(ANCHOR), SEATS = [];
-  KEYS.forEach(function (k) {
-    if (k === "hippocampus") return;
-    [1, -1].forEach(function (sg) {
-      SEATS.push({ k: k, p: [ANCHOR[k][0]*SQ[0], ANCHOR[k][1]*SQ[1], sg*ANCHOR[k][2]*SQ[2]] });
-    });
-  });
-  function regionAt(p) {
-    var best = SEATS[0].k, bd = Infinity, i, a, dx, dy, dz, d;
-    for (i = 0; i < SEATS.length; i++) {
-      a = SEATS[i].p; dx = p[0]-a[0]; dy = p[1]-a[1]; dz = p[2]-a[2];
-      d = dx*dx + dy*dy + dz*dz;
-      if (d < bd) { bd = d; best = SEATS[i].k; }
-    }
-    return best;
-  }
-
   var fibres = [], i, pts;
   function push(pts) { fibres.push({ pts: pts, mid: pts[Math.floor(pts.length / 2)] }); }
   for (i = 0; i < 260; i++) { push(walk(CEREBRUM, 1.0, [0, 0.02, 0], 22, 0.082, 0.55, true, null)); }
   for (i = 0; i < 70; i++) { push(walk(CEREBELLUM, 0.92, [-0.39, -0.27, 0], 14, 0.085, 0, false, [0, 0, 1])); }
 
-  /* Light a fixed radius around the anchor rather than a nearest-anchor partition.
-     The partition handed whole lobes to one region, so a third of the drawing lit up. */
-  var LIT_R2 = 0.042, focusSeats = null;
+  /* Light an angular neighbourhood of the anchor rather than a sphere around it.
+     A sphere could not reach the basal ganglia or the striatum, which sit well
+     inside the drawn surface, so those regions lit nothing at all. The angle is
+     the one the old radius subtended, so the patch is the same size as before. */
+  var LIT_COS = 0.934, focusDirs = null;
   function setFocusSeats(k) {
-    if (!k || !ANCHOR[k]) { focusSeats = null; return; }
-    var a = ANCHOR[k];
-    focusSeats = [[a[0]*SQ[0], a[1]*SQ[1], a[2]*SQ[2]], [a[0]*SQ[0], a[1]*SQ[1], -a[2]*SQ[2]]];
+    if (!k || !ANCHOR[k]) { focusDirs = null; return; }
+    var a = ANCHOR[k], x = a[0]*SQ[0], y = a[1]*SQ[1], z = a[2]*SQ[2];
+    focusDirs = [norm([x, y, z]), norm([x, y, -z])];
   }
   function near(pt) {
-    if (!focusSeats) return false;
-    var s, dx, dy, dz, n;
-    for (n = 0; n < 2; n++) {
-      s = focusSeats[n]; dx = pt[0]-s[0]; dy = pt[1]-s[1]; dz = pt[2]-s[2];
-      if (dx*dx + dy*dy + dz*dz < LIT_R2) return true;
-    }
+    if (!focusDirs) return false;
+    var u = norm(pt), n;
+    for (n = 0; n < 2; n++) { if (dot(u, focusDirs[n]) > LIT_COS) return true; }
     return false;
   }
 
