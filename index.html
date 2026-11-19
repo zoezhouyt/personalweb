@@ -261,6 +261,10 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
   text-transform: uppercase; color: var(--faint); margin: 0.35rem 0 0.7rem;
 }
+/* the grouping is printed here as well as under the brain, so the drawing is
+   never the only place a reader can learn which kind of work this is */
+.xp-cat { color: var(--accent); }
+.xp-cat::after { content: " \00B7 "; color: var(--faint); }
 .xp-sum { margin: 0; color: var(--text); max-width: 34em; }
 
 /* links navigate, the toggle does not: they are never the same control */
@@ -415,7 +419,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <svg class="tl-path" aria-hidden="true"><path class="base"></path><path class="lit"></path></svg>
       <div class="tl-cursor">
         <i aria-hidden="true"></i>
-        <canvas id="atlas" role="img" aria-label="A brain drawn in hairlines, turning slowly as the page is read. It is a decorative motif and carries no information."></canvas>
+        <canvas id="atlas" role="img" aria-label="A brain drawn in hairlines. A patch lights to show which of three kinds of work the entry beside it belongs to. The same label is printed on every entry, so nothing here is needed to read the page."></canvas>
+        <span class="atlas-cap" aria-hidden="true"><b id="atlas-cat"></b><em id="atlas-reg"></em></span>
       </div>
 
 <!-- flight-plan:start -->
@@ -425,12 +430,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <h3 class="tl-yr" id="year-2026">2026</h3>
 <div class="tl-rows">
 
-<article class="xp" id="experience-miku">
+<article class="xp" id="experience-miku" data-category="psychology">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/miku-thumb.png" alt="Miku logo" loading="lazy" decoding="async"></span></span>
 <h4>Miku</h4>
-<p class="xp-meta">Founder &middot; 2026</p>
+<p class="xp-meta"><span class="xp-cat">Psychology</span>Founder &middot; 2026</p>
 <p class="xp-sum">A teachable AI pupil that helps learners practise metacognitive calibration.</p>
 <p class="xp-links"><a class="cta" href="/work/miku">Read case study</a><a class="cta out" href="https://www.mikulearnbyteach.com/" rel="noopener noreferrer">Explore Miku</a></p>
 <details class="fold plain" name="flight-plan" id="more-miku">
@@ -451,12 +456,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-lse">
+<article class="xp" id="experience-lse" data-category="psychology">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/lse-thumb.png" alt="LSE logo" loading="lazy" decoding="async"></span></span>
 <h4>LSE, Department of Psychological and Behavioural Science</h4>
-<p class="xp-meta">Research assistant &middot; 2026</p>
+<p class="xp-meta"><span class="xp-cat">Psychology</span>Research assistant &middot; 2026</p>
 <p class="xp-sum">Two separate research projects, each on a different question about how people judge what they know.</p>
 <div class="xp-groups">
 <details class="fold" name="flight-plan" id="more-lse-litovsky">
@@ -480,12 +485,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-linksea">
+<article class="xp" id="experience-linksea" data-category="psychology">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/linksea-thumb.png" alt="LinkSea logo" loading="lazy" decoding="async"></span></span>
 <h4>LinkSea</h4>
-<p class="xp-meta">UI/UX designer &middot; 2026</p>
+<p class="xp-meta"><span class="xp-cat">Psychology</span>UI/UX designer &middot; 2026</p>
 <p class="xp-sum">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</p>
 <p class="xp-links"><a class="cta" href="/work/linksea">Read case study</a></p>
 <details class="fold plain" name="flight-plan" id="more-linksea">
@@ -503,12 +508,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-noetic">
+<article class="xp" id="experience-noetic" data-category="entrepreneurship">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/noetic-thumb.png" alt="Noetic logo" loading="lazy" decoding="async"></span></span>
 <h4>Noetic</h4>
-<p class="xp-meta">Co-founder &middot; 2026</p>
+<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>Co-founder &middot; 2026</p>
 <p class="xp-sum">One-day builds where AI builders learn a frontier company’s newest tools with its engineers in the room.</p>
 <p class="xp-links"><a class="cta" href="/work/nebius">Read the Nebius case study</a><a class="cta out" href="https://www.mynoetic.com/" rel="noopener noreferrer">Visit Noetic</a></p>
 <details class="fold plain" name="flight-plan" id="more-noetic">
@@ -527,12 +532,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-bytedance">
+<article class="xp" id="experience-bytedance" data-category="entrepreneurship">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/bytedance-thumb.png" alt="TikTok logo" loading="lazy" decoding="async"></span></span>
 <h4>ByteDance</h4>
-<p class="xp-meta">AI &amp; automation summer project intern &middot; 2026</p>
+<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>AI &amp; automation summer project intern &middot; 2026</p>
 <p class="xp-sum">Built LLM automation for policy-enforcement messaging across TikTok Shop.</p>
 <details class="fold plain" name="flight-plan" id="more-bytedance">
 <summary><span class="xp-toggle"></span></summary>
@@ -553,12 +558,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <h3 class="tl-yr" id="year-2025">2025</h3>
 <div class="tl-rows">
 
-<article class="xp" id="experience-ases">
+<article class="xp" id="experience-ases" data-category="entrepreneurship">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/ases-thumb.png" alt="ASES logo" loading="lazy" decoding="async"></span></span>
 <h4>ASES London</h4>
-<p class="xp-meta">Co-director, Affiliated Stanford Entrepreneurial Students &middot; 2025</p>
+<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>Co-director, Affiliated Stanford Entrepreneurial Students &middot; 2025</p>
 <p class="xp-sum">Brought Stanford’s building culture to students in London.</p>
 <p class="xp-links"><a class="cta" href="/work/ases-bootcamp">Read the bootcamp case study</a></p>
 <details class="fold plain" name="flight-plan" id="more-ases">
@@ -578,12 +583,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-fosun">
+<article class="xp" id="experience-fosun" data-category="finance">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/fosun-thumb.png" alt="Fosun International logo" loading="lazy" decoding="async"></span></span>
 <h4>Fosun International</h4>
-<p class="xp-meta">Group investments, insurance and healthcare &middot; 2025</p>
+<p class="xp-meta"><span class="xp-cat">Finance</span>Group investments, insurance and healthcare &middot; 2025</p>
 <p class="xp-sum">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.</p>
 </div>
 </article>
@@ -595,12 +600,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <h3 class="tl-yr" id="year-2024">2024</h3>
 <div class="tl-rows">
 
-<article class="xp" id="experience-women-in-entrepreneurship">
+<article class="xp" id="experience-women-in-entrepreneurship" data-category="entrepreneurship">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async"></span></span>
 <h4>Women in Entrepreneurship</h4>
-<p class="xp-meta">Event project director, LSESU Entrepreneurs &middot; 2024</p>
+<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>Event project director, LSESU Entrepreneurs &middot; 2024</p>
 <p class="xp-sum">Directed the events programme for Women in Entrepreneurship.</p>
 </div>
 </article>
@@ -792,6 +797,45 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   var canvas = document.getElementById("atlas");
   if (!canvas || !canvas.getContext) return;
 
+  /* Three kinds of work, three places on the drawing. This is a grouping with a
+     picture attached, not a claim that the work happens there: the categories
+     are the content, the anatomy is the motif. Written by build.mjs from
+     content/experiences.json so the page and the drawing cannot disagree. */
+  /* categories:start */
+  var CATEGORIES = {
+    "psychology": {
+      "label": "Psychology",
+      "region": "Prefrontal cortex",
+      "gloss": "weighing how well you know something",
+      "anchor": [
+        0.4,
+        0.24,
+        0.13
+      ]
+    },
+    "entrepreneurship": {
+      "label": "Entrepreneurship",
+      "region": "Motor cortex",
+      "gloss": "turning a decision into something that moves",
+      "anchor": [
+        0.07,
+        0.3,
+        0.13
+      ]
+    },
+    "finance": {
+      "label": "Finance",
+      "region": "Orbitofrontal cortex",
+      "gloss": "working out what something is worth",
+      "anchor": [
+        0.36,
+        -0.15,
+        0.12
+      ]
+    }
+  };
+  /* categories:end */
+
   function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0]/m, v[1]/m, v[2]/m]; }
   function dot(a, b) { return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; }
   function cross(a, b) { return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
@@ -879,11 +923,28 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   for (i = 0; i < 260; i++) { push(walk(CEREBRUM, 1.0, [0, 0.02, 0], 22, 0.082, 0.55, true, null)); }
   for (i = 0; i < 70; i++) { push(walk(CEREBELLUM, 0.92, [-0.39, -0.27, 0], 14, 0.085, 0, false, [0, 0, 1])); }
 
+  /* An angular neighbourhood of the anchor direction, so the patch sits on the
+     surface above the region at the size the old sphere gave. */
+  var LIT_COS = 0.934, focusDirs = null;
+  function setFocus(key) {
+    var c = CATEGORIES[key];
+    if (!c || !c.anchor) { focusDirs = null; return; }
+    var a = c.anchor, x = a[0]*SQ[0], y = a[1]*SQ[1], z = a[2]*SQ[2];
+    focusDirs = [norm([x, y, z]), norm([x, y, -z])];
+  }
+  function near(pt) {
+    if (!focusDirs) return false;
+    var u = norm(pt), n;
+    for (n = 0; n < 2; n++) { if (dot(u, focusDirs[n]) > LIT_COS) return true; }
+    return false;
+  }
+
   var ctx = canvas.getContext("2d"), W = 1, H = 1, DPR = 1;
-  var ruleCol = "#6f6d6b";
+  var ruleCol = "#6f6d6b", accentCol = "#8e2436";
   function readTokens() {
     var cs = getComputedStyle(document.documentElement);
     ruleCol = (cs.getPropertyValue("--faint") || "#6f6d6b").trim();
+    accentCol = (cs.getPropertyValue("--accent") || "#8e2436").trim();
   }
   function resize() {
     var r = canvas.getBoundingClientRect();
@@ -894,7 +955,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
 
-  var yaw = -0.5, pitch = -0.08;
+  var yaw = -0.5, pitch = -0.08, tYaw = -0.5, tPitch = -0.08, focus = null;
   var cY = 1, sY = 0, cX = 1, sX = 0;
   function rot(p) {
     var x = p[0]*cY + p[2]*sY, z = -p[0]*sY + p[2]*cY;
@@ -906,33 +967,76 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     cY = Math.cos(yaw); sY = Math.sin(yaw); cX = Math.cos(pitch); sX = Math.sin(pitch);
     var sc = Math.min(W, H) * 0.84;
     ctx.clearRect(0, 0, W, H);
-    var path = new Path2D(), f, i, j, prev, s2;
+    /* lit is decided per segment, not per fibre: a fibre is a long arc and
+       lighting the whole of one paints a line clean across the drawing */
+    var quiet = new Path2D(), lit = new Path2D(), f, i, j, prev, prevLit, now, s2, path;
     for (i = 0; i < fibres.length; i++) {
-      f = fibres[i]; prev = null;
+      f = fibres[i]; prev = null; prevLit = false;
       for (j = 0; j < f.pts.length; j++) {
+        now = near(f.pts[j]);
         s2 = proj(rot(f.pts[j]), sc);
-        if (prev) { path.moveTo(prev[0], prev[1]); path.lineTo(s2[0], s2[1]); }
-        prev = s2;
+        if (prev) {
+          path = (now || prevLit) ? lit : quiet;
+          path.moveTo(prev[0], prev[1]); path.lineTo(s2[0], s2[1]);
+        }
+        prev = s2; prevLit = now;
       }
     }
     ctx.lineCap = "round"; ctx.lineJoin = "round";
-    ctx.strokeStyle = ruleCol; ctx.globalAlpha = 0.45; ctx.lineWidth = 0.6; ctx.stroke(path);
+    ctx.strokeStyle = ruleCol; ctx.globalAlpha = 0.45; ctx.lineWidth = 0.6; ctx.stroke(quiet);
+    ctx.strokeStyle = accentCol; ctx.globalAlpha = 1; ctx.lineWidth = 0.75; ctx.stroke(lit);
     ctx.globalAlpha = 1;
   }
 
-  /* The drawing used to turn to face whichever region an entry was tagged with.
-     The tagging is gone, so it keeps one slow drift instead, held still for
-     anyone who asked for less motion. */
+  function aim(key) {
+    var c = CATEGORIES[key];
+    if (!c || !c.anchor) { tYaw = -0.5; tPitch = -0.08; return; }
+    var a = c.anchor;
+    tYaw = -Math.atan2(a[0]*SQ[0], a[2]*SQ[2]);
+    tPitch = Math.max(-0.5, Math.min(0.5, Math.atan2(a[1]*SQ[1], 0.62) * 0.7));
+  }
+  function shortest(from, to) {
+    var d = (to - from) % (Math.PI*2);
+    if (d > Math.PI) d -= Math.PI*2;
+    if (d < -Math.PI) d += Math.PI*2;
+    return d;
+  }
+
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   var last = 0;
   function frame(t) {
     var dt = last ? Math.min(t - last, 50) : 16; last = t;
-    if (!reduce.matches) yaw += dt * 0.00004;
+    if (reduce.matches) { yaw = tYaw; pitch = tPitch; }
+    else {
+      var e = 1 - Math.pow(0.004, dt/1000);
+      yaw += shortest(yaw, tYaw) * e;
+      pitch += (tPitch - pitch) * e;
+    }
     draw();
     requestAnimationFrame(frame);
   }
 
-  readTokens(); resize();
+  /* whichever entry is crossing the middle of the viewport decides the region */
+  var catEl = document.getElementById("atlas-cat");
+  var regEl = document.getElementById("atlas-reg");
+  var marks = [].slice.call(document.querySelectorAll("[data-category]"));
+  if (window.IntersectionObserver && marks.length) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var k = e.target.getAttribute("data-category");
+        if (k === focus) return;
+        focus = k; aim(k); setFocus(k);
+        var c = CATEGORIES[k];
+        catEl.textContent = c ? c.label : "";
+        regEl.textContent = c ? c.region + " \u00b7 " + c.gloss : "";
+      });
+    }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+    marks.forEach(function (m) { io.observe(m); });
+  }
+
+  readTokens(); resize(); aim(null); setFocus(null);
+  yaw = tYaw; pitch = tPitch;
   if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
   else window.addEventListener("resize", resize);
   try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readTokens); } catch (e) {}

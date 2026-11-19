@@ -79,9 +79,12 @@ function fold(id, inner, label) {
   );
 }
 
+let cats = {};
 function row(xp) {
   const parts = [];
-  parts.push(`<article class="xp" id="experience-${esc(xp.id)}">`);
+  parts.push(
+    `<article class="xp" id="experience-${esc(xp.id)}" data-category="${esc(xp.category || "")}">`
+  );
   parts.push(`<span class="tl-dot" aria-hidden="true"></span>`);
   parts.push(`<div class="xp-grid">`);
   if (xp.thumbnail) {
@@ -92,7 +95,12 @@ function row(xp) {
     );
   }
   parts.push(`<h4>${esc(xp.title)}</h4>`);
-  parts.push(`<p class="xp-meta">${esc(xp.role)} &middot; ${xp.year}</p>`);
+  const cat = cats[xp.category];
+  parts.push(
+    `<p class="xp-meta">` +
+      (cat ? `<span class="xp-cat">${esc(cat.label)}</span>` : "") +
+      `${esc(xp.role)} &middot; ${xp.year}</p>`
+  );
   parts.push(`<p class="xp-sum">${xp.summary}</p>`);
   if (xp.links && xp.links.length) {
     parts.push(`<p class="xp-links">${xp.links.map(link).join("")}</p>`);
@@ -211,6 +219,7 @@ ${
 /* ---------- run ---------- */
 
 const data = read("content/experiences.json");
+cats = data.categories || {};
 const marker = [/<!-- flight-plan:start -->/, /<!-- flight-plan:end -->/];
 let index = readFileSync(join(ROOT, "index.html"), "utf8");
 const a = index.search(marker[0]);
@@ -222,6 +231,15 @@ index =
   flightPlan(data) +
   `\n\n` +
   index.slice(b);
+// the atlas reads the same table, so the page and the drawing cannot disagree
+const catJson = JSON.stringify(data.categories || {}, null, 2)
+  .split("\n")
+  .map((l, i) => (i ? "  " + l : l))
+  .join("\n");
+index = index.replace(
+  /(\/\* categories:start \*\/\n)[\s\S]*?(\n\s*\/\* categories:end \*\/)/,
+  (_m, a2, b2) => `${a2}  var CATEGORIES = ${catJson};${b2}`
+);
 out("index.html", index);
 
 const studies = readdirSync(join(ROOT, "content/case-studies"))

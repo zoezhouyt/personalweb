@@ -50,8 +50,8 @@ broken rather than as a style.
 
 ### What an entry shows
 
-Three things are visible without any interaction: the name, the role and year, and one
-sentence. Next to them is the organisation's mark. Then come the links, which navigate,
+Three things are visible without any interaction: the name, the category with the role
+and year, and one sentence. Next to them is the organisation's mark. Then come the links, which navigate,
 and then the Explore control, which does not: a reader never has to guess whether a
 click will move them.
 
@@ -70,26 +70,48 @@ Fosun and Women in Entrepreneurship are single lines with nothing behind them.
 ## The atlas
 
 The brain rides the cursor. It sits immediately right of the travelling dot, at 8rem
-square, drawn as hairlines in the body grey. It was in the right margin before; putting
-it on the rail gives it a reason to be where it is and frees the whole right side for
-text.
+square, drawn as hairlines in the body grey with one patch lit in oxblood and named
+underneath. It was in the right margin before; putting it on the rail gives it a reason
+to be where it is and frees the whole right side for text.
 
-**It used to be a map of the work and is not any more.** Every entry carried a
-`data-region`; an `IntersectionObserver` lit the matching patch of cortex, turned the
-camera to face it, and printed the region's name and a gloss under the drawing, so Miku
-sat under the anterior prefrontal cortex and ByteDance under the basal ganglia. That was
-removed in November 2026 on the brief's instruction, and the reasoning is worth keeping:
-the mapping asserted a relationship between a job and a brain region that nothing
-supports, and it read as a taxonomy when it was only a motif.
+**It maps three categories, not nine jobs.** The first version tagged every entry with
+its own brain region, so Miku sat under the anterior prefrontal cortex and ByteDance
+under the basal ganglia. That was removed: a region per job asserted a relationship
+nothing supports, and it read as a taxonomy when it was only a motif. What replaced it
+is coarser and honest about being a grouping.
 
-What is left is the drawing. One slow yaw drift, held still under
-`prefers-reduced-motion`, no lit region, no caption, and a `role="img"` with a label
-saying it carries no information. Do not re-attach it to the entries.
+| Category | Holds | Region | Shown as |
+|---|---|---|---|
+| Psychology | Miku, the LSE assistantships, LinkSea | Prefrontal cortex | weighing how well you know something |
+| Entrepreneurship | Noetic, ByteDance, ASES London, Women in Entrepreneurship | Motor cortex | turning a decision into something that moves |
+| Finance | Fosun | Orbitofrontal cortex | working out what something is worth |
 
-The generator still builds it the same way: a metaball field for the cerebrum and the
-cerebellum, a bisection out to the implied surface, and fibres that walk the surface
-following the contours of a gyral noise function, drawn as hairline segments. The seed
-is fixed, so the same brain is drawn every time.
+The category is the content and the anatomy is the picture attached to it. Of the three,
+only orbitofrontal cortex and value is a standard association; the other two are
+metaphors and the page does not pretend otherwise. **Do not add a fourth category
+without a reason, and do not go back to one region per entry.**
+
+The three anchors are chosen to be far apart on the drawing as well as sensible:
+prefrontal is anterior and superior, motor is superior and central, orbitofrontal is
+anterior and inferior. The nearest pair sits about 44 degrees apart, against a lit patch
+about 21 degrees wide, so two categories never light overlapping ground.
+
+`content/experiences.json` holds the table and every entry's `category`. `build.mjs`
+writes the table into `index.html` between the `categories` markers and `data-category`
+onto each entry, so the drawing and the labels cannot drift apart. The category is also
+printed on the entry itself, in oxblood ahead of the role, which is what stops the
+drawing being the only place a reader can learn the grouping. An `IntersectionObserver`
+watches the entries; whichever is crossing the middle of the viewport sets the lit patch
+and eases the camera round to face it.
+
+The lit patch is an angular neighbourhood of the anchor's direction rather than a sphere
+around the point, which is what lets an anchor sit below the surface and still light the
+cortex above it. Lit is decided per segment, not per fibre: a fibre is a long arc, and
+lighting a whole one paints a line clean across the drawing.
+
+The drawing itself is unchanged: a metaball field for the cerebrum and the cerebellum, a
+bisection out to the implied surface, and fibres that walk it following the contours of a
+gyral noise function. The seed is fixed, so the same brain is drawn every time.
 
 ## Writing rules
 
