@@ -1,0 +1,47 @@
+{
+  "slug": "linksea",
+  "experienceId": "linksea",
+  "status": "draft",
+  "kicker": "Interface design",
+  "year": 2026,
+  "title": "LinkSea",
+  "subtitle": "Rebuilding the student side of a school platform, and testing it with the students.",
+  "role": "UI/UX designer",
+  "timeframe": "2026",
+  "description": "Zoe Zhou's case study on rebuilding the student interface of a school workflow platform used daily at a middle school in Hong Kong.",
+  "sections": [
+    {
+      "id": "question",
+      "heading": "The question",
+      "body": "A school platform is used every day, by people who did not choose it and cannot route around it. The students were the group with the least say in it and the most exposure to it.",
+      "editorTodo": "Replace with the specific navigation or workflow problem you were handed, 100–150 words. What were students failing to do?"
+    },
+    {
+      "id": "context",
+      "heading": "Context and constraints",
+      "body": "A middle school in Hong Kong. The platform carries three interfaces, for students, teachers and administrators; the student one was mine. It was already in daily use, so the rebuild had to land inside something people depended on.",
+      "editorTodo": "Confirm what is shareable about the school and the platform before this goes public. Add year group, rough number of students, and anything about the device or network conditions."
+    },
+    {
+      "id": "made",
+      "heading": "What I made",
+      "body": "The student-facing interface, built in JavaScript.",
+      "editorTodo": "Replace with the real account of your own contribution: which screens, which parts were yours as opposed to the team's, and an annotated before-and-after of one screen."
+    },
+    {
+      "id": "iterations",
+      "heading": "What changed",
+      "body": "I tested with the students themselves and rebuilt the parts they could not complete.",
+      "editorTodo": "Replace with the method (who, how many, how you ran it — only numbers you can confirm) and two or three concrete revisions, each with what you saw and what you changed."
+    },
+    {
+      "id": "evidence",
+      "heading": "Evidence, and what it does not show",
+      "body": "",
+      "editorTodo": "Say what you actually observed, and resist quantifying an improvement you did not measure. Task completion in a test session is not the same as the platform working better in a school day."
+    }
+  ],
+  "related": [
+    { "label": "Miku", "href": "/work/miku", "note": "the same habit of testing with the people it is for" }
+  ]
+}

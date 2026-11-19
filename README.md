@@ -50,80 +50,46 @@ broken rather than as a style.
 
 ### What an entry shows
 
-Three things are visible without any interaction: the name and role, one sentence, and
-one 4:3 thumbnail. The region name and its gloss are printed under the brain only; they
-were on each entry for a while and read as a second headline competing with the real
-one. Five entries hold a breakdown and their larger photos behind a `<details>`, which
-is the whole mechanism, so the fold works with JavaScript off and needs no script of
-its own. Fosun and Women in Entrepreneurship are single lines with nothing behind them,
-so they are plain `<div>`s rather than folds.
+Three things are visible without any interaction: the name, the role and year, and one
+sentence. Next to them is the organisation's mark. Then come the links, which navigate,
+and then the Explore control, which does not: a reader never has to guess whether a
+click will move them.
 
-The LSE entry is the exception: two separate `<details>`, one per supervisor, sitting
-under its one-line description. A single breakdown would have made a reader open both
-projects to find either.
+Explore is a `<summary>`, which browsers expose as a button carrying its own expanded
+state, so the fold needs no script and works with none. All the folds share a `name`, so
+opening one closes the rest; the handful of browsers without `details[name]` get the
+same behaviour from a few lines in `index.html`. A deep link such as
+`/#experience-miku` opens that entry on arrival.
 
-Miku's heading links out to mikulearnbyteach.com. A link inside a `<summary>` would
-otherwise both follow the link and toggle the fold, so the click handler calls
-`preventDefault` and navigates by hand, leaving modifier-clicks alone.
+The LSE entry is the exception: two disclosures, one per supervisor, sitting under its
+one-line description. A single breakdown would have made a reader open both projects to
+find either, and the two are separate research with separate aims.
 
-Hovering an entry scales its thumbnail by 3.5% and turns the region label and the name
-oxblood; both are dropped under `prefers-reduced-motion`. Opening a fold changes the
-height of the timeline, which the `ResizeObserver` on `.tl` already watches, so the
-curve and every dot are rebuilt against the new layout.
-
-Education, the dissertation and the Now section are deliberately absent. The first two
-are in the About footnotes; the third said nothing the entries did not.
-
-All of the rail furniture is hidden below 66rem, where there is no margin for it.
+Fosun and Women in Entrepreneurship are single lines with nothing behind them.
 
 ## The atlas
 
 The brain rides the cursor. It sits immediately right of the travelling dot, at 8rem
-square, drawn as hairlines in the body grey with one region lit in oxblood and named
-underneath. It was in the right margin before; putting it on the rail gives it a reason
-to be where it is and frees the whole right side for text.
+square, drawn as hairlines in the body grey. It was in the right margin before; putting
+it on the rail gives it a reason to be where it is and frees the whole right side for
+text.
 
-Every entry and section carries a `data-region`. An `IntersectionObserver` watches them,
-and the camera eases to the yaw and pitch that turn that region to face you.
+**It used to be a map of the work and is not any more.** Every entry carried a
+`data-region`; an `IntersectionObserver` lit the matching patch of cortex, turned the
+camera to face it, and printed the region's name and a gloss under the drawing, so Miku
+sat under the anterior prefrontal cortex and ByteDance under the basal ganglia. That was
+removed in November 2026 on the brief's instruction, and the reasoning is worth keeping:
+the mapping asserted a relationship between a job and a brain region that nothing
+supports, and it read as a taxonomy when it was only a motif.
 
-| Region | Holds | Shown as |
-|---|---|---|
-| Anterior prefrontal cortex | Miku | judging how well you know something |
-| Anterior cingulate cortex | the LSE assistantships | noticing when something doesn't add up |
-| Dorsal visual stream | LinkSea | seeing something and knowing how to act on it |
-| Hippocampus | Noetic | where new learning gets laid down |
-| Basal ganglia | ByteDance | turning repeated actions into routines |
-| Ventral striatum | ASES London | the pull to try something new |
-| Orbitofrontal cortex | Fosun | working out what something is worth |
-| Temporoparietal junction | Women in Entrepreneurship | seeing from someone else's point of view |
-| Temporal lobe | About | language, and the meaning carried in it |
-| Cerebellum | the sign-off | timing, and skill built by repetition |
+What is left is the drawing. One slow yaw drift, held still under
+`prefers-reduced-motion`, no lit region, no caption, and a `role="img"` with a label
+saying it carries no information. Do not re-attach it to the entries.
 
-One region per entry now, where several used to share the temporoparietal junction.
-The third column is printed under the brain and again on the entry itself, because a
-region name on its own means nothing to a reader who has not studied neuroscience.
-
-Three of these regions sit deep inside the brain rather than on its surface: the basal
-ganglia, the ventral striatum and the anterior cingulate. The lit patch used to be a
-sphere around the anchor point, which could not reach them, so those regions lit nothing
-at all. It is now an angular neighbourhood of the anchor's direction, which lights the
-surface above a deep structure, at the same apparent size the sphere gave. The drawing
-is a hairline atlas, not a dissection, and this is the honest version of that compromise.
-
-The parietal anchor is defined but unused since the LSE entry went. Harmless, and there
-if something numerical earns it later.
-
-Three things that were wrong and are worth remembering. Lighting whole fibres painted
-lines clean across the drawing, because a fibre is a long arc; lighting is per segment
-now. A nearest-anchor partition handed whole lobes to single regions, so a third of the
-figure lit at once; it is a fixed radius around the anchor instead. And the cursor sat
-104px off the rail, because elements in normal flow inherit the timeline's left padding
-while absolutely positioned ones do not.
-
-The geometry is unchanged from `prototypes/brain-scroll.html`: a metaball field for the
-cerebrum and cerebellum, creases cut for the lateral fissure and central sulcus, and
-fibres walked along contour lines of a noise field to produce gyri. No WebGL, no model
-file, no library.
+The generator still builds it the same way: a metaball field for the cerebrum and the
+cerebellum, a bisection out to the implied surface, and fibres that walk the surface
+following the contours of a gyral noise function, drawn as hairline segments. The seed
+is fixed, so the same brain is drawn every time.
 
 ## Writing rules
 
@@ -140,13 +106,21 @@ The copy follows Zoe's own rules, which are not optional:
 ## Files
 
 ```
-index.html                        the site
-prototypes/brain-scroll.html      the brain version, kept for the next stage
-prototypes/flightplan-v1.html     the first flight plan, organised by airport code
-prototypes/map-to-brain.html      the fold test
-archive/                          earlier versions, not part of the live site
+content/experiences.json          the flight plan, in one place
+content/case-studies/*.json       one file per /work page
+build.mjs                         reads those, writes the pages. node build.mjs
+index.html                        the site. Its flight plan is generated
+work/<slug>/index.html            generated case studies
+assets/work.css                   shared by every /work page
+sitemap.xml                       generated, indexable routes only
+robots.txt, 404.html              hand-written
+vercel.json                       headers, clean URLs, the /case redirects
+prototypes/, archive/             earlier versions, not part of the live site
 .nojekyll                         serve files as-is, no Jekyll
 ```
+
+`content/` and `build.mjs` are in `.vercelignore`: the pages they produce are committed
+and served, the sources are for editing.
 
 Files in `archive/`, and `prototypes/brain-scroll.html`'s ancestors, were written for
 the Claude Artifact platform, which wraps pages in its own document skeleton. Some have
@@ -161,23 +135,34 @@ python3 -m http.server 4321 --directory .
 Then open http://localhost:4321. Append `?v=2` to bypass the browser cache after an edit.
 
 
-## Case pages
+## Content and the build
 
-Two flight plan entries link to a page of their own, from inside the fold:
+The site is still static HTML with no framework and no deploy-time build. Vercel serves
+these files as they are. The one addition is a generator that is run by hand and whose
+output is committed:
 
-| Entry | Page |
-|---|---|
-| Miku | `case/miku/` |
-| Noetic, the Nebius day | `case/nebius/` |
+```
+node build.mjs
+```
 
-They are stubs. Each carries the paragraph that is already on the flight plan,
-a note saying the case study is still being written, and an HTML comment holding
-the scaffold to fill in. Every one of them is `<meta name="robots" content="noindex">`
-on purpose; take that line out when the page is finished.
+It reads `content/experiences.json` and `content/case-studies/*.json` and writes the
+flight plan into `index.html` between the `<!-- flight-plan:start -->` markers, a page
+for every case study under `work/`, and `sitemap.xml`. It prints the open content TODOs
+when it finishes. It has no dependencies and `node_modules` does not exist here.
 
-They share `assets/case.css`. `index.html` keeps its styles inline because it is
-the page that has to paint in one request, so the tokens exist in two places. If
-a colour changes, change it in both.
+**Edit the JSON, not the generated HTML.** A change made in `index.html` between the
+markers is lost on the next build. Section bodies are authored HTML: paragraphs split on
+a blank line and inline markup passes through.
+
+A case-study section renders only if its `body` has text, so an unwritten section is
+absent rather than showing a placeholder. `editorTodo` is for the author and is never
+sent to a visitor. A page with any TODO left carries one short "still being written"
+line instead. `status: "draft"` keeps a page out of the sitemap and adds `noindex`;
+`in-progress` and `published` are indexable. That is why LinkSea and the ASES bootcamp
+are currently unlisted and Miku and Nebius are not.
+
+The pages used to live at `/case/miku` and `/case/nebius`. Those two URLs now 308 to
+`/work/...` from `vercel.json`, so nothing that was ever linked breaks.
 
 ## Photo plates
 

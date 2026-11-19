@@ -1,0 +1,43 @@
+{
+  "slug": "nebius",
+  "experienceId": "noetic",
+  "status": "in-progress",
+  "kicker": "Learning environment",
+  "year": 2026,
+  "title": "The Nebius day",
+  "subtitle": "One of Noetic's one-day builds, and what a day has to be designed for.",
+  "role": "Co-founder, Noetic",
+  "timeframe": "2026",
+  "description": "A one-day Noetic build with Nebius: how the tracks and judging were designed, the participation figures, and what those figures do not show.",
+  "links": [
+    { "label": "Visit Noetic", "href": "https://www.mynoetic.com/", "external": true }
+  ],
+  "sections": [
+    {
+      "id": "question",
+      "heading": "The question",
+      "body": "A hackathon is a learning environment that mostly refuses to admit it is one. People arrive with very different amounts of practice, get scored against each other on the polish of a build, and the ones who learned the most often leave with the least to show.\n\nNoetic runs one-day builds where people work with a frontier company's newest tools and that company's engineers are in the room. The Nebius day was one of them. The design question was how to run a competitive day that does not quietly sort people by how much they already knew when they walked in."
+    },
+    {
+      "id": "approach",
+      "heading": "My approach",
+      "body": "Two decisions carried most of the weight.\n\nTracks are split by experience, so a first-timer is never scored against someone who has already shipped. The split is about what a score means: a beginner losing to an expert learns nothing from the result.\n\nJudging rewards whether a team can explain why they chose a model, ahead of how finished the build looks. Polish on a one-day build mostly measures prior practice. The explanation is the part that is actually about the day.",
+      "editorTodo": "Add the rubric as it was written, and the track briefs, if you are happy to publish them."
+    },
+    {
+      "id": "evidence",
+      "heading": "Evidence, and what it does not show",
+      "body": "103 people applied, 63 were selected, and all 63 came.\n\nThose are participation figures. A full room says the day was worth travelling to and that selection and reminders worked. It says nothing about whether anyone understood a model choice better at six o'clock than at nine, and nothing about what any of them did the following week. I did not collect that, so I cannot claim it.",
+      "editorTodo": "If any feedback was collected on the day, add it here and label it as self-report. If none was, say so plainly."
+    },
+    {
+      "id": "learned",
+      "heading": "What I would change",
+      "body": "",
+      "editorTodo": "What you would redesign, and the one measure you would add to tell learning from attendance."
+    }
+  ],
+  "related": [
+    { "label": "ASES London bootcamp", "href": "/work/ases-bootcamp", "note": "the programme that came before Noetic" }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "ases-bootcamp",
+  "experienceId": "ases",
+  "status": "draft",
+  "kicker": "Programme design",
+  "year": 2025,
+  "title": "The ASES London bootcamp",
+  "subtitle": "A ten-week programme for around seventy fellows, and the first environment I had to design rather than attend.",
+  "role": "Co-director, ASES London",
+  "timeframe": "2025",
+  "description": "Zoe Zhou's case study on designing a ten-week entrepreneurship bootcamp for around seventy selected fellows with ASES London.",
+  "sections": [
+    {
+      "id": "question",
+      "heading": "The question",
+      "body": "I won the ASES London competition and a funded place at the Stanford Summit, and came back to co-lead the London chapter. Having been let into a room, the question was how to build one.\n\nASES London is the student chapter of a Stanford entrepreneurship society. It is separate from LSESU Entrepreneurs, where I spent two years on the executive; the two come up together on a CV and are not the same organisation.",
+      "editorTodo": "Optional: one paragraph on what London lacked that Stanford had, in your own words."
+    },
+    {
+      "id": "made",
+      "heading": "What I made",
+      "body": "A ten-week programme for around seventy selected fellows, and around £5,000 of sponsorship to run it.",
+      "editorTodo": "Replace with the real structure: what the ten weeks covered, how a session ran, who taught or mentored, and what fellows were expected to produce."
+    },
+    {
+      "id": "context",
+      "heading": "Selection",
+      "body": "",
+      "editorTodo": "How fellows were selected, how many applied, and what you were selecting for. Only numbers you can confirm."
+    },
+    {
+      "id": "approach",
+      "heading": "One design decision",
+      "body": "",
+      "editorTodo": "Pick the single decision you would defend to someone designing a programme, and say why you made it and what it cost."
+    },
+    {
+      "id": "evidence",
+      "heading": "Evidence, and what it does not show",
+      "body": "",
+      "editorTodo": "What you observed, labelled honestly. Seventy fellows enrolled is enrolment. Do not publish an outcome you did not follow up, including the Cambridge builder's, until you have checked it with him."
+    }
+  ],
+  "related": [
+    { "label": "Noetic", "href": "/work/nebius", "note": "what the programme turned into" }
+  ]
+}

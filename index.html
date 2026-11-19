@@ -178,8 +178,8 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 .tl-group.is-now .tl-yr { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .tl-yr { transition: none; } }
 .tl-rows { min-width: 0; }
-.tl-entry { position: relative; padding-block: 1.9rem; border-bottom: 1px solid var(--rule); }
-.tl-group:last-of-type .tl-rows .tl-entry:last-child { border-bottom: 0; }
+.xp { position: relative; padding-block: 1.9rem; border-bottom: 1px solid var(--rule); }
+.tl-group:last-of-type .tl-rows .xp:last-child { border-bottom: 0; }
 .tl-dot, .tl-cursor, .tl-path { display: none; }
 
 @media (min-width: 72rem) {
@@ -240,46 +240,75 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
     display: block; font-style: normal; font-size: 10px; line-height: 1.4;
     color: var(--mute); margin-top: 0.25rem;
   }
-  .tl-entry.is-past .tl-dot { border-color: var(--mute); }
-  .tl-entry.is-past .tl-dot::after { background: var(--mute); }
-  .tl-entry.is-now .tl-dot { border-color: var(--accent); }
-  .tl-entry.is-now .tl-dot::after { background: var(--accent); }
+  .xp.is-past .tl-dot { border-color: var(--mute); }
+  .xp.is-past .tl-dot::after { background: var(--mute); }
+  .xp.is-now .tl-dot { border-color: var(--accent); }
+  .xp.is-now .tl-dot::after { background: var(--accent); }
 }
 
 /* ---- a flight-plan entry ---- */
-/* Always visible: the region and what it does, the name and role, one line, one
-   plate. The breakdown and the bigger photos sit behind a <details>, so the fold
-   works with no JavaScript at all. */
-.tl-grid { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0 1rem; min-width: 0; }
-.tl-grid > .shot { grid-column: 1; grid-row: 1 / span 20; }
-.tl-grid > :not(.shot) { grid-column: 2; }
-@media (min-width: 46rem) { .tl-grid { grid-template-columns: 8rem minmax(0, 1fr); gap: 0 1.3rem; } }
+/* Visible without any interaction: the mark, the name, the role and year, one
+   sentence, and any links. Everything else sits behind one Explore control.
+   The control is a <summary>, which is exposed as a button carrying its own
+   expanded state, so the fold needs no script and works with none. */
+.xp-grid { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0 1rem; min-width: 0; }
+.xp-grid > .shot { grid-column: 1; grid-row: 1 / span 20; }
+.xp-grid > :not(.shot) { grid-column: 2; }
+@media (min-width: 46rem) { .xp-grid { grid-template-columns: 8rem minmax(0, 1fr); gap: 0 1.3rem; } }
 
-.tl-fold { min-width: 0; }
-.tl-fold > summary { cursor: pointer; list-style: none; }
-.tl-fold > summary::-webkit-details-marker { display: none; }
-
-.tl-grid h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0; transition: color 0.18s ease; }
-.tl-grid h3 a { color: inherit; }
-/* the arrow says this one leaves the site, where a case study's arrow does not */
-.tl-grid h3 a::after {
-  content: " \2197"; font-family: var(--mono); font-size: 10px;
-  color: var(--accent); vertical-align: 2px;
-}
-@media (hover: hover) { .tl-grid h3 a:hover { color: var(--accent); } }
-.tl-role {
-  display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+.xp-grid h4 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0; }
+.xp-meta {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
   text-transform: uppercase; color: var(--faint); margin: 0.35rem 0 0.7rem;
 }
-.tl-line { display: block; color: var(--text); max-width: 34em; }
-.tl-open {
-  display: block; margin-top: 0.75rem; font-family: var(--mono); font-size: 9px;
-  letter-spacing: 1.05px; text-transform: uppercase; color: var(--mute);
+.xp-sum { margin: 0; color: var(--text); max-width: 34em; }
+
+/* links navigate, the toggle does not: they are never the same control */
+.xp-links { margin: 0.9rem 0 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+.cta {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--accent); line-height: 1.9;
 }
-.tl-open::before { content: "Breakdown"; }
-.tl-open::after { content: " +"; color: var(--accent); }
-.tl-fold[open] .tl-open::before { content: "Close"; }
-.tl-fold[open] .tl-open::after { content: " \2212"; }
+.cta::after { content: " \2192"; }
+.cta.out::after { content: " \2197"; }
+.cta:hover { text-decoration: underline; }
+
+.fold { min-width: 0; margin-top: 1rem; }
+.fold > summary { cursor: pointer; list-style: none; width: fit-content; }
+.fold > summary::-webkit-details-marker { display: none; }
+.xp-toggle {
+  display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--mute);
+}
+.xp-toggle::before { content: "Explore"; }
+.xp-toggle::after { content: " +"; color: var(--accent); }
+.fold[open] .xp-toggle::before { content: "Show less"; }
+.fold[open] .xp-toggle::after { content: " \2212"; }
+@media (hover: hover) { .fold.plain > summary:hover .xp-toggle { color: var(--ink); } }
+
+/* an entry whose parts are separate work gets one disclosure each, rather than a
+   single breakdown that would make the reader open both to find either */
+.xp-groups { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.1rem; }
+.xp-groups .fold { margin-top: 0; }
+.xp-groups summary { width: auto; }
+.xp-groups summary b {
+  display: block; font-weight: 500; font-size: 14px; color: var(--title);
+  line-height: 1.5; transition: color 0.18s ease;
+}
+.xp-groups summary b::after { content: " +"; color: var(--accent); font-family: var(--mono); font-size: 11px; }
+.xp-groups .fold[open] summary b::after { content: " \2212"; }
+.xp-groups summary span { display: block; color: var(--mute); font-size: 13px; line-height: 1.65; margin-top: 0.1rem; }
+@media (hover: hover) { .xp-groups summary:hover b { color: var(--accent); } }
+@media (prefers-reduced-motion: reduce) { .xp-groups summary b { transition: none; } }
+
+.fold-body { margin-top: 0.9rem; padding-left: 0.9rem; border-left: 1px solid var(--rule); }
+.fold-body h5 {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase;
+  font-weight: 500; color: var(--faint); margin: 1.1rem 0 0.4rem;
+}
+.fold-body h5:first-child { margin-top: 0; }
+.fold-body p { margin: 0 0 0.6rem; max-width: 34em; font-size: 13.5px; line-height: 1.7; color: var(--mute); }
+.fold-body p:last-child { margin-bottom: 0; }
 
 /* a photo slot. Until the file is dropped in, the plate shows the filename and
    what belongs there, so an empty slot still says what to shoot. */
@@ -297,48 +326,14 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   line-height: 1.3; color: var(--mute); overflow-wrap: anywhere;
 }
 .shot .cap { font-size: 9.5px; line-height: 1.35; color: var(--faint); }
-.shot.logo { background: #f4f3f1; border: 1px solid var(--rule); }
-.shot.logo img { object-fit: contain; padding: 11%; }
 .shot-x em { font-size: 10px; }
 .shot-x .cap { font-size: 11.5px; }
+/* a logo is a mark, not a photograph: contain it, and keep its own light card in
+   both themes so a white-ground wordmark does not glare on the dark page */
+.shot.logo { background: #f4f3f1; border: 1px solid var(--rule); }
+.shot.logo img { object-fit: contain; padding: 11%; }
 
-@media (hover: hover) {
-  .tl-fold > summary:hover .shot-in { transform: scale(1.035); }
-  .tl-fold > summary:hover h3 { color: var(--accent); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .shot-in, .tl-grid h3 { transition: none; }
-  .tl-fold > summary:hover .shot-in { transform: none; }
-}
-
-.fold-body { margin-top: 1.15rem; padding-left: 0.9rem; border-left: 1px solid var(--rule); }
-@media (min-width: 46rem) { .fold-body { margin-left: 9.3rem; } }
-.fold-body p { margin: 0 0 0.7rem; max-width: 34em; font-size: 13.5px; line-height: 1.7; color: var(--mute); }
-.fold-body p:last-child { margin-bottom: 0; }
-.fold-body p b { font-weight: 500; color: var(--title); }
-.fold-body a.more {
-  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
-  text-transform: uppercase; color: var(--accent);
-}
-.fold-body a.more::after { content: " \2192"; }
-.fold-body a.more:hover { text-decoration: underline; }
 .plates { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.25rem; max-width: 34em; }
-
-/* an entry whose parts are separate work gets one disclosure each, rather than a
-   single breakdown that would make the reader open both to find either */
-.subfolds { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.1rem; }
-.subfold > summary { cursor: pointer; list-style: none; }
-.subfold > summary::-webkit-details-marker { display: none; }
-.subfold > summary b {
-  display: block; font-weight: 500; font-size: 14px; color: var(--title);
-  line-height: 1.5; transition: color 0.18s ease;
-}
-.subfold > summary b::after { content: " +"; color: var(--accent); font-family: var(--mono); font-size: 11px; }
-.subfold[open] > summary b::after { content: " \2212"; }
-.subfold > summary span { display: block; color: var(--mute); font-size: 13px; line-height: 1.65; margin-top: 0.1rem; }
-.subfold .fold-body { margin-left: 0; margin-top: 0.75rem; }
-@media (hover: hover) { .subfold > summary:hover b { color: var(--accent); } }
-@media (prefers-reduced-motion: reduce) { .subfold > summary b { transition: none; } }
 @media (min-width: 52rem) { .plates { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); } }
 
 /* ---- sign-off ---- */
@@ -392,7 +387,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   </ul>
   <nav>
     <a href="#about">About</a>
-    <a href="#plan">Flight plan</a>
+    <a href="#flight-plan">Flight plan</a>
     <a href="#signoff">Sign-off</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -405,7 +400,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <p class="sub">Psychological and Behavioural Science at LSE. I study the gap between feeling you know something and actually knowing it, and build learning tools that try to close it.</p>
   </header>
 
-  <section id="about" class="about" data-region="temporal">
+  <section id="about" class="about">
     <div class="section-head"><h2>About</h2></div>
     <p>I grew up between China, Canada and the UAE, and moved to a boarding school in England at fourteen.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 1">1</button><span class="note" role="note"><b>1</b>Woldingham School, 2020 to 2024. A-Levels in Maths, Psychology, Economics and Biology, with an Extended Project Qualification. A*A*A*AA.</span></span> I&rsquo;m now in my last year of Psychological and Behavioural Science at LSE.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 2">2</button><span class="note" role="note"><b>2</b>BSc Psychological and Behavioural Science, London School of Economics, 2024 to 2027. Expected First Class Honours.</span></span></p>
     <p>Looking back on those moves, I can see how much I changed in each place, some of it by choice and some of it without my noticing. That made me curious about how people reflect on their own thinking, and whether anything can help them do it better. In my research, I&rsquo;ve started exploring metacognitive calibration: whether the confidence people feel in their understanding matches what they actually understand.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 3">3</button><span class="note" role="note"><b>3</b>Dissertation supervised by Dr Luc Schneider. Research assistant to Dr Yana Litovsky and Dr Sakshi Ghai, LSE Department of Psychological and Behavioural Science.</span></span></p>
@@ -413,191 +408,211 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <p>Alongside my own product, I like spending time with people who care about building as much as I do, so I build learning environments for them. With Stanford ASES London, I helped bring Stanford&rsquo;s building culture to students in London.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 6">6</button><span class="note" role="note"><b>6</b>ASES London, co-director, 2025.</span></span> I then co-founded Noetic, which runs one-day builds across Europe where AI builders learn a frontier company&rsquo;s newest tools with its engineers in the room.<span class="sidenote"><button type="button" class="refmark" aria-expanded="false" aria-label="Note 7">7</button><span class="note" role="note"><b>7</b>Noetic, co-founded 2026.</span></span></p>
   </section>
 
-  <section id="plan">
+  <section id="flight-plan">
     <div class="section-head"><h2>Flight plan</h2><span class="label">2024 &rarr; now</span></div>
 
     <div class="tl">
     <svg class="tl-path" aria-hidden="true"><path class="base"></path><path class="lit"></path></svg>
-      <div class="tl-cursor" aria-hidden="true">
-        <i></i>
-        <canvas id="atlas"></canvas>
-        <span class="atlas-cap"><b id="atlas-label"></b><em id="atlas-gloss"></em></span>
+      <div class="tl-cursor">
+        <i aria-hidden="true"></i>
+        <canvas id="atlas" role="img" aria-label="A brain drawn in hairlines, turning slowly as the page is read. It is a decorative motif and carries no information."></canvas>
       </div>
 
-      <section class="tl-group" style="--rx: 7.5rem">
-        <p class="tl-yr">2026</p>
-        <div class="tl-rows">
+<!-- flight-plan:start -->
+<!-- Generated by build.mjs from content/experiences.json. Do not edit by hand. -->
 
-        <article data-region="apfc" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <details class="tl-fold">
-            <summary class="tl-grid">
-              <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/miku-thumb.png" alt="Miku logo" loading="lazy" decoding="async"></span></span>
-              <h3><a href="https://www.mikulearnbyteach.com/">Miku</a></h3>
-              <span class="tl-role">Founder</span>
-              <span class="tl-line">A teachable AI that helps learners practise metacognitive calibration.</span>
-              <span class="tl-open" aria-hidden="true"></span>
-            </summary>
-            <div class="fold-body">
-              <p><b>How it works.</b> The learner teaches Miku, an AI pupil that starts blank and answers only from what it has been taught. Before each question, the learner predicts whether Miku will get it right. The gap between prediction and result is the calibration measure.</p>
-              <p><b>Where it came from.</b> Two earlier versions, a reflection chatbot and a story-relay game, both aimed at helping children reflect on their own thinking.</p>
-              <p><b>Where it stands.</b> Adult friends have used it. I&rsquo;m interviewing parents before any child does.</p>
-              <p><a class="more" href="/case/miku">Case study</a></p>
-              <div class="plates">
-                <span class="shot shot-x"><span class="shot-in"><em>miku-predict.jpg</em><span class="cap">Prediction step</span><img src="/assets/photos/flightplan/miku-predict.jpg" alt="Prediction step" loading="lazy" decoding="async"></span></span>
-                <span class="shot shot-x"><span class="shot-in"><em>miku-map.jpg</em><span class="cap">Calibration map shown back to the learner</span><img src="/assets/photos/flightplan/miku-map.jpg" alt="Calibration map shown back to the learner" loading="lazy" decoding="async"></span></span>
-              </div>
-            </div>
-          </details>
-        </article>
+<section class="tl-group" style="--rx: 7.5rem" aria-labelledby="year-2026">
+<h3 class="tl-yr" id="year-2026">2026</h3>
+<div class="tl-rows">
 
-        <article data-region="acc" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <div class="tl-grid">
-            <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/lse-thumb.png" alt="LSE logo" loading="lazy" decoding="async"></span></span>
-            <h3>LSE, Department of Psychological and Behavioural Science</h3>
-            <span class="tl-role">Research assistant</span>
-            <span class="tl-line">Two research projects on how people judge what they know.</span>
-            <div class="subfolds">
-              <details class="subfold">
-                <summary><b>Dr Yana Litovsky</b><span>Curiosity, guessing and misinformation</span></summary>
-                <div class="fold-body">
-                  <p>How guessing and processing fluency affect susceptibility to misleading claims. It made me ask whether Miku&rsquo;s prediction step anchors learners to their first judgement.</p>
-                </div>
-              </details>
-              <details class="subfold">
-                <summary><b>Dr Sakshi Ghai</b><span>Digital safety for young people in Kenya</span></summary>
-                <div class="fold-body">
-                  <p>I reviewed digital-safety interventions and mapped which might suit young people in Mukuru. It made me rethink my first chatbot, which invited children to confide in an AI.</p>
-                  <div class="plates">
-                    <span class="shot shot-x"><span class="shot-in"><em>lse-notes.jpg</em><span class="cap">Review notes or a mapping table from the Mukuru work</span><img src="/assets/photos/flightplan/lse-notes.jpg" alt="Review notes or a mapping table from the Mukuru work" loading="lazy" decoding="async"></span></span>
-                  </div>
-                </div>
-              </details>
-            </div>
-          </div>
-        </article>
+<article class="xp" id="experience-miku">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/miku-thumb.png" alt="Miku logo" loading="lazy" decoding="async"></span></span>
+<h4>Miku</h4>
+<p class="xp-meta">Founder &middot; 2026</p>
+<p class="xp-sum">A teachable AI pupil that helps learners practise metacognitive calibration.</p>
+<p class="xp-links"><a class="cta" href="/work/miku">Read case study</a><a class="cta out" href="https://www.mikulearnbyteach.com/" rel="noopener noreferrer">Explore Miku</a></p>
+<details class="fold plain" name="flight-plan" id="more-miku">
+<summary><span class="xp-toggle"></span></summary>
+<div class="fold-body">
+<h5>What I built</h5>
+<p>The learner teaches Miku, an AI pupil that starts blank and answers only from what it has been taught. Before each question, the learner predicts whether Miku will get it right. The gap between prediction and result is the calibration measure.</p>
+<h5>Where it came from</h5>
+<p>Two earlier versions, a reflection chatbot and a story-relay game, both aimed at helping children reflect on their own thinking.</p>
+<h5>Where it stands</h5>
+<p>Adult friends have used it. I’m interviewing parents before any child does, so there is no child data and no claim that it works.</p>
+<div class="plates">
+<span class="shot shot-x"><span class="shot-in"><em>miku-predict.jpg</em><span class="cap">Prediction step</span><img src="/assets/photos/flightplan/miku-predict.jpg" alt="Prediction step" loading="lazy" decoding="async"></span></span>
+<span class="shot shot-x"><span class="shot-in"><em>miku-map.jpg</em><span class="cap">Calibration map shown back to the learner</span><img src="/assets/photos/flightplan/miku-map.jpg" alt="Calibration map shown back to the learner" loading="lazy" decoding="async"></span></span>
+</div>
+</div>
+</details>
+</div>
+</article>
 
-        <article data-region="dorsal" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <details class="tl-fold">
-            <summary class="tl-grid">
-              <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/linksea-thumb.png" alt="LinkSea logo" loading="lazy" decoding="async"></span></span>
-              <h3>LinkSea</h3>
-              <span class="tl-role">UI/UX designer</span>
-              <span class="tl-line">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</span>
-              <span class="tl-open" aria-hidden="true"></span>
-            </summary>
-            <div class="fold-body">
-              <p><b>What I built.</b> The student interface, in JavaScript. The platform also has interfaces for teachers and administrators.</p>
-              <p><b>How I tested it.</b> With the students themselves. I rebuilt the parts they couldn&rsquo;t complete.</p>
-              <div class="plates">
-                <span class="shot shot-x"><span class="shot-in"><em>linksea-before-after.jpg</em><span class="cap">One screen before and after the rebuild</span><img src="/assets/photos/flightplan/linksea-before-after.jpg" alt="One screen before and after the rebuild" loading="lazy" decoding="async"></span></span>
-              </div>
-            </div>
-          </details>
-        </article>
+<article class="xp" id="experience-lse">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/lse-thumb.png" alt="LSE logo" loading="lazy" decoding="async"></span></span>
+<h4>LSE, Department of Psychological and Behavioural Science</h4>
+<p class="xp-meta">Research assistant &middot; 2026</p>
+<p class="xp-sum">Two separate research projects, each on a different question about how people judge what they know.</p>
+<div class="xp-groups">
+<details class="fold" name="flight-plan" id="more-lse-litovsky">
+<summary><b>Dr Yana Litovsky</b><span>Curiosity, guessing and misinformation</span></summary>
+<div class="fold-body">
+<p>How guessing and processing fluency affect susceptibility to misleading claims.</p>
+<p>It made me ask whether Miku’s prediction step anchors learners to their first judgement, which is a question about my design rather than a finding of hers.</p>
+</div>
+</details>
+<details class="fold" name="flight-plan" id="more-lse-ghai">
+<summary><b>Dr Sakshi Ghai</b><span>Digital safety for young people in Kenya</span></summary>
+<div class="fold-body">
+<p>I reviewed digital-safety interventions and mapped which might suit young people in Mukuru.</p>
+<p>It made me rethink my first chatbot, which invited children to confide in an AI. An intervention can be coherent inside a framework and still miss how a community meets risk.</p>
+<div class="plates">
+<span class="shot shot-x"><span class="shot-in"><em>lse-notes.jpg</em><span class="cap">Review notes or a mapping table from the Mukuru work</span><img src="/assets/photos/flightplan/lse-notes.jpg" alt="Review notes or a mapping table from the Mukuru work" loading="lazy" decoding="async"></span></span>
+</div>
+</div>
+</details>
+</div>
+</div>
+</article>
 
-        <article data-region="hippocampus" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <details class="tl-fold">
-            <summary class="tl-grid">
-              <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/noetic-thumb.png" alt="Noetic logo" loading="lazy" decoding="async"></span></span>
-              <h3>Noetic</h3>
-              <span class="tl-role">Co-founder</span>
-              <span class="tl-line">One-day builds where AI builders learn a frontier company&rsquo;s newest tools with its engineers in the room.</span>
-              <span class="tl-open" aria-hidden="true"></span>
-            </summary>
-            <div class="fold-body">
-              <p><b>How a day is designed.</b> Tracks are split by experience, so first-timers aren&rsquo;t scored against people who have already shipped. Judges reward teams that can explain why they chose a model.</p>
-              <p><b>The Nebius day.</b> 103 applicants, 63 selected, and all 63 came.</p>
-              <p><a class="more" href="/case/nebius">Case study</a></p>
-              <div class="plates">
-                <span class="shot shot-x"><span class="shot-in"><em>noetic-teams.jpg</em><span class="cap">Teams building</span><img src="/assets/photos/flightplan/noetic-teams.jpg" alt="Teams building" loading="lazy" decoding="async"></span></span>
-                <span class="shot shot-x"><span class="shot-in"><em>noetic-judging.jpg</em><span class="cap">A team presenting to judges</span><img src="/assets/photos/flightplan/noetic-judging.jpg" alt="A team presenting to judges" loading="lazy" decoding="async"></span></span>
-              </div>
-            </div>
-          </details>
-        </article>
+<article class="xp" id="experience-linksea">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/linksea-thumb.png" alt="LinkSea logo" loading="lazy" decoding="async"></span></span>
+<h4>LinkSea</h4>
+<p class="xp-meta">UI/UX designer &middot; 2026</p>
+<p class="xp-sum">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</p>
+<p class="xp-links"><a class="cta" href="/work/linksea">Read case study</a></p>
+<details class="fold plain" name="flight-plan" id="more-linksea">
+<summary><span class="xp-toggle"></span></summary>
+<div class="fold-body">
+<h5>What I built</h5>
+<p>The student-facing interface, in JavaScript. The platform also has interfaces for teachers and administrators, which were not mine.</p>
+<h5>How I tested it</h5>
+<p>With the students themselves. I rebuilt the parts they could not complete.</p>
+<div class="plates">
+<span class="shot shot-x"><span class="shot-in"><em>linksea-before-after.jpg</em><span class="cap">One screen before and after the rebuild</span><img src="/assets/photos/flightplan/linksea-before-after.jpg" alt="One screen before and after the rebuild" loading="lazy" decoding="async"></span></span>
+</div>
+</div>
+</details>
+</div>
+</article>
 
-        <article data-region="basal" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <details class="tl-fold">
-            <summary class="tl-grid">
-              <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/bytedance-thumb.png" alt="TikTok logo" loading="lazy" decoding="async"></span></span>
-              <h3>ByteDance</h3>
-              <span class="tl-role">AI &amp; automation summer project intern</span>
-              <span class="tl-line">Built LLM automation for policy-enforcement messaging across TikTok Shop.</span>
-              <span class="tl-open" aria-hidden="true"></span>
-            </summary>
-            <div class="fold-body">
-              <p><b>What I built.</b> More than 40 prompt-based workflows. Seller satisfaction rose from 5% to around 70% within a month.</p>
-              <p><b>Adoption.</b> I trained a ten-person team, and over 200 policy staff adopted the procedure.</p>
-            </div>
-          </details>
-        </article>
+<article class="xp" id="experience-noetic">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/noetic-thumb.png" alt="Noetic logo" loading="lazy" decoding="async"></span></span>
+<h4>Noetic</h4>
+<p class="xp-meta">Co-founder &middot; 2026</p>
+<p class="xp-sum">One-day builds where AI builders learn a frontier company’s newest tools with its engineers in the room.</p>
+<p class="xp-links"><a class="cta" href="/work/nebius">Read the Nebius case study</a><a class="cta out" href="https://www.mynoetic.com/" rel="noopener noreferrer">Visit Noetic</a></p>
+<details class="fold plain" name="flight-plan" id="more-noetic">
+<summary><span class="xp-toggle"></span></summary>
+<div class="fold-body">
+<h5>How a day is designed</h5>
+<p>Tracks are split by experience, so first-timers aren’t scored against people who have already shipped. Judges reward teams that can explain why they chose a model, ahead of how finished the build looks.</p>
+<h5>The Nebius day</h5>
+<p>One day of several. 103 applicants, 63 selected, and all 63 came. Those are participation figures: they say who turned up, not what anyone learned.</p>
+<div class="plates">
+<span class="shot shot-x"><span class="shot-in"><em>noetic-teams.jpg</em><span class="cap">Teams building</span><img src="/assets/photos/flightplan/noetic-teams.jpg" alt="Teams building" loading="lazy" decoding="async"></span></span>
+<span class="shot shot-x"><span class="shot-in"><em>noetic-judging.jpg</em><span class="cap">A team presenting to judges</span><img src="/assets/photos/flightplan/noetic-judging.jpg" alt="A team presenting to judges" loading="lazy" decoding="async"></span></span>
+</div>
+</div>
+</details>
+</div>
+</article>
 
-        </div>
-      </section>
+<article class="xp" id="experience-bytedance">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/bytedance-thumb.png" alt="TikTok logo" loading="lazy" decoding="async"></span></span>
+<h4>ByteDance</h4>
+<p class="xp-meta">AI &amp; automation summer project intern &middot; 2026</p>
+<p class="xp-sum">Built LLM automation for policy-enforcement messaging across TikTok Shop.</p>
+<details class="fold plain" name="flight-plan" id="more-bytedance">
+<summary><span class="xp-toggle"></span></summary>
+<div class="fold-body">
+<h5>What I built</h5>
+<p>More than 40 prompt-based workflows. Seller satisfaction rose from 5% to around 70% within a month.</p>
+<h5>Adoption</h5>
+<p>I trained a ten-person team, and over 200 policy staff adopted the procedure.</p>
+</div>
+</details>
+</div>
+</article>
 
-      <section class="tl-group" style="--rx: 11rem">
-        <p class="tl-yr">2025</p>
-        <div class="tl-rows">
+</div>
+</section>
 
-        <article data-region="striatum" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <details class="tl-fold">
-            <summary class="tl-grid">
-              <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/ases-thumb.png" alt="ASES logo" loading="lazy" decoding="async"></span></span>
-              <h3>ASES London</h3>
-              <span class="tl-role">Co-director &middot; Affiliated Stanford Entrepreneurial Students</span>
-              <span class="tl-line">Brought Stanford&rsquo;s building culture to students in London.</span>
-              <span class="tl-open" aria-hidden="true"></span>
-            </summary>
-            <div class="fold-body">
-              <p><b>How I got there.</b> I won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter.</p>
-              <p><b>The bootcamp.</b> I designed a ten-week programme for around 70 selected fellows and secured &pound;5k of sponsorship.</p>
-              <p><b>LSESU Entrepreneurs.</b> Two years on the executive. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%.</p>
-              <div class="plates">
-                <span class="shot shot-x"><span class="shot-in"><em>ases-bootcamp.jpg</em><span class="cap">A bootcamp session in London</span><img src="/assets/photos/flightplan/ases-bootcamp.jpg" alt="A bootcamp session in London" loading="lazy" decoding="async"></span></span>
-              </div>
-            </div>
-          </details>
-        </article>
+<section class="tl-group" style="--rx: 11rem" aria-labelledby="year-2025">
+<h3 class="tl-yr" id="year-2025">2025</h3>
+<div class="tl-rows">
 
-        <article data-region="orbital" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <div class="tl-grid">
-            <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/fosun-thumb.png" alt="Fosun International logo" loading="lazy" decoding="async"></span></span>
-            <h3>Fosun International</h3>
-            <span class="tl-role">Private equity, banking &amp; insurance group</span>
-            <span class="tl-line">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.</span>
-          </div>
-        </article>
+<article class="xp" id="experience-ases">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/ases-thumb.png" alt="ASES logo" loading="lazy" decoding="async"></span></span>
+<h4>ASES London</h4>
+<p class="xp-meta">Co-director, Affiliated Stanford Entrepreneurial Students &middot; 2025</p>
+<p class="xp-sum">Brought Stanford’s building culture to students in London.</p>
+<p class="xp-links"><a class="cta" href="/work/ases-bootcamp">Read the bootcamp case study</a></p>
+<details class="fold plain" name="flight-plan" id="more-ases">
+<summary><span class="xp-toggle"></span></summary>
+<div class="fold-body">
+<h5>How I got there</h5>
+<p>I won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter.</p>
+<h5>The bootcamp</h5>
+<p>I designed a ten-week programme for around 70 selected fellows and secured £5k of sponsorship.</p>
+<h5>LSESU Entrepreneurs</h5>
+<p>A separate organisation, and two years on its executive. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%.</p>
+<div class="plates">
+<span class="shot shot-x"><span class="shot-in"><em>ases-bootcamp.jpg</em><span class="cap">A bootcamp session in London</span><img src="/assets/photos/flightplan/ases-bootcamp.jpg" alt="A bootcamp session in London" loading="lazy" decoding="async"></span></span>
+</div>
+</div>
+</details>
+</div>
+</article>
 
-        </div>
-      </section>
+<article class="xp" id="experience-fosun">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/fosun-thumb.png" alt="Fosun International logo" loading="lazy" decoding="async"></span></span>
+<h4>Fosun International</h4>
+<p class="xp-meta">Group investments, insurance and healthcare &middot; 2025</p>
+<p class="xp-sum">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.</p>
+</div>
+</article>
 
-      <section class="tl-group" style="--rx: 14.5rem">
-        <p class="tl-yr">2024</p>
-        <div class="tl-rows">
+</div>
+</section>
 
-        <article data-region="tpj" class="tl-entry">
-          <span class="tl-dot" aria-hidden="true"></span>
-          <div class="tl-grid">
-            <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async"></span></span>
-            <h3>Women in Entrepreneurship</h3>
-            <span class="tl-role">Event project director &middot; LSESU Entrepreneurs</span>
-            <span class="tl-line">Directed the events programme for Women in Entrepreneurship.</span>
-          </div>
-        </article>
+<section class="tl-group" style="--rx: 14.5rem" aria-labelledby="year-2024">
+<h3 class="tl-yr" id="year-2024">2024</h3>
+<div class="tl-rows">
 
-        </div>
-      </section>
+<article class="xp" id="experience-women-in-entrepreneurship">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async"></span></span>
+<h4>Women in Entrepreneurship</h4>
+<p class="xp-meta">Event project director, LSESU Entrepreneurs &middot; 2024</p>
+<p class="xp-sum">Directed the events programme for Women in Entrepreneurship.</p>
+</div>
+</article>
+
+</div>
+</section>
+
+<!-- flight-plan:end -->
     </div>
   </section>
 
-  <section id="signoff" data-region="cerebellum">
+  <section id="signoff">
     <div class="section-head"><h2>Sign-off</h2><span class="label">Cabin crew, doors to manual</span></div>
     <p class="farewell">Thank you for flying with me.</p>
     <div class="strip">
@@ -715,15 +730,34 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     img.addEventListener("error", miss);
   });
 
-  /* Clicking an <a> inside a <summary> both follows the link and toggles the
-     fold. preventDefault stops the toggle, so the navigation is done by hand. */
-  [].slice.call(document.querySelectorAll("summary a")).forEach(function (a) {
-    a.addEventListener("click", function (ev) {
-      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button) return;
-      ev.preventDefault();
-      window.location.href = a.href;
-    });
-  });
+  /* One entry open at a time. Modern browsers do this from the shared name on
+     the <details>; older ones get the same behaviour here. Deep links such as
+     /#experience-miku open the matching entry on arrival. */
+  (function () {
+    var folds = [].slice.call(document.querySelectorAll(".fold[name], .fold"));
+    if (!folds.length) return;
+    if (!("name" in document.createElement("details"))) {
+      folds.forEach(function (d) {
+        d.addEventListener("toggle", function () {
+          if (!d.open) return;
+          folds.forEach(function (o) { if (o !== d) o.open = false; });
+        });
+      });
+    }
+    function openFromHash() {
+      var id = (location.hash || "").replace(/^#/, "");
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      var fold = el.classList && el.classList.contains("fold")
+        ? el
+        : el.querySelector && el.querySelector(".fold");
+      if (fold) fold.open = true;
+      el.scrollIntoView({ block: "start" });
+    }
+    window.addEventListener("hashchange", openFromHash);
+    openFromHash();
+  })();
 
   var btn = document.getElementById("copy-email");
   var sig = document.getElementById("sig");
@@ -757,33 +791,6 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   "use strict";
   var canvas = document.getElementById("atlas");
   if (!canvas || !canvas.getContext) return;
-
-  /* x anterior, y superior, z lateral. Deep structures are given the direction
-     of the surface above them: the drawing is a hairline atlas, not a dissection. */
-  var ANCHOR = {
-    apfc:        [ 0.46,  0.06, 0.12],
-    acc:         [ 0.24,  0.20, 0.04],
-    dorsal:      [-0.28,  0.24, 0.14],
-    hippocampus: [ 0.02, -0.12, 0.18],
-    basal:       [ 0.14,  0.00, 0.12],
-    striatum:    [ 0.26, -0.12, 0.09],
-    orbital:     [ 0.36, -0.15, 0.12],
-    tpj:         [-0.26, -0.06, 0.20],
-    temporal:    [ 0.10, -0.26, 0.23],
-    cerebellum:  [-0.36, -0.30, 0.14]
-  };
-  var NAME = {
-    apfc:        ["Anterior prefrontal cortex", "judging how well you know something"],
-    acc:         ["Anterior cingulate cortex", "noticing when something doesn't add up"],
-    dorsal:      ["Dorsal visual stream", "seeing something and knowing how to act on it"],
-    hippocampus: ["Hippocampus", "where new learning gets laid down"],
-    basal:       ["Basal ganglia", "turning repeated actions into routines"],
-    striatum:    ["Ventral striatum", "the pull to try something new"],
-    orbital:     ["Orbitofrontal cortex", "working out what something is worth"],
-    tpj:         ["Temporoparietal junction", "seeing from someone else's point of view"],
-    temporal:    ["Temporal lobe", "language, and the meaning carried in it"],
-    cerebellum:  ["Cerebellum", "timing, and skill built by repetition"]
-  };
 
   function norm(v) { var m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0]/m, v[1]/m, v[2]/m]; }
   function dot(a, b) { return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; }
@@ -872,29 +879,11 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   for (i = 0; i < 260; i++) { push(walk(CEREBRUM, 1.0, [0, 0.02, 0], 22, 0.082, 0.55, true, null)); }
   for (i = 0; i < 70; i++) { push(walk(CEREBELLUM, 0.92, [-0.39, -0.27, 0], 14, 0.085, 0, false, [0, 0, 1])); }
 
-  /* Light an angular neighbourhood of the anchor rather than a sphere around it.
-     A sphere could not reach the basal ganglia or the striatum, which sit well
-     inside the drawn surface, so those regions lit nothing at all. The angle is
-     the one the old radius subtended, so the patch is the same size as before. */
-  var LIT_COS = 0.934, focusDirs = null;
-  function setFocusSeats(k) {
-    if (!k || !ANCHOR[k]) { focusDirs = null; return; }
-    var a = ANCHOR[k], x = a[0]*SQ[0], y = a[1]*SQ[1], z = a[2]*SQ[2];
-    focusDirs = [norm([x, y, z]), norm([x, y, -z])];
-  }
-  function near(pt) {
-    if (!focusDirs) return false;
-    var u = norm(pt), n;
-    for (n = 0; n < 2; n++) { if (dot(u, focusDirs[n]) > LIT_COS) return true; }
-    return false;
-  }
-
   var ctx = canvas.getContext("2d"), W = 1, H = 1, DPR = 1;
-  var ruleCol = "#6f6d6b", accentCol = "#8e2436";
+  var ruleCol = "#6f6d6b";
   function readTokens() {
     var cs = getComputedStyle(document.documentElement);
     ruleCol = (cs.getPropertyValue("--faint") || "#6f6d6b").trim();
-    accentCol = (cs.getPropertyValue("--accent") || "#8e2436").trim();
   }
   function resize() {
     var r = canvas.getBoundingClientRect();
@@ -905,7 +894,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
 
-  var yaw = -0.5, pitch = -0.08, tYaw = -0.5, tPitch = -0.08, focus = null;
+  var yaw = -0.5, pitch = -0.08;
   var cY = 1, sY = 0, cX = 1, sX = 0;
   function rot(p) {
     var x = p[0]*cY + p[2]*sY, z = -p[0]*sY + p[2]*cY;
@@ -917,72 +906,33 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     cY = Math.cos(yaw); sY = Math.sin(yaw); cX = Math.cos(pitch); sX = Math.sin(pitch);
     var sc = Math.min(W, H) * 0.84;
     ctx.clearRect(0, 0, W, H);
-    /* decide lit per segment, not per fibre: a fibre is a long arc and lighting
-       the whole of one paints a line clean across the drawing */
-    var quiet = new Path2D(), lit = new Path2D(), f, j, q, s, prev, prevLit, now, p;
+    var path = new Path2D(), f, i, j, prev, s2;
     for (i = 0; i < fibres.length; i++) {
-      f = fibres[i]; prev = null; prevLit = false;
+      f = fibres[i]; prev = null;
       for (j = 0; j < f.pts.length; j++) {
-        now = near(f.pts[j]);
-        q = rot(f.pts[j]); s = proj(q, sc);
-        if (prev) {
-          p = (now || prevLit) ? lit : quiet;
-          p.moveTo(prev[0], prev[1]); p.lineTo(s[0], s[1]);
-        }
-        prev = s; prevLit = now;
+        s2 = proj(rot(f.pts[j]), sc);
+        if (prev) { path.moveTo(prev[0], prev[1]); path.lineTo(s2[0], s2[1]); }
+        prev = s2;
       }
     }
     ctx.lineCap = "round"; ctx.lineJoin = "round";
-    ctx.strokeStyle = ruleCol; ctx.globalAlpha = 0.45; ctx.lineWidth = 0.6; ctx.stroke(quiet);
-    ctx.strokeStyle = accentCol; ctx.globalAlpha = 1; ctx.lineWidth = 0.75; ctx.stroke(lit);
+    ctx.strokeStyle = ruleCol; ctx.globalAlpha = 0.45; ctx.lineWidth = 0.6; ctx.stroke(path);
     ctx.globalAlpha = 1;
   }
 
-  function aim(k) {
-    if (!k || !ANCHOR[k]) { tYaw = -0.5; tPitch = -0.08; return; }
-    var a = ANCHOR[k];
-    tYaw = -Math.atan2(a[0]*SQ[0], a[2]*SQ[2]);
-    tPitch = Math.max(-0.5, Math.min(0.5, Math.atan2(a[1]*SQ[1], 0.62) * 0.7));
-  }
-  function shortest(from, to) {
-    var d = (to - from) % (Math.PI*2);
-    if (d > Math.PI) d -= Math.PI*2;
-    if (d < -Math.PI) d += Math.PI*2;
-    return d;
-  }
-
+  /* The drawing used to turn to face whichever region an entry was tagged with.
+     The tagging is gone, so it keeps one slow drift instead, held still for
+     anyone who asked for less motion. */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   var last = 0;
   function frame(t) {
     var dt = last ? Math.min(t - last, 50) : 16; last = t;
-    if (reduce.matches) { yaw = tYaw; pitch = tPitch; }
-    else {
-      var e = 1 - Math.pow(0.004, dt/1000);
-      yaw += shortest(yaw, tYaw) * e;
-      pitch += (tPitch - pitch) * e;
-    }
+    if (!reduce.matches) yaw += dt * 0.00004;
     draw();
     requestAnimationFrame(frame);
   }
 
-  var label = document.getElementById("atlas-label");
-  var gloss = document.getElementById("atlas-gloss");
-  var marks = [].slice.call(document.querySelectorAll("[data-region]"));
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      var k = e.target.getAttribute("data-region");
-      if (k === focus) return;
-      focus = k; aim(k); setFocusSeats(k);
-      var n = NAME[k] || ["", ""];
-      label.textContent = n[0];
-      gloss.textContent = n[1];
-    });
-  }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
-  marks.forEach(function (m) { io.observe(m); });
-
-  readTokens(); resize(); aim(null); setFocusSeats(null);
-  yaw = tYaw; pitch = tPitch;
+  readTokens(); resize();
   if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
   else window.addEventListener("resize", resize);
   try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readTokens); } catch (e) {}
@@ -997,7 +947,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   var svg = tl.querySelector(".tl-path");
   var base = svg && svg.querySelector(".base");
   var lit = svg && svg.querySelector(".lit");
-  var entries = [].slice.call(tl.querySelectorAll(".tl-entry"));
+  var entries = [].slice.call(tl.querySelectorAll(".xp"));
   var groups = [].slice.call(tl.querySelectorAll(".tl-group"));
   if (!lit || !entries.length) return;
 

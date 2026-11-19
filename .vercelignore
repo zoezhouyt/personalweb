@@ -7,3 +7,9 @@ archive/
 # Notes that belong to the repository rather than to the site.
 README.md
 assets/photos/README.md
+
+# The content source and the generator. The pages they produce are committed and
+# served; these are for editing, not for visitors.
+content/
+build.mjs
+assets/photos/flightplan/README.md
