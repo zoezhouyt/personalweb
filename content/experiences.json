@@ -1,53 +1,108 @@
 {
-  "_README": "Source of truth for the homepage flight plan. Edit here, then run `node build.mjs`. Body fields accept inline HTML; paragraphs split on a blank line. displayOrder sorts within a year, lowest first.",
-  "heading": "2024 → now",
+  "_README": "Source of truth for the homepage flight plan. Edit here, then run `node build.mjs`. Body fields accept inline HTML; paragraphs split on a blank line. displayOrder sorts within a year, lowest first. category groups the work for the brain drawing only: the label is printed under the drawing, never on the entry.",
   "categories": {
     "psychology": {
       "label": "Psychology",
       "region": "Prefrontal cortex",
       "gloss": "weighing how well you know something",
-      "anchor": [0.40, 0.24, 0.13]
+      "anchor": [
+        0.4,
+        0.24,
+        0.13
+      ]
+    },
+    "tech": {
+      "label": "Tech",
+      "region": "Parietal cortex",
+      "gloss": "holding a structure in mind while you change it",
+      "anchor": [
+        -0.22,
+        0.24,
+        0.14
+      ]
     },
     "entrepreneurship": {
       "label": "Entrepreneurship",
       "region": "Motor cortex",
       "gloss": "turning a decision into something that moves",
-      "anchor": [0.07, 0.30, 0.13]
+      "anchor": [
+        0.07,
+        0.3,
+        0.13
+      ]
     },
     "finance": {
       "label": "Finance",
       "region": "Orbitofrontal cortex",
       "gloss": "working out what something is worth",
-      "anchor": [0.36, -0.15, 0.12]
+      "anchor": [
+        0.36,
+        -0.15,
+        0.12
+      ]
     }
   },
-  "yearOffsets": { "2026": "7.5rem", "2025": "11rem", "2024": "14.5rem" },
+  "yearOffsets": {
+    "2026": "7.5rem",
+    "2025": "11rem",
+    "2024": "14.5rem"
+  },
   "experiences": [
     {
       "id": "miku",
-      "category": "psychology",
+      "category": "entrepreneurship",
       "year": 2026,
       "displayOrder": 1,
       "title": "Miku",
       "role": "Founder",
       "summary": "A teachable AI pupil that helps learners practise metacognitive calibration.",
-      "thumbnail": { "src": "/assets/photos/flightplan/miku-thumb.png", "alt": "Miku logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/miku-thumb.png",
+        "alt": "Miku logo"
+      },
       "featured": true,
       "expandable": true,
       "links": [
-        { "label": "Read case study", "href": "/work/miku", "external": false },
-        { "label": "Explore Miku", "href": "https://www.mikulearnbyteach.com/", "external": true }
+        {
+          "label": "Read case study",
+          "href": "/work/miku",
+          "external": false
+        },
+        {
+          "label": "Explore Miku",
+          "href": "https://www.mikulearnbyteach.com/",
+          "external": true
+        }
       ],
       "highlights": [
-        { "heading": "What I built", "body": "The learner teaches Miku, an AI pupil that starts blank and answers only from what it has been taught. Before each question, the learner predicts whether Miku will get it right. The gap between prediction and result is the calibration measure." },
-        { "heading": "Where it came from", "body": "Two earlier versions, a reflection chatbot and a story-relay game, both aimed at helping children reflect on their own thinking." },
-        { "heading": "Where it stands", "body": "Adult friends have used it. I’m interviewing parents before any child does, so there is no child data and no claim that it works." }
+        {
+          "heading": "What I built",
+          "body": "The learner teaches Miku, an AI pupil that starts blank and answers only from what it has been taught. Before each question, the learner predicts whether Miku will get it right. The gap between prediction and result is the calibration measure."
+        },
+        {
+          "heading": "Where it came from",
+          "body": "Two earlier versions, a reflection chatbot and a story-relay game, both aimed at helping children reflect on their own thinking."
+        },
+        {
+          "heading": "Where it stands",
+          "body": "Adult friends have used it. I’m interviewing parents before any child does, so there is no child data and no claim that it works."
+        }
       ],
       "images": [
-        { "src": "/assets/photos/flightplan/miku-predict.jpg", "alt": "Prediction step", "caption": "Prediction step" },
-        { "src": "/assets/photos/flightplan/miku-map.jpg", "alt": "Calibration map shown back to the learner", "caption": "Calibration map shown back to the learner" }
+        {
+          "src": "/assets/photos/flightplan/miku-predict.jpg",
+          "alt": "Prediction step",
+          "caption": "Prediction step"
+        },
+        {
+          "src": "/assets/photos/flightplan/miku-map.jpg",
+          "alt": "Calibration map shown back to the learner",
+          "caption": "Calibration map shown back to the learner"
+        }
       ],
-      "relatedWork": ["lse"]
+      "relatedWork": [
+        "lse"
+      ]
     },
     {
       "id": "lse",
@@ -57,7 +112,10 @@
       "title": "LSE, Department of Psychological and Behavioural Science",
       "role": "Research assistant",
       "summary": "Two separate research projects, each on a different question about how people judge what they know.",
-      "thumbnail": { "src": "/assets/photos/flightplan/lse-thumb.png", "alt": "LSE logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/lse-thumb.png",
+        "alt": "LSE logo"
+      },
       "expandable": true,
       "groups": [
         {
@@ -72,31 +130,52 @@
           "note": "Digital safety for young people in Kenya",
           "body": "I reviewed digital-safety interventions and mapped which might suit young people in Mukuru.\n\nIt made me rethink my first chatbot, which invited children to confide in an AI. An intervention can be coherent inside a framework and still miss how a community meets risk.",
           "images": [
-            { "src": "/assets/photos/flightplan/lse-notes.jpg", "alt": "Review notes or a mapping table from the Mukuru work", "caption": "Review notes or a mapping table from the Mukuru work" }
+            {
+              "src": "/assets/photos/flightplan/lse-notes.jpg",
+              "alt": "Review notes or a mapping table from the Mukuru work",
+              "caption": "Review notes or a mapping table from the Mukuru work"
+            }
           ]
         }
       ]
     },
     {
       "id": "linksea",
-      "category": "psychology",
+      "category": "tech",
       "year": 2026,
       "displayOrder": 3,
       "title": "LinkSea",
       "role": "UI/UX designer",
       "summary": "Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.",
-      "thumbnail": { "src": "/assets/photos/flightplan/linksea-thumb.png", "alt": "LinkSea logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/linksea-thumb.png",
+        "alt": "LinkSea logo"
+      },
       "featured": true,
       "expandable": true,
       "links": [
-        { "label": "Read case study", "href": "/work/linksea", "external": false }
+        {
+          "label": "Read case study",
+          "href": "/work/linksea",
+          "external": false
+        }
       ],
       "highlights": [
-        { "heading": "What I built", "body": "The student-facing interface, in JavaScript. The platform also has interfaces for teachers and administrators, which were not mine." },
-        { "heading": "How I tested it", "body": "With the students themselves. I rebuilt the parts they could not complete." }
+        {
+          "heading": "What I built",
+          "body": "The student-facing interface, in JavaScript. The platform also has interfaces for teachers and administrators, which were not mine."
+        },
+        {
+          "heading": "How I tested it",
+          "body": "With the students themselves. I rebuilt the parts they could not complete."
+        }
       ],
       "images": [
-        { "src": "/assets/photos/flightplan/linksea-before-after.jpg", "alt": "One screen before and after the rebuild", "caption": "One screen before and after the rebuild" }
+        {
+          "src": "/assets/photos/flightplan/linksea-before-after.jpg",
+          "alt": "One screen before and after the rebuild",
+          "caption": "One screen before and after the rebuild"
+        }
       ]
     },
     {
@@ -107,37 +186,73 @@
       "title": "Noetic",
       "role": "Co-founder",
       "summary": "One-day builds where AI builders learn a frontier company’s newest tools with its engineers in the room.",
-      "thumbnail": { "src": "/assets/photos/flightplan/noetic-thumb.png", "alt": "Noetic logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/noetic-thumb.png",
+        "alt": "Noetic logo"
+      },
       "featured": true,
       "expandable": true,
       "links": [
-        { "label": "Read the Nebius case study", "href": "/work/nebius", "external": false },
-        { "label": "Visit Noetic", "href": "https://www.mynoetic.com/", "external": true }
+        {
+          "label": "Read the Nebius case study",
+          "href": "/work/nebius",
+          "external": false
+        },
+        {
+          "label": "Visit Noetic",
+          "href": "https://www.mynoetic.com/",
+          "external": true
+        }
       ],
       "highlights": [
-        { "heading": "How a day is designed", "body": "Tracks are split by experience, so first-timers aren’t scored against people who have already shipped. Judges reward teams that can explain why they chose a model, ahead of how finished the build looks." },
-        { "heading": "The Nebius day", "body": "One day of several. 103 applicants, 63 selected, and all 63 came. Those are participation figures: they say who turned up, not what anyone learned." }
+        {
+          "heading": "How a day is designed",
+          "body": "Tracks are split by experience, so first-timers aren’t scored against people who have already shipped. Judges reward teams that can explain why they chose a model, ahead of how finished the build looks."
+        },
+        {
+          "heading": "The Nebius day",
+          "body": "One day of several. 103 applicants, 63 selected, and all 63 came. Those are participation figures: they say who turned up, not what anyone learned."
+        }
       ],
       "images": [
-        { "src": "/assets/photos/flightplan/noetic-teams.jpg", "alt": "Teams building", "caption": "Teams building" },
-        { "src": "/assets/photos/flightplan/noetic-judging.jpg", "alt": "A team presenting to judges", "caption": "A team presenting to judges" }
+        {
+          "src": "/assets/photos/flightplan/noetic-teams.jpg",
+          "alt": "Teams building",
+          "caption": "Teams building"
+        },
+        {
+          "src": "/assets/photos/flightplan/noetic-judging.jpg",
+          "alt": "A team presenting to judges",
+          "caption": "A team presenting to judges"
+        }
       ],
-      "relatedWork": ["ases"]
+      "relatedWork": [
+        "ases"
+      ]
     },
     {
       "id": "bytedance",
-      "category": "entrepreneurship",
+      "category": "tech",
       "year": 2026,
       "displayOrder": 5,
       "title": "ByteDance",
       "role": "AI & automation summer project intern",
       "summary": "Built LLM automation for policy-enforcement messaging across TikTok Shop.",
-      "thumbnail": { "src": "/assets/photos/flightplan/bytedance-thumb.png", "alt": "TikTok logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/bytedance-thumb.png",
+        "alt": "TikTok logo"
+      },
       "expandable": true,
       "editorTodo": "Confirm that the satisfaction figures (5% to ~70%), the 40+ workflows and the 200+ staff adoption are approved to publish before this stays up. No case-study page until that is settled.",
       "highlights": [
-        { "heading": "What I built", "body": "More than 40 prompt-based workflows. Seller satisfaction rose from 5% to around 70% within a month." },
-        { "heading": "Adoption", "body": "I trained a ten-person team, and over 200 policy staff adopted the procedure." }
+        {
+          "heading": "What I built",
+          "body": "More than 40 prompt-based workflows. Seller satisfaction rose from 5% to around 70% within a month."
+        },
+        {
+          "heading": "Adoption",
+          "body": "I trained a ten-person team, and over 200 policy staff adopted the procedure."
+        }
       ]
     },
     {
@@ -148,19 +263,39 @@
       "title": "ASES London",
       "role": "Co-director, Affiliated Stanford Entrepreneurial Students",
       "summary": "Brought Stanford’s building culture to students in London.",
-      "thumbnail": { "src": "/assets/photos/flightplan/ases-thumb.png", "alt": "ASES logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/ases-thumb.png",
+        "alt": "ASES logo"
+      },
       "featured": true,
       "expandable": true,
       "links": [
-        { "label": "Read the bootcamp case study", "href": "/work/ases-bootcamp", "external": false }
+        {
+          "label": "Read the bootcamp case study",
+          "href": "/work/ases-bootcamp",
+          "external": false
+        }
       ],
       "highlights": [
-        { "heading": "How I got there", "body": "I won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter." },
-        { "heading": "The bootcamp", "body": "I designed a ten-week programme for around 70 selected fellows and secured £5k of sponsorship." },
-        { "heading": "LSESU Entrepreneurs", "body": "A separate organisation, and two years on its executive. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%." }
+        {
+          "heading": "How I got there",
+          "body": "I won the ASES London competition and a funded place at the Stanford Summit, then came back to co-lead the London chapter."
+        },
+        {
+          "heading": "The bootcamp",
+          "body": "I designed a ten-week programme for around 70 selected fellows and secured £5k of sponsorship."
+        },
+        {
+          "heading": "LSESU Entrepreneurs",
+          "body": "A separate organisation, and two years on its executive. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%."
+        }
       ],
       "images": [
-        { "src": "/assets/photos/flightplan/ases-bootcamp.jpg", "alt": "A bootcamp session in London", "caption": "A bootcamp session in London" }
+        {
+          "src": "/assets/photos/flightplan/ases-bootcamp.jpg",
+          "alt": "A bootcamp session in London",
+          "caption": "A bootcamp session in London"
+        }
       ]
     },
     {
@@ -171,7 +306,10 @@
       "title": "Fosun International",
       "role": "Group investments, insurance and healthcare",
       "summary": "A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.",
-      "thumbnail": { "src": "/assets/photos/flightplan/fosun-thumb.png", "alt": "Fosun International logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/fosun-thumb.png",
+        "alt": "Fosun International logo"
+      },
       "expandable": false
     },
     {
@@ -182,7 +320,10 @@
       "title": "Women in Entrepreneurship",
       "role": "Event project director, LSESU Entrepreneurs",
       "summary": "Directed the events programme for Women in Entrepreneurship.",
-      "thumbnail": { "src": "/assets/photos/flightplan/wie-thumb.png", "alt": "LSESU Entrepreneurs logo" },
+      "thumbnail": {
+        "src": "/assets/photos/flightplan/wie-thumb.png",
+        "alt": "LSESU Entrepreneurs logo"
+      },
       "expandable": false
     }
   ]

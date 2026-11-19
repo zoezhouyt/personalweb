@@ -261,10 +261,6 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
   text-transform: uppercase; color: var(--faint); margin: 0.35rem 0 0.7rem;
 }
-/* the grouping is printed here as well as under the brain, so the drawing is
-   never the only place a reader can learn which kind of work this is */
-.xp-cat { color: var(--accent); }
-.xp-cat::after { content: " \00B7 "; color: var(--faint); }
 .xp-sum { margin: 0; color: var(--text); max-width: 34em; }
 
 /* links navigate, the toggle does not: they are never the same control */
@@ -332,10 +328,11 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 .shot .cap { font-size: 9.5px; line-height: 1.35; color: var(--faint); }
 .shot-x em { font-size: 10px; }
 .shot-x .cap { font-size: 11.5px; }
-/* a logo is a mark, not a photograph: contain it, and keep its own light card in
-   both themes so a white-ground wordmark does not glare on the dark page */
-.shot.logo { background: #f4f3f1; border: 1px solid var(--rule); }
-.shot.logo img { object-fit: contain; padding: 11%; }
+/* a logo is a mark, not a photograph: no plate, no border, no ground of its own.
+   The white backgrounds are cut out of the files themselves rather than hidden
+   behind a card, so the mark sits on the page. */
+.shot.logo { background: none; }
+.shot.logo img { object-fit: contain; padding: 6% 8%; }
 
 .plates { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.25rem; max-width: 34em; }
 @media (min-width: 52rem) { .plates { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); } }
@@ -430,12 +427,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <h3 class="tl-yr" id="year-2026">2026</h3>
 <div class="tl-rows">
 
-<article class="xp" id="experience-miku" data-category="psychology">
+<article class="xp" id="experience-miku" data-category="entrepreneurship">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/miku-thumb.png" alt="Miku logo" loading="lazy" decoding="async"></span></span>
 <h4>Miku</h4>
-<p class="xp-meta"><span class="xp-cat">Psychology</span>Founder &middot; 2026</p>
+<p class="xp-meta">Founder &middot; 2026</p>
 <p class="xp-sum">A teachable AI pupil that helps learners practise metacognitive calibration.</p>
 <p class="xp-links"><a class="cta" href="/work/miku">Read case study</a><a class="cta out" href="https://www.mikulearnbyteach.com/" rel="noopener noreferrer">Explore Miku</a></p>
 <details class="fold plain" name="flight-plan" id="more-miku">
@@ -461,7 +458,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/lse-thumb.png" alt="LSE logo" loading="lazy" decoding="async"></span></span>
 <h4>LSE, Department of Psychological and Behavioural Science</h4>
-<p class="xp-meta"><span class="xp-cat">Psychology</span>Research assistant &middot; 2026</p>
+<p class="xp-meta">Research assistant &middot; 2026</p>
 <p class="xp-sum">Two separate research projects, each on a different question about how people judge what they know.</p>
 <div class="xp-groups">
 <details class="fold" name="flight-plan" id="more-lse-litovsky">
@@ -485,12 +482,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-linksea" data-category="psychology">
+<article class="xp" id="experience-linksea" data-category="tech">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/linksea-thumb.png" alt="LinkSea logo" loading="lazy" decoding="async"></span></span>
 <h4>LinkSea</h4>
-<p class="xp-meta"><span class="xp-cat">Psychology</span>UI/UX designer &middot; 2026</p>
+<p class="xp-meta">UI/UX designer &middot; 2026</p>
 <p class="xp-sum">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</p>
 <p class="xp-links"><a class="cta" href="/work/linksea">Read case study</a></p>
 <details class="fold plain" name="flight-plan" id="more-linksea">
@@ -513,7 +510,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/noetic-thumb.png" alt="Noetic logo" loading="lazy" decoding="async"></span></span>
 <h4>Noetic</h4>
-<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>Co-founder &middot; 2026</p>
+<p class="xp-meta">Co-founder &middot; 2026</p>
 <p class="xp-sum">One-day builds where AI builders learn a frontier company’s newest tools with its engineers in the room.</p>
 <p class="xp-links"><a class="cta" href="/work/nebius">Read the Nebius case study</a><a class="cta out" href="https://www.mynoetic.com/" rel="noopener noreferrer">Visit Noetic</a></p>
 <details class="fold plain" name="flight-plan" id="more-noetic">
@@ -532,12 +529,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-bytedance" data-category="entrepreneurship">
+<article class="xp" id="experience-bytedance" data-category="tech">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/bytedance-thumb.png" alt="TikTok logo" loading="lazy" decoding="async"></span></span>
 <h4>ByteDance</h4>
-<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>AI &amp; automation summer project intern &middot; 2026</p>
+<p class="xp-meta">AI &amp; automation summer project intern &middot; 2026</p>
 <p class="xp-sum">Built LLM automation for policy-enforcement messaging across TikTok Shop.</p>
 <details class="fold plain" name="flight-plan" id="more-bytedance">
 <summary><span class="xp-toggle"></span></summary>
@@ -563,7 +560,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/ases-thumb.png" alt="ASES logo" loading="lazy" decoding="async"></span></span>
 <h4>ASES London</h4>
-<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>Co-director, Affiliated Stanford Entrepreneurial Students &middot; 2025</p>
+<p class="xp-meta">Co-director, Affiliated Stanford Entrepreneurial Students &middot; 2025</p>
 <p class="xp-sum">Brought Stanford’s building culture to students in London.</p>
 <p class="xp-links"><a class="cta" href="/work/ases-bootcamp">Read the bootcamp case study</a></p>
 <details class="fold plain" name="flight-plan" id="more-ases">
@@ -588,7 +585,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/fosun-thumb.png" alt="Fosun International logo" loading="lazy" decoding="async"></span></span>
 <h4>Fosun International</h4>
-<p class="xp-meta"><span class="xp-cat">Finance</span>Group investments, insurance and healthcare &middot; 2025</p>
+<p class="xp-meta">Group investments, insurance and healthcare &middot; 2025</p>
 <p class="xp-sum">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.</p>
 </div>
 </article>
@@ -605,7 +602,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async"></span></span>
 <h4>Women in Entrepreneurship</h4>
-<p class="xp-meta"><span class="xp-cat">Entrepreneurship</span>Event project director, LSESU Entrepreneurs &middot; 2024</p>
+<p class="xp-meta">Event project director, LSESU Entrepreneurs &middot; 2024</p>
 <p class="xp-sum">Directed the events programme for Women in Entrepreneurship.</p>
 </div>
 </article>
@@ -811,6 +808,16 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         0.4,
         0.24,
         0.13
+      ]
+    },
+    "tech": {
+      "label": "Tech",
+      "region": "Parietal cortex",
+      "gloss": "holding a structure in mind while you change it",
+      "anchor": [
+        -0.22,
+        0.24,
+        0.14
       ]
     },
     "entrepreneurship": {

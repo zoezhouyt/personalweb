@@ -50,8 +50,8 @@ broken rather than as a style.
 
 ### What an entry shows
 
-Three things are visible without any interaction: the name, the category with the role
-and year, and one sentence. Next to them is the organisation's mark. Then come the links, which navigate,
+Three things are visible without any interaction: the name, the role and year, and one
+sentence. Next to them is the organisation's mark. Then come the links, which navigate,
 and then the Explore control, which does not: a reader never has to guess whether a
 click will move them.
 
@@ -82,27 +82,34 @@ is coarser and honest about being a grouping.
 
 | Category | Holds | Region | Shown as |
 |---|---|---|---|
-| Psychology | Miku, the LSE assistantships, LinkSea | Prefrontal cortex | weighing how well you know something |
-| Entrepreneurship | Noetic, ByteDance, ASES London, Women in Entrepreneurship | Motor cortex | turning a decision into something that moves |
+| Entrepreneurship | Miku, Noetic, ASES London, Women in Entrepreneurship | Motor cortex | turning a decision into something that moves |
+| Tech | LinkSea, ByteDance | Parietal cortex | holding a structure in mind while you change it |
+| Psychology | the LSE assistantships | Prefrontal cortex | weighing how well you know something |
 | Finance | Fosun | Orbitofrontal cortex | working out what something is worth |
 
-The category is the content and the anatomy is the picture attached to it. Of the three,
-only orbitofrontal cortex and value is a standard association; the other two are
-metaphors and the page does not pretend otherwise. **Do not add a fourth category
-without a reason, and do not go back to one region per entry.**
+The split is by what the work is, not by the job title: entrepreneurship is the things
+she started, tech is software built inside someone else's organisation.
 
-The three anchors are chosen to be far apart on the drawing as well as sensible:
-prefrontal is anterior and superior, motor is superior and central, orbitofrontal is
-anterior and inferior. The nearest pair sits about 44 degrees apart, against a lit patch
-about 21 degrees wide, so two categories never light overlapping ground.
+The category is the content and the anatomy is the picture attached to it. Of the four,
+only orbitofrontal cortex and value is a standard association; the rest are metaphors
+and the page does not pretend otherwise. **Do not go back to one region per entry.**
+
+The label is printed under the drawing and nowhere else. It was briefly on each entry
+too, ahead of the role, and taken off again: the grouping is a way of arranging the
+page, not a fact about a job, and spelling it out on every row made it look like one.
+
+The four anchors are chosen to be far apart on the drawing as well as sensible:
+prefrontal is anterior and superior, motor superior and central, parietal posterior and
+superior, orbitofrontal anterior and inferior. The nearest pair sits 45 degrees apart,
+mirrored seats included, against a lit patch about 21 degrees wide, so two categories
+never light overlapping ground. `build.mjs` prints nothing about this, so if you move an
+anchor, check the separation by hand.
 
 `content/experiences.json` holds the table and every entry's `category`. `build.mjs`
 writes the table into `index.html` between the `categories` markers and `data-category`
-onto each entry, so the drawing and the labels cannot drift apart. The category is also
-printed on the entry itself, in oxblood ahead of the role, which is what stops the
-drawing being the only place a reader can learn the grouping. An `IntersectionObserver`
-watches the entries; whichever is crossing the middle of the viewport sets the lit patch
-and eases the camera round to face it.
+onto each entry, so the drawing and the labels cannot drift apart. An
+`IntersectionObserver` watches the entries; whichever is crossing the middle of the
+viewport sets the lit patch and eases the camera round to face it.
 
 The lit patch is an angular neighbourhood of the anchor's direction rather than a sphere
 around the point, which is what lets an anchor sit below the surface and still light the
@@ -194,10 +201,17 @@ The sign-off ends on four 4:5 plates fed from `assets/photos/`. A plate with no
 file renders as an empty block, not a broken image.
 
 Every flight plan entry carries a 4:3 thumbnail, and a fold may hold one or two
-16:10 photos behind it, all from `assets/photos/flightplan/`. The thumbnails are
-the organisations' logos, held in a light card and contained rather than cropped,
-and that card keeps its light ground in dark mode because several of the marks are
-drawn on white. The 16:10 slots are still empty: each prints the filename it wants
+16:10 photos behind it, all from `assets/photos/flightplan/`. The thumbnails are the
+organisations' logos, contained rather than cropped, sitting on the page with no plate
+and no border. The white grounds were cut out of the PNGs themselves by flooding in
+from the edges, which keeps white that belongs to the mark, such as the letters inside
+the LSE square. Two marks are solid colour to the edge, LSE and Noetic, and are meant
+to look like blocks.
+
+**A dark-on-transparent mark disappears in dark mode.** LinkSea's wordmark and the word
+under the TikTok note are both nearly invisible on the dark page. The fix is a
+light-on-dark variant of those two files, served from a `<picture>` on
+`prefers-color-scheme`, not a plate behind them. The 16:10 slots are still empty: each prints the filename it wants
 and a line saying what belongs there, so an unfilled flight plan is still a shot
 list. Both folders have a README naming every file.
 

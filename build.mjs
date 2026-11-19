@@ -79,7 +79,6 @@ function fold(id, inner, label) {
   );
 }
 
-let cats = {};
 function row(xp) {
   const parts = [];
   parts.push(
@@ -95,12 +94,8 @@ function row(xp) {
     );
   }
   parts.push(`<h4>${esc(xp.title)}</h4>`);
-  const cat = cats[xp.category];
-  parts.push(
-    `<p class="xp-meta">` +
-      (cat ? `<span class="xp-cat">${esc(cat.label)}</span>` : "") +
-      `${esc(xp.role)} &middot; ${xp.year}</p>`
-  );
+  // the category groups the work for the drawing; it is not printed on the entry
+  parts.push(`<p class="xp-meta">${esc(xp.role)} &middot; ${xp.year}</p>`);
   parts.push(`<p class="xp-sum">${xp.summary}</p>`);
   if (xp.links && xp.links.length) {
     parts.push(`<p class="xp-links">${xp.links.map(link).join("")}</p>`);
@@ -219,7 +214,6 @@ ${
 /* ---------- run ---------- */
 
 const data = read("content/experiences.json");
-cats = data.categories || {};
 const marker = [/<!-- flight-plan:start -->/, /<!-- flight-plan:end -->/];
 let index = readFileSync(join(ROOT, "index.html"), "utf8");
 const a = index.search(marker[0]);
