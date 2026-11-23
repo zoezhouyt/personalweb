@@ -128,7 +128,7 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 /* her face first, in a column of its own, so the page opens on a person rather
    than on prose. It is wider than the marks below it on purpose: this is the
    header, not another row. */
-.masthead { padding-block: 0.5rem 0; display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 0 1.2rem; align-items: start; }
+.masthead { padding-block: 0.5rem 0; display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 0 1.2rem; align-items: center; }
 @media (min-width: 46rem) { .masthead { grid-template-columns: 10rem minmax(0, 1fr); gap: 0 1.5rem; } }
 .masthead .me {
   /* height:auto is load-bearing: the height attribute is a presentational hint,
@@ -140,9 +140,10 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 /* what she is, before what she thinks about */
 .masthead .role {
   font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase;
-  color: var(--faint); margin: 0 0 0.9rem;
+  color: var(--faint); margin: 0;
 }
-.masthead .sub { color: var(--text); margin: 0; max-width: 34em; }
+/* kept for when a line goes back under the name */
+.masthead .sub { margin: 0.9rem 0 0; }
 
 /* ---- about, with footnotes ---- */
 .about p { margin: 0 0 1.15rem; max-width: 34em; }
@@ -423,7 +424,6 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <div>
       <h1>Zoe Zhou</h1>
       <p class="role">BSc Psychological and Behavioural Science, LSE &middot; Co-founder, Noetic</p>
-      <p class="sub">People are sure they understand something until they have to teach it. I build learning tools that make that moment arrive sooner.</p>
     </div>
   </header>
 
