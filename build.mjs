@@ -88,23 +88,31 @@ function fold(id, inner, label) {
 function row(xp) {
   const parts = [];
   parts.push(
-    `<article class="xp" id="experience-${esc(xp.id)}" data-category="${esc(xp.category || "")}">`
+    `<article class="xp" id="experience-${esc(xp.id)}" data-category="${esc(xp.category || "")}"` +
+      ` data-month="${esc(xp.month || "")}">`
   );
   parts.push(`<span class="tl-dot" aria-hidden="true"></span>`);
   parts.push(`<div class="xp-grid">`);
   if (xp.thumbnail) {
     parts.push(
-      `<span class="shot shot-t logo"><span class="shot-in">` +
-        `<img src="${esc(xp.thumbnail.src)}" alt="${esc(xp.thumbnail.alt)}" loading="lazy" decoding="async">` +
-        `</span></span>`
+      `<img class="mark" src="${esc(xp.thumbnail.src)}" alt="${esc(xp.thumbnail.alt)}" loading="lazy" decoding="async">`
     );
   }
-  parts.push(`<h4>${esc(xp.title)}</h4>`);
+  // where there is a live site, the name is the way to it: a title a reader
+  // already wants to click should not sit next to a second control that does
+  // the same thing
+  const site = (xp.links || []).find((l) => l.external);
+  parts.push(
+    site
+      ? `<h4><a href="${esc(site.href)}" rel="noopener noreferrer">${esc(xp.title)}</a></h4>`
+      : `<h4>${esc(xp.title)}</h4>`
+  );
   // the category groups the work for the drawing; it is not printed on the entry
   parts.push(`<p class="xp-meta">${esc(xp.role)} &middot; ${esc(xp.dates || xp.year)}</p>`);
   parts.push(`<p class="xp-sum">${xp.summary}</p>`);
-  if (xp.links && xp.links.length) {
-    parts.push(`<p class="xp-links">${xp.links.map(link).join("")}</p>`);
+  const rest = (xp.links || []).filter((l) => l !== site);
+  if (rest.length) {
+    parts.push(`<p class="xp-links">${rest.map(link).join("")}</p>`);
   }
   if (xp.groups && xp.groups.length) {
     // one disclosure per sub-project, so a reader does not have to open both to find either
@@ -133,7 +141,9 @@ function flightPlan(data) {
       const rx = (data.yearOffsets && data.yearOffsets[y]) || "7.5rem";
       return (
         `<section class="tl-group" style="--rx: ${rx}" aria-labelledby="year-${y}">\n` +
-        `<h3 class="tl-yr" id="year-${y}">${y}</h3>\n<div class="tl-rows">\n\n${rows}\n\n</div>\n</section>`
+        `<div class="tl-when"><span class="tl-mo" aria-hidden="true"></span>` +
+        `<h3 class="tl-yr" id="year-${y}">${y}</h3></div>\n` +
+        `<div class="tl-rows">\n\n${rows}\n\n</div>\n</section>`
       );
     })
     .join("\n\n");

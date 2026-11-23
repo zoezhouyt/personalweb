@@ -1,5 +1,5 @@
 {
-  "_README": "Source of truth for the homepage flight plan. Edit here, then run `node build.mjs`. Body fields accept inline HTML; paragraphs split on a blank line. displayOrder sorts within a year, lowest first. category groups the work the way the CV does and drives the brain drawing; dates are the display string, taken from the CV.",
+  "_README": "Source of truth for the homepage flight plan. Edit here, then run `node build.mjs`. Body fields accept inline HTML; paragraphs split on a blank line. displayOrder sorts within a year, lowest first, newest first by start date so the months read as a sequence. month is the start month, shown above the sticky year. category groups the work the way the CV does and drives the brain drawing. An external link is put on the title itself rather than listed as a separate action.",
   "categories": {
     "research": {
       "label": "Research",
@@ -52,7 +52,7 @@
       "id": "miku",
       "category": "entrepreneurship",
       "year": 2026,
-      "displayOrder": 1,
+      "displayOrder": 3,
       "title": "Miku",
       "role": "Founder",
       "summary": "A teachable AI pupil that helps learners practise metacognitive calibration.",
@@ -103,13 +103,14 @@
       "relatedWork": [
         "lse"
       ],
-      "dates": "March 2026 – present"
+      "dates": "March 2026 – present",
+      "month": "March"
     },
     {
       "id": "lse",
       "category": "research",
       "year": 2026,
-      "displayOrder": 2,
+      "displayOrder": 5,
       "title": "LSE, Department of Psychological and Behavioural Science",
       "role": "Research assistant and research apprentice",
       "summary": "Two separate research projects, each on a different question about how people judge what they know.",
@@ -141,13 +142,14 @@
           "dates": "January – April 2026"
         }
       ],
-      "dates": "January 2026 – present"
+      "dates": "January 2026 – present",
+      "month": "January"
     },
     {
       "id": "linksea",
       "category": "work",
       "year": 2026,
-      "displayOrder": 3,
+      "displayOrder": 4,
       "title": "LinkSea",
       "role": "UI/UX designer",
       "summary": "Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.",
@@ -181,13 +183,14 @@
           "caption": "One screen before and after the rebuild"
         }
       ],
-      "dates": "March – May 2026"
+      "dates": "March – May 2026",
+      "month": "March"
     },
     {
       "id": "noetic",
       "category": "entrepreneurship",
       "year": 2026,
-      "displayOrder": 4,
+      "displayOrder": 1,
       "title": "Noetic",
       "role": "Co-founder",
       "summary": "One-day builds where AI builders learn a frontier company’s newest tools with its engineers in the room.",
@@ -234,13 +237,14 @@
       "relatedWork": [
         "ases"
       ],
-      "dates": "June 2026 – present"
+      "dates": "June 2026 – present",
+      "month": "June"
     },
     {
       "id": "bytedance",
       "category": "work",
       "year": 2026,
-      "displayOrder": 5,
+      "displayOrder": 2,
       "title": "ByteDance",
       "role": "AI & automation summer project intern",
       "summary": "Built LLM automation for policy-enforcement messaging across TikTok Shop.",
@@ -260,13 +264,14 @@
           "body": "I trained a ten-person team, and over 200 policy staff adopted the procedure."
         }
       ],
-      "dates": "June – August 2026"
+      "dates": "June – August 2026",
+      "month": "June"
     },
     {
       "id": "ases",
       "category": "leadership",
       "year": 2025,
-      "displayOrder": 1,
+      "displayOrder": 2,
       "title": "ASES London",
       "role": "Co-director, Affiliated Stanford Entrepreneurial Students",
       "summary": "Brought Stanford’s building culture to students in London.",
@@ -305,13 +310,14 @@
         }
       ],
       "dates": "January 2025 – June 2026",
-      "editorTodo": "Site and CV disagree: the CV says 'President of ASES London' in the role line and 'Appointed Director' in the bullet. Zoe confirmed Co-director on 23 Nov 2026 — update the CV to match."
+      "editorTodo": "Site and CV disagree: the CV says 'President of ASES London' in the role line and 'Appointed Director' in the bullet. Zoe confirmed Co-director on 23 Nov 2026 — update the CV to match.",
+      "month": "January"
     },
     {
       "id": "fosun",
       "category": "work",
       "year": 2025,
-      "displayOrder": 2,
+      "displayOrder": 1,
       "title": "Fosun International",
       "role": "Private equity summer and off-cycle intern",
       "summary": "A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer as an off-cycle intern.",
@@ -320,7 +326,8 @@
         "alt": "Fosun International logo"
       },
       "expandable": false,
-      "dates": "June 2025 – June 2026"
+      "dates": "June 2025 – June 2026",
+      "month": "June"
     },
     {
       "id": "women-in-entrepreneurship",
@@ -335,7 +342,8 @@
         "alt": "LSESU Entrepreneurs logo"
       },
       "expandable": false,
-      "dates": "November 2024"
+      "dates": "November 2024",
+      "month": "November"
     }
   ]
 }

@@ -50,10 +50,19 @@ broken rather than as a style.
 
 ### What an entry shows
 
-Three things are visible without any interaction: the name, the role and year, and one
-sentence. Next to them is the organisation's mark. Then come the links, which navigate,
+The mark sits above the name, small, rather than in a column beside it. That hands the
+whole measure back to the text, so the entries line up with the About essay instead of
+starting nine rems past it. The mark is sized by height, not boxed, because the logos
+run from square to very wide wordmarks.
+
+Three things are then visible without any interaction: the name, the role and dates, and
+one sentence. Then come the links, which navigate,
 and then the Explore control, which does not: a reader never has to guess whether a
 click will move them.
+
+Where an experience has a live site of its own, the name is the link to it, with an
+arrow that says it leaves the page. It used to be listed as a separate "Visit" action
+underneath, which put two controls doing the same job next to each other.
 
 Explore is a `<summary>`, which browsers expose as a button carrying its own expanded
 state, so the fold needs no script and works with none. All the folds share a `name`, so
@@ -181,8 +190,13 @@ and served, the sources are for editing.
 
 Every entry carries a `dates` string taken from the CV, not a bare year, so a reader can
 tell ten weeks from a year. The two LSE assistantships ran at different times and each
-sub-fold carries its own. Women in Entrepreneurship is the one entry with no months: it
-is not on the October 2026 CV at all, and `build.mjs` prints that as an open TODO.
+sub-fold carries its own.
+
+Each entry also carries a `month`, its start month, printed above the sticky year as the
+entry crosses the middle of the viewport. **This is why `displayOrder` within a year is
+newest first by start date.** The order used to be editorial, with Miku at the top, and
+the months then read March, January, March, June, June under a heading that promises a
+chronology. The months only mean anything if the sequence descends.
 
 ### The masthead
 
