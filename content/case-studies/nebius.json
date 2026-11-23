@@ -10,7 +10,11 @@
   "timeframe": "2026",
   "description": "A one-day Noetic build with Nebius: how the tracks and judging were designed, the participation figures, and what those figures do not show.",
   "links": [
-    { "label": "Visit Noetic", "href": "https://www.mynoetic.com/", "external": true }
+    {
+      "label": "Visit Noetic",
+      "href": "https://www.mynoetic.com/",
+      "external": true
+    }
   ],
   "sections": [
     {
@@ -38,6 +42,11 @@
     }
   ],
   "related": [
-    { "label": "ASES London bootcamp", "href": "/work/ases-bootcamp", "note": "the programme that came before Noetic" }
-  ]
+    {
+      "label": "ASES London bootcamp",
+      "href": "/work/ases-bootcamp",
+      "note": "the programme that came before Noetic"
+    }
+  ],
+  "order": 2
 }

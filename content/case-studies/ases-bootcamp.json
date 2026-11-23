@@ -7,7 +7,7 @@
   "title": "The ASES London bootcamp",
   "subtitle": "A ten-week programme for around seventy fellows, and the first environment I had to design rather than attend.",
   "role": "Co-director, ASES London",
-  "timeframe": "2025",
+  "timeframe": "January 2025 – June 2026",
   "description": "Zoe Zhou's case study on designing a ten-week entrepreneurship bootcamp for around seventy selected fellows with ASES London.",
   "sections": [
     {
@@ -42,6 +42,11 @@
     }
   ],
   "related": [
-    { "label": "Noetic", "href": "/work/nebius", "note": "what the programme turned into" }
-  ]
+    {
+      "label": "Noetic",
+      "href": "/work/nebius",
+      "note": "what the programme turned into"
+    }
+  ],
+  "order": 4
 }

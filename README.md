@@ -82,13 +82,15 @@ is coarser and honest about being a grouping.
 
 | Category | Holds | Region | Shown as |
 |---|---|---|---|
-| Entrepreneurship | Miku, Noetic, ASES London, Women in Entrepreneurship | Motor cortex | turning a decision into something that moves |
-| Tech | LinkSea, ByteDance | Parietal cortex | holding a structure in mind while you change it |
-| Psychology | the LSE assistantships | Prefrontal cortex | weighing how well you know something |
-| Finance | Fosun | Orbitofrontal cortex | working out what something is worth |
+| Entrepreneurship | Miku, Noetic | Motor cortex | turning a decision into something that moves |
+| Research | the LSE assistantships | Prefrontal cortex | weighing how well you know something |
+| Work | LinkSea, ByteDance, Fosun | Parietal cortex | holding a structure in mind while you change it |
+| Leadership | ASES London, Women in Entrepreneurship | Temporoparietal junction | seeing it from where someone else is standing |
 
-The split is by what the work is, not by the job title: entrepreneurship is the things
-she started, tech is software built inside someone else's organisation.
+These are **the CV's own headings**, so the two documents sort her work the same way. An
+earlier pass used Tech, Psychology and Finance, which agreed with nothing else she sends
+out. The list itself stays in date order: the categories group the work without breaking
+the chronology, which is the only structural idea the page has.
 
 The category is the content and the anatomy is the picture attached to it. Of the four,
 only orbitofrontal cortex and value is a standard association; the rest are metaphors
@@ -100,7 +102,8 @@ page, not a fact about a job, and spelling it out on every row made it look like
 
 The four anchors are chosen to be far apart on the drawing as well as sensible:
 prefrontal is anterior and superior, motor superior and central, parietal posterior and
-superior, orbitofrontal anterior and inferior. The nearest pair sits 45 degrees apart,
+superior, the temporoparietal junction posterior and lateral. The nearest pair sits 45
+degrees apart,
 mirrored seats included, against a lit patch about 21 degrees wide, so two categories
 never light overlapping ground. `build.mjs` prints nothing about this, so if you move an
 anchor, check the separation by hand.
@@ -139,6 +142,7 @@ content/experiences.json          the flight plan, in one place
 content/case-studies/*.json       one file per /work page
 build.mjs                         reads those, writes the pages. node build.mjs
 index.html                        the site. Its flight plan is generated
+work/index.html                   generated index of the case studies
 work/<slug>/index.html            generated case studies
 assets/work.css                   shared by every /work page
 sitemap.xml                       generated, indexable routes only
@@ -151,9 +155,20 @@ prototypes/, archive/             earlier versions, not part of the live site
 `content/` and `build.mjs` are in `.vercelignore`: the pages they produce are committed
 and served, the sources are for editing.
 
-Files in `archive/`, and `prototypes/brain-scroll.html`'s ancestors, were written for
-the Claude Artifact platform, which wraps pages in its own document skeleton. Some have
-no doctype of their own and will render in quirks mode if opened directly.
+### Dates
+
+Every entry carries a `dates` string taken from the CV, not a bare year, so a reader can
+tell ten weeks from a year. The two LSE assistantships ran at different times and each
+sub-fold carries its own. Women in Entrepreneurship is the one entry with no months: it
+is not on the October 2026 CV at all, and `build.mjs` prints that as an open TODO.
+
+### The end block
+
+The three clocks used to sit at the top of the rail, above the navigation, in the best
+corner of the page. They are now at the foot, where a reader who wants to propose an hour
+can see what time it is for her. `data-home` on the `.clocks` list names the zone she is
+in: that city moves to the top of the list, takes the accent, and drives the big stamp.
+Change that one attribute when she moves.
 
 ## Local preview
 

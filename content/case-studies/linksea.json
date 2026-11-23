@@ -7,7 +7,7 @@
   "title": "LinkSea",
   "subtitle": "Rebuilding the student side of a school platform, and testing it with the students.",
   "role": "UI/UX designer",
-  "timeframe": "2026",
+  "timeframe": "March – May 2026",
   "description": "Zoe Zhou's case study on rebuilding the student interface of a school workflow platform used daily at a middle school in Hong Kong.",
   "sections": [
     {
@@ -42,6 +42,11 @@
     }
   ],
   "related": [
-    { "label": "Miku", "href": "/work/miku", "note": "the same habit of testing with the people it is for" }
-  ]
+    {
+      "label": "Miku",
+      "href": "/work/miku",
+      "note": "the same habit of testing with the people it is for"
+    }
+  ],
+  "order": 3
 }

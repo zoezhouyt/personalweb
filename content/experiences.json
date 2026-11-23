@@ -1,8 +1,8 @@
 {
-  "_README": "Source of truth for the homepage flight plan. Edit here, then run `node build.mjs`. Body fields accept inline HTML; paragraphs split on a blank line. displayOrder sorts within a year, lowest first. category groups the work for the brain drawing only: the label is printed under the drawing, never on the entry.",
+  "_README": "Source of truth for the homepage flight plan. Edit here, then run `node build.mjs`. Body fields accept inline HTML; paragraphs split on a blank line. displayOrder sorts within a year, lowest first. category groups the work the way the CV does and drives the brain drawing; dates are the display string, taken from the CV.",
   "categories": {
-    "psychology": {
-      "label": "Psychology",
+    "research": {
+      "label": "Research",
       "region": "Prefrontal cortex",
       "gloss": "weighing how well you know something",
       "anchor": [
@@ -11,8 +11,8 @@
         0.13
       ]
     },
-    "tech": {
-      "label": "Tech",
+    "work": {
+      "label": "Work",
       "region": "Parietal cortex",
       "gloss": "holding a structure in mind while you change it",
       "anchor": [
@@ -31,14 +31,14 @@
         0.13
       ]
     },
-    "finance": {
-      "label": "Finance",
-      "region": "Orbitofrontal cortex",
-      "gloss": "working out what something is worth",
+    "leadership": {
+      "label": "Leadership",
+      "region": "Temporoparietal junction",
+      "gloss": "seeing it from where someone else is standing",
       "anchor": [
-        0.36,
-        -0.15,
-        0.12
+        -0.26,
+        -0.06,
+        0.2
       ]
     }
   },
@@ -102,15 +102,16 @@
       ],
       "relatedWork": [
         "lse"
-      ]
+      ],
+      "dates": "March 2026 – present"
     },
     {
       "id": "lse",
-      "category": "psychology",
+      "category": "research",
       "year": 2026,
       "displayOrder": 2,
       "title": "LSE, Department of Psychological and Behavioural Science",
-      "role": "Research assistant",
+      "role": "Research assistant and research apprentice",
       "summary": "Two separate research projects, each on a different question about how people judge what they know.",
       "thumbnail": {
         "src": "/assets/photos/flightplan/lse-thumb.png",
@@ -121,13 +122,14 @@
         {
           "id": "litovsky",
           "heading": "Dr Yana Litovsky",
-          "note": "Curiosity, guessing and misinformation",
-          "body": "How guessing and processing fluency affect susceptibility to misleading claims.\n\nIt made me ask whether Miku’s prediction step anchors learners to their first judgement, which is a question about my design rather than a finding of hers."
+          "note": "Research apprenticeship · curiosity, guessing and misinformation",
+          "body": "How guessing and processing fluency affect susceptibility to misleading claims.\n\nIt made me ask whether Miku’s prediction step anchors learners to their first judgement, which is a question about my design rather than a finding of hers.",
+          "dates": "October 2026 – present"
         },
         {
           "id": "ghai",
           "heading": "Dr Sakshi Ghai",
-          "note": "Digital safety for young people in Kenya",
+          "note": "Research assistantship · digital safety for young people in Kenya",
           "body": "I reviewed digital-safety interventions and mapped which might suit young people in Mukuru.\n\nIt made me rethink my first chatbot, which invited children to confide in an AI. An intervention can be coherent inside a framework and still miss how a community meets risk.",
           "images": [
             {
@@ -135,13 +137,15 @@
               "alt": "Review notes or a mapping table from the Mukuru work",
               "caption": "Review notes or a mapping table from the Mukuru work"
             }
-          ]
+          ],
+          "dates": "January – April 2026"
         }
-      ]
+      ],
+      "dates": "January 2026 – present"
     },
     {
       "id": "linksea",
-      "category": "tech",
+      "category": "work",
       "year": 2026,
       "displayOrder": 3,
       "title": "LinkSea",
@@ -176,7 +180,8 @@
           "alt": "One screen before and after the rebuild",
           "caption": "One screen before and after the rebuild"
         }
-      ]
+      ],
+      "dates": "March – May 2026"
     },
     {
       "id": "noetic",
@@ -228,11 +233,12 @@
       ],
       "relatedWork": [
         "ases"
-      ]
+      ],
+      "dates": "June 2026 – present"
     },
     {
       "id": "bytedance",
-      "category": "tech",
+      "category": "work",
       "year": 2026,
       "displayOrder": 5,
       "title": "ByteDance",
@@ -253,11 +259,12 @@
           "heading": "Adoption",
           "body": "I trained a ten-person team, and over 200 policy staff adopted the procedure."
         }
-      ]
+      ],
+      "dates": "June – August 2026"
     },
     {
       "id": "ases",
-      "category": "entrepreneurship",
+      "category": "leadership",
       "year": 2025,
       "displayOrder": 1,
       "title": "ASES London",
@@ -287,7 +294,7 @@
         },
         {
           "heading": "LSESU Entrepreneurs",
-          "body": "A separate organisation, and two years on its executive. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%."
+          "body": "A separate organisation, and March 2025 to April 2026 on its executive as secretary. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%."
         }
       ],
       "images": [
@@ -296,25 +303,28 @@
           "alt": "A bootcamp session in London",
           "caption": "A bootcamp session in London"
         }
-      ]
+      ],
+      "dates": "January 2025 – June 2026",
+      "editorTodo": "The CV calls this both 'President of ASES London' and 'Appointed Director' in the same entry. The site says Co-director. Pick one and make all three agree."
     },
     {
       "id": "fosun",
-      "category": "finance",
+      "category": "work",
       "year": 2025,
       "displayOrder": 2,
       "title": "Fosun International",
-      "role": "Group investments, insurance and healthcare",
-      "summary": "A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.",
+      "role": "Private equity summer and off-cycle intern",
+      "summary": "A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer as an off-cycle intern.",
       "thumbnail": {
         "src": "/assets/photos/flightplan/fosun-thumb.png",
         "alt": "Fosun International logo"
       },
-      "expandable": false
+      "expandable": false,
+      "dates": "June 2025 – June 2026"
     },
     {
       "id": "women-in-entrepreneurship",
-      "category": "entrepreneurship",
+      "category": "leadership",
       "year": 2024,
       "displayOrder": 1,
       "title": "Women in Entrepreneurship",
@@ -324,7 +334,9 @@
         "src": "/assets/photos/flightplan/wie-thumb.png",
         "alt": "LSESU Entrepreneurs logo"
       },
-      "expandable": false
+      "expandable": false,
+      "dates": "2024",
+      "editorTodo": "No months, and this does not appear on the 19 Oct CV at all. Add the real dates or take the entry down."
     }
   ]
 }

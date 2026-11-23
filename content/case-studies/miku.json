@@ -7,10 +7,14 @@
   "title": "Miku",
   "subtitle": "A pupil that knows only what you taught it, so you can see what you actually conveyed.",
   "role": "Founder",
-  "timeframe": "2026 → now",
+  "timeframe": "March 2026 – present",
   "description": "Miku is a teachable AI pupil. The learner teaches it, predicts what it will get right, and sees the gap. Zoe Zhou's case study on the design and its current limits.",
   "links": [
-    { "label": "Explore Miku", "href": "https://www.mikulearnbyteach.com/", "external": true }
+    {
+      "label": "Explore Miku",
+      "href": "https://www.mikulearnbyteach.com/",
+      "external": true
+    }
   ],
   "sections": [
     {
@@ -51,6 +55,11 @@
     }
   ],
   "related": [
-    { "label": "LSE research assistantships", "href": "/#experience-lse", "note": "where the prediction-step question came from" }
-  ]
+    {
+      "label": "LSE research assistantships",
+      "href": "/#experience-lse",
+      "note": "where the prediction-step question came from"
+    }
+  ],
+  "order": 1
 }

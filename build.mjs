@@ -51,10 +51,16 @@ function plate(img, kind) {
 const plates = (images, kind = "x") =>
   !images || !images.length ? "" : `\n<div class="plates">\n${images.map((i) => plate(i, kind)).join("\n")}\n</div>`;
 
+let studies = [];
+function labelFor(l) {
+  const m = !l.external && /^\/work\/([a-z-]+)$/.exec(l.href);
+  const cs = m && studies.find((c) => c.slug === m[1]);
+  return cs && cs.status === "draft" ? "Case study in progress" : l.label;
+}
 const link = (l) =>
   `<a class="cta${l.external ? " out" : ""}" href="${esc(l.href)}"` +
   (l.external ? ' rel="noopener noreferrer"' : "") +
-  `>${esc(l.label)}</a>`;
+  `>${esc(labelFor(l))}</a>`;
 
 /* ---------- the flight plan ---------- */
 
@@ -95,7 +101,7 @@ function row(xp) {
   }
   parts.push(`<h4>${esc(xp.title)}</h4>`);
   // the category groups the work for the drawing; it is not printed on the entry
-  parts.push(`<p class="xp-meta">${esc(xp.role)} &middot; ${xp.year}</p>`);
+  parts.push(`<p class="xp-meta">${esc(xp.role)} &middot; ${esc(xp.dates || xp.year)}</p>`);
   parts.push(`<p class="xp-sum">${xp.summary}</p>`);
   if (xp.links && xp.links.length) {
     parts.push(`<p class="xp-links">${xp.links.map(link).join("")}</p>`);
@@ -104,7 +110,8 @@ function row(xp) {
     // one disclosure per sub-project, so a reader does not have to open both to find either
     parts.push(`<div class="xp-groups">`);
     for (const g of xp.groups) {
-      parts.push(fold(`${xp.id}-${g.id}`, `${paras(g.body)}${plates(g.images)}`, g));
+      const when = g.dates ? `<p class="when">${esc(g.dates)}</p>\n` : "";
+      parts.push(fold(`${xp.id}-${g.id}`, `${when}${paras(g.body)}${plates(g.images)}`, g));
     }
     parts.push(`</div>`);
   } else if (xp.expandable) {
@@ -211,7 +218,78 @@ ${
 `;
 }
 
+/* ---------- the work index ---------- */
+
+function workIndex(list) {
+  const rows = list
+    .map((cs) => {
+      const draft = cs.status === "draft";
+      return (
+        `    <li>\n` +
+        `      <a href="/work/${esc(cs.slug)}">\n` +
+        `        <h2>${esc(cs.title)}${draft ? ' <span class="tag">In progress</span>' : ""}</h2>\n` +
+        `        <p class="sub">${cs.subtitle}</p>\n` +
+        `        <p class="meta">${esc(cs.role)} &middot; ${esc(cs.timeframe)}</p>\n` +
+        `      </a>\n    </li>`
+      );
+    })
+    .join("\n");
+  const url = `${SITE}/work`;
+  const desc =
+    "Case studies on the learning tools and learning environments Zoe Zhou has built: " +
+    list.map((c) => c.title).join(", ") + ".";
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Work &middot; Zoe Zhou</title>
+<meta name="description" content="${esc(desc)}">
+<meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191817" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg">
+<link rel="canonical" href="${url}">
+<meta property="og:url" content="${url}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zoe Zhou">
+<meta property="og:title" content="Work &middot; Zoe Zhou">
+<meta property="og:description" content="${esc(desc)}">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="/assets/work.css">
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="/">&larr; Zoe Zhou</a>
+
+  <header class="hero">
+    <p class="kicker">Work</p>
+    <h1>Four things I built, and what each one does not yet prove.</h1>
+    <p class="sub">None of these ships as a demo you can click through today, so each is
+    written up instead: the problem, the decision, what exists, and the evidence with its
+    limits named. They sit on the flight plan too, in date order.</p>
+  </header>
+
+  <ul class="worklist">
+${rows}
+  </ul>
+
+  <footer class="end">
+    <a href="/#flight-plan">Flight plan</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://www.linkedin.com/in/zoezhouyt912/" rel="noopener noreferrer">LinkedIn</a>
+  </footer>
+</main>
+</body>
+</html>
+`;
+}
+
 /* ---------- run ---------- */
+
+studies = readdirSync(join(ROOT, "content/case-studies"))
+  .filter((f) => f.endsWith(".json"))
+  .map((f) => read(join("content/case-studies", f)))
+  .sort((a, b) => (a.order || 99) - (b.order || 99) || a.slug.localeCompare(b.slug));
 
 const data = read("content/experiences.json");
 const marker = [/<!-- flight-plan:start -->/, /<!-- flight-plan:end -->/];
@@ -236,12 +314,10 @@ index = index.replace(
 );
 out("index.html", index);
 
-const studies = readdirSync(join(ROOT, "content/case-studies"))
-  .filter((f) => f.endsWith(".json"))
-  .map((f) => read(join("content/case-studies", f)));
 for (const cs of studies) out(`work/${cs.slug}/index.html`, casePage(cs));
+out("work/index.html", workIndex(studies));
 
-const routes = ["/", ...studies.filter((c) => c.status !== "draft").map((c) => `/work/${c.slug}`)];
+const routes = ["/", "/work", ...studies.filter((c) => c.status !== "draft").map((c) => `/work/${c.slug}`)];
 out(
   "sitemap.xml",
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +

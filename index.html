@@ -91,13 +91,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* ---- identity rail ---- */
 .rail { padding-block: 1.75rem 0; }
 .rail .name { font-family: var(--mono); font-size: 11px; letter-spacing: 2.16px; text-transform: uppercase; color: var(--ink); margin: 0 0 1rem; }
-.rail .meta { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.2rem 1.6rem; }
-.rail .meta li { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; color: var(--mute); line-height: 1.8; font-variant-numeric: tabular-nums; }
-.rail .meta .top { display: flex; justify-content: space-between; gap: 0.75rem; }
-.rail .meta b { font-weight: 500; text-transform: uppercase; color: var(--faint); }
-.rail .meta .hr { font-variant-numeric: tabular-nums; }
-.rail .meta li.here b, .rail .meta li.here .hr { color: var(--ink); }
-.rail .meta .co { display: block; }
 .rail nav { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.2rem; }
 .rail nav a { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--mute); line-height: 1.9; }
 .rail nav a:hover { color: var(--ink); }
@@ -106,7 +99,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     position: fixed; top: calc(env(safe-area-inset-top, 0px) + 3rem);
     left: max(2.5rem, env(safe-area-inset-left, 0px)); width: 11rem; z-index: 10; padding: 0;
   }
-  .rail .meta { flex-direction: column; gap: 0.8rem; }
   .rail nav { flex-direction: column; gap: 0; margin-top: 2.25rem; }
 }
 
@@ -129,6 +121,11 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 /* ---- masthead ---- */
 .masthead { padding-block: 0.5rem 0; }
 .masthead h1 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0 0 0.4rem; }
+/* what she is, before what she thinks about */
+.masthead .role {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase;
+  color: var(--faint); margin: 0 0 0.9rem;
+}
 .masthead .sub { color: var(--text); margin: 0; max-width: 34em; }
 
 /* ---- about, with footnotes ---- */
@@ -307,6 +304,10 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   font-weight: 500; color: var(--faint); margin: 1.1rem 0 0.4rem;
 }
 .fold-body h5:first-child { margin-top: 0; }
+.fold-body .when {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase;
+  color: var(--faint); margin: 0 0 0.7rem;
+}
 .fold-body p { margin: 0 0 0.6rem; max-width: 34em; font-size: 13.5px; line-height: 1.7; color: var(--mute); }
 .fold-body p:last-child { margin-bottom: 0; }
 
@@ -357,6 +358,24 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   text-transform: uppercase; color: var(--faint); font-weight: 500; margin-bottom: 0.35rem;
 }
 
+/* ---- the end block: her clock, so a reader books against the right one ---- */
+.now { padding-block: 5rem 0; }
+.bigtime {
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem); font-weight: 300; letter-spacing: -0.03em;
+  color: var(--ink); margin: 0 0 0.5rem; font-variant-numeric: tabular-nums;
+}
+.now-note { margin: 0 0 2rem; color: var(--mute); font-size: 13.5px; max-width: 30em; }
+.now-note b { font-weight: 500; color: var(--text); }
+.clocks { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 1rem 3rem; }
+.clocks li {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; color: var(--mute);
+  line-height: 1.8; font-variant-numeric: tabular-nums; min-width: 11rem;
+}
+.clocks .top { display: flex; justify-content: space-between; gap: 0.75rem; }
+.clocks b { font-weight: 500; text-transform: uppercase; color: var(--faint); }
+.clocks .co { display: block; }
+.clocks li.here b, .clocks li.here .hr { color: var(--accent); }
+
 /* ---- footer ---- */
 footer.end { margin-top: 5rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; align-items: baseline; }
 footer.end a, footer.end button {
@@ -372,22 +391,9 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
 <aside class="rail">
   <p class="name">Zoe Zhou</p>
-  <ul class="meta">
-    <li class="here">
-      <span class="top"><b>London</b><span class="hr" data-tz="Europe/London">&nbsp;</span></span>
-      <span class="co">51.5074&deg; N, 0.1278&deg; W</span>
-    </li>
-    <li>
-      <span class="top"><b>Abu Dhabi</b><span class="hr" data-tz="Asia/Dubai">&nbsp;</span></span>
-      <span class="co">24.5393&deg; N, 54.4370&deg; E</span>
-    </li>
-    <li>
-      <span class="top"><b>Beijing</b><span class="hr" data-tz="Asia/Shanghai">&nbsp;</span></span>
-      <span class="co">40.1300&deg; N, 116.6540&deg; E</span>
-    </li>
-  </ul>
   <nav>
     <a href="#about">About</a>
+    <a href="/work">Work</a>
     <a href="#flight-plan">Flight plan</a>
     <a href="#signoff">Sign-off</a>
     <a href="#contact">Contact</a>
@@ -398,7 +404,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
   <header class="masthead">
     <h1>Zoe Zhou</h1>
-    <p class="sub">Psychological and Behavioural Science at LSE. I study the gap between feeling you know something and actually knowing it, and build learning tools that try to close it.</p>
+    <p class="role">BSc Psychological and Behavioural Science, LSE &middot; Co-founder, Noetic</p>
+    <p class="sub">I study the gap between feeling you know something and actually knowing it, and build learning tools that try to close it.</p>
   </header>
 
   <section id="about" class="about">
@@ -432,7 +439,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/miku-thumb.png" alt="Miku logo" loading="lazy" decoding="async"></span></span>
 <h4>Miku</h4>
-<p class="xp-meta">Founder &middot; 2026</p>
+<p class="xp-meta">Founder &middot; March 2026 – present</p>
 <p class="xp-sum">A teachable AI pupil that helps learners practise metacognitive calibration.</p>
 <p class="xp-links"><a class="cta" href="/work/miku">Read case study</a><a class="cta out" href="https://www.mikulearnbyteach.com/" rel="noopener noreferrer">Explore Miku</a></p>
 <details class="fold plain" name="flight-plan" id="more-miku">
@@ -453,24 +460,26 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-lse" data-category="psychology">
+<article class="xp" id="experience-lse" data-category="research">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/lse-thumb.png" alt="LSE logo" loading="lazy" decoding="async"></span></span>
 <h4>LSE, Department of Psychological and Behavioural Science</h4>
-<p class="xp-meta">Research assistant &middot; 2026</p>
+<p class="xp-meta">Research assistant and research apprentice &middot; January 2026 – present</p>
 <p class="xp-sum">Two separate research projects, each on a different question about how people judge what they know.</p>
 <div class="xp-groups">
 <details class="fold" name="flight-plan" id="more-lse-litovsky">
-<summary><b>Dr Yana Litovsky</b><span>Curiosity, guessing and misinformation</span></summary>
+<summary><b>Dr Yana Litovsky</b><span>Research apprenticeship · curiosity, guessing and misinformation</span></summary>
 <div class="fold-body">
+<p class="when">October 2026 – present</p>
 <p>How guessing and processing fluency affect susceptibility to misleading claims.</p>
 <p>It made me ask whether Miku’s prediction step anchors learners to their first judgement, which is a question about my design rather than a finding of hers.</p>
 </div>
 </details>
 <details class="fold" name="flight-plan" id="more-lse-ghai">
-<summary><b>Dr Sakshi Ghai</b><span>Digital safety for young people in Kenya</span></summary>
+<summary><b>Dr Sakshi Ghai</b><span>Research assistantship · digital safety for young people in Kenya</span></summary>
 <div class="fold-body">
+<p class="when">January – April 2026</p>
 <p>I reviewed digital-safety interventions and mapped which might suit young people in Mukuru.</p>
 <p>It made me rethink my first chatbot, which invited children to confide in an AI. An intervention can be coherent inside a framework and still miss how a community meets risk.</p>
 <div class="plates">
@@ -482,14 +491,14 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-linksea" data-category="tech">
+<article class="xp" id="experience-linksea" data-category="work">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/linksea-thumb.png" alt="LinkSea logo" loading="lazy" decoding="async"></span></span>
 <h4>LinkSea</h4>
-<p class="xp-meta">UI/UX designer &middot; 2026</p>
+<p class="xp-meta">UI/UX designer &middot; March – May 2026</p>
 <p class="xp-sum">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</p>
-<p class="xp-links"><a class="cta" href="/work/linksea">Read case study</a></p>
+<p class="xp-links"><a class="cta" href="/work/linksea">Case study in progress</a></p>
 <details class="fold plain" name="flight-plan" id="more-linksea">
 <summary><span class="xp-toggle"></span></summary>
 <div class="fold-body">
@@ -510,7 +519,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/noetic-thumb.png" alt="Noetic logo" loading="lazy" decoding="async"></span></span>
 <h4>Noetic</h4>
-<p class="xp-meta">Co-founder &middot; 2026</p>
+<p class="xp-meta">Co-founder &middot; June 2026 – present</p>
 <p class="xp-sum">One-day builds where AI builders learn a frontier company’s newest tools with its engineers in the room.</p>
 <p class="xp-links"><a class="cta" href="/work/nebius">Read the Nebius case study</a><a class="cta out" href="https://www.mynoetic.com/" rel="noopener noreferrer">Visit Noetic</a></p>
 <details class="fold plain" name="flight-plan" id="more-noetic">
@@ -529,12 +538,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-bytedance" data-category="tech">
+<article class="xp" id="experience-bytedance" data-category="work">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/bytedance-thumb.png" alt="TikTok logo" loading="lazy" decoding="async"></span></span>
 <h4>ByteDance</h4>
-<p class="xp-meta">AI &amp; automation summer project intern &middot; 2026</p>
+<p class="xp-meta">AI &amp; automation summer project intern &middot; June – August 2026</p>
 <p class="xp-sum">Built LLM automation for policy-enforcement messaging across TikTok Shop.</p>
 <details class="fold plain" name="flight-plan" id="more-bytedance">
 <summary><span class="xp-toggle"></span></summary>
@@ -555,14 +564,14 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <h3 class="tl-yr" id="year-2025">2025</h3>
 <div class="tl-rows">
 
-<article class="xp" id="experience-ases" data-category="entrepreneurship">
+<article class="xp" id="experience-ases" data-category="leadership">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/ases-thumb.png" alt="ASES logo" loading="lazy" decoding="async"></span></span>
 <h4>ASES London</h4>
-<p class="xp-meta">Co-director, Affiliated Stanford Entrepreneurial Students &middot; 2025</p>
+<p class="xp-meta">Co-director, Affiliated Stanford Entrepreneurial Students &middot; January 2025 – June 2026</p>
 <p class="xp-sum">Brought Stanford’s building culture to students in London.</p>
-<p class="xp-links"><a class="cta" href="/work/ases-bootcamp">Read the bootcamp case study</a></p>
+<p class="xp-links"><a class="cta" href="/work/ases-bootcamp">Case study in progress</a></p>
 <details class="fold plain" name="flight-plan" id="more-ases">
 <summary><span class="xp-toggle"></span></summary>
 <div class="fold-body">
@@ -571,7 +580,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <h5>The bootcamp</h5>
 <p>I designed a ten-week programme for around 70 selected fellows and secured £5k of sponsorship.</p>
 <h5>LSESU Entrepreneurs</h5>
-<p>A separate organisation, and two years on its executive. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%.</p>
+<p>A separate organisation, and March 2025 to April 2026 on its executive as secretary. I rebuilt recruitment, onboarding and cross-team planning, and membership grew 40%.</p>
 <div class="plates">
 <span class="shot shot-x"><span class="shot-in"><em>ases-bootcamp.jpg</em><span class="cap">A bootcamp session in London</span><img src="/assets/photos/flightplan/ases-bootcamp.jpg" alt="A bootcamp session in London" loading="lazy" decoding="async"></span></span>
 </div>
@@ -580,13 +589,13 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-fosun" data-category="finance">
+<article class="xp" id="experience-fosun" data-category="work">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/fosun-thumb.png" alt="Fosun International logo" loading="lazy" decoding="async"></span></span>
 <h4>Fosun International</h4>
-<p class="xp-meta">Group investments, insurance and healthcare &middot; 2025</p>
-<p class="xp-sum">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer.</p>
+<p class="xp-meta">Private equity summer and off-cycle intern &middot; June 2025 – June 2026</p>
+<p class="xp-sum">A year in the group investment team across insurance and healthcare assets, from summer intern to a return offer as an off-cycle intern.</p>
 </div>
 </article>
 
@@ -597,7 +606,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <h3 class="tl-yr" id="year-2024">2024</h3>
 <div class="tl-rows">
 
-<article class="xp" id="experience-women-in-entrepreneurship" data-category="entrepreneurship">
+<article class="xp" id="experience-women-in-entrepreneurship" data-category="leadership">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async"></span></span>
@@ -641,6 +650,26 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     </div>
   </section>
 
+  <section id="now" class="now">
+    <p class="bigtime"><span id="now-stamp">&nbsp;</span></p>
+    <p class="now-note">Local time in <b id="now-home">London</b>. Write to me and I will work to your hours.</p>
+    <!-- Move data-home to another zone below and the page follows you. -->
+    <ul class="clocks" data-home="Europe/London">
+      <li data-tz="Europe/London" data-city="London">
+        <span class="top"><b>London</b><span class="hr">&nbsp;</span></span>
+        <span class="co">51.5074&deg; N, 0.1278&deg; W</span>
+      </li>
+      <li data-tz="Asia/Dubai" data-city="Abu Dhabi">
+        <span class="top"><b>Abu Dhabi</b><span class="hr">&nbsp;</span></span>
+        <span class="co">24.5393&deg; N, 54.4370&deg; E</span>
+      </li>
+      <li data-tz="Asia/Shanghai" data-city="Beijing">
+        <span class="top"><b>Beijing</b><span class="hr">&nbsp;</span></span>
+        <span class="co">40.1300&deg; N, 116.6540&deg; E</span>
+      </li>
+    </ul>
+  </section>
+
   <footer class="end" id="contact">
     <button type="button" id="copy-email" data-email="zoezhou0912@gmail.com">Email</button>
     <a href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>
@@ -654,17 +683,39 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 (function () {
   "use strict";
 
-  var zones = [].slice.call(document.querySelectorAll("[data-tz]"));
-  function tick() {
-    var now = new Date();
-    zones.forEach(function (el) {
-      try {
-        el.textContent = new Intl.DateTimeFormat("en-GB", {
-          timeZone: el.getAttribute("data-tz"),
-          hour: "2-digit", minute: "2-digit", hour12: false
-        }).format(now);
-      } catch (e) {}
+  /* Three cities, and whichever one data-home names is the one she is in: it
+     moves to the top of the list and drives the big stamp, so a reader booking
+     an hour is looking at her clock rather than their own. */
+  var list = document.querySelector(".clocks");
+  var rows = list ? [].slice.call(list.querySelectorAll("li")) : [];
+  var stamp = document.getElementById("now-stamp");
+  var homeName = document.getElementById("now-home");
+  var home = list && list.getAttribute("data-home");
+
+  if (rows.length) {
+    rows.forEach(function (li) {
+      if (li.getAttribute("data-tz") !== home) return;
+      li.classList.add("here");
+      list.insertBefore(li, list.firstChild);
+      if (homeName) homeName.textContent = li.getAttribute("data-city");
     });
+  }
+
+  function fmt(tz, opts) {
+    try {
+      return new Intl.DateTimeFormat("en-GB", Object.assign({ timeZone: tz }, opts)).format(new Date());
+    } catch (e) { return ""; }
+  }
+  function tick() {
+    rows.forEach(function (li) {
+      var el = li.querySelector(".hr");
+      if (el) el.textContent = fmt(li.getAttribute("data-tz"), { hour: "2-digit", minute: "2-digit", hour12: false });
+    });
+    if (stamp && home) {
+      stamp.textContent =
+        fmt(home, { day: "numeric", month: "long", year: "numeric" }) + "  \u00b7  " +
+        fmt(home, { hour: "2-digit", minute: "2-digit", hour12: false });
+    }
   }
   tick();
   setInterval(tick, 20000);
@@ -800,8 +851,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
      content/experiences.json so the page and the drawing cannot disagree. */
   /* categories:start */
   var CATEGORIES = {
-    "psychology": {
-      "label": "Psychology",
+    "research": {
+      "label": "Research",
       "region": "Prefrontal cortex",
       "gloss": "weighing how well you know something",
       "anchor": [
@@ -810,8 +861,8 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         0.13
       ]
     },
-    "tech": {
-      "label": "Tech",
+    "work": {
+      "label": "Work",
       "region": "Parietal cortex",
       "gloss": "holding a structure in mind while you change it",
       "anchor": [
@@ -830,14 +881,14 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
         0.13
       ]
     },
-    "finance": {
-      "label": "Finance",
-      "region": "Orbitofrontal cortex",
-      "gloss": "working out what something is worth",
+    "leadership": {
+      "label": "Leadership",
+      "region": "Temporoparietal junction",
+      "gloss": "seeing it from where someone else is standing",
       "anchor": [
-        0.36,
-        -0.15,
-        0.12
+        -0.26,
+        -0.06,
+        0.2
       ]
     }
   };
