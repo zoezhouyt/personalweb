@@ -52,8 +52,18 @@ broken rather than as a style.
 
 The mark sits above the name, small, rather than in a column beside it. That hands the
 whole measure back to the text, so the entries line up with the About essay instead of
-starting nine rems past it. The mark is sized by height, not boxed, because the logos
-run from square to very wide wordmarks.
+starting nine rems past it.
+
+Every mark gets the same 6rem by 2rem box and is fitted inside it, flush left, so every
+title in the flight plan begins at the same offset whatever shape its logo is. The files
+themselves are keyed, **trimmed to their own ink**, and re-exported at three times the
+box. Trimming is what makes them look like a set: the ByteDance file arrived as 360 by
+202 of mostly white and came out 111 by 155, and until it was trimmed it drew a third
+the size of the others for no reason a reader could see. The whole set is 100KB.
+
+LinkSea is the one weak file. It came in at 138 by 31, which is below the box at any
+device pixel ratio above one, so it is slightly soft on a retina screen. It wants a
+higher-resolution original; nothing can be done in code.
 
 Three things are then visible without any interaction: the name, the role and dates, and
 one sentence. Then come the links, which navigate,
@@ -192,11 +202,17 @@ Every entry carries a `dates` string taken from the CV, not a bare year, so a re
 tell ten weeks from a year. The two LSE assistantships ran at different times and each
 sub-fold carries its own.
 
-Each entry also carries a `month`, its start month, printed above the sticky year as the
-entry crosses the middle of the viewport. **This is why `displayOrder` within a year is
-newest first by start date.** The order used to be editorial, with Miku at the top, and
-the months then read March, January, March, June, June under a heading that promises a
-chronology. The months only mean anything if the sequence descends.
+Each entry also carries a `span`, printed above the sticky year as the entry crosses the
+middle of the viewport: "Since March" while something is still running, "March to May"
+once it has finished, and the bare start month for the two that run across a year
+boundary. A single month was tried first and could not say whether a thing was still
+going on.
+
+Within a year, **ongoing work comes first**, newest start first, then finished work the
+same way. That is an editorial order, not a strict chronology: Noetic, Miku and the
+assistantships are what Zoe is doing now and they lead 2026, with ByteDance and LinkSea
+under them. It is why the span label says "since" rather than giving a position on a
+descending scale.
 
 ### The masthead
 
@@ -271,10 +287,12 @@ from the edges, which keeps white that belongs to the mark, such as the letters 
 the LSE square. Two marks are solid colour to the edge, LSE and Noetic, and are meant
 to look like blocks.
 
-**A dark-on-transparent mark disappears in dark mode.** LinkSea's wordmark and the word
-under the TikTok note are both nearly invisible on the dark page. The fix is a
-light-on-dark variant of those two files, served from a `<picture>` on
-`prefers-color-scheme`, not a plate behind them. The 16:10 slots are still empty: each prints the filename it wants
+**A mark drawn in black ink disappears on the dark page.** Three of them were: LinkSea,
+the word under the TikTok note, and the LSESU wordmark. Each now has a `-dark.png`
+companion served from a `<picture>` on `prefers-color-scheme`, made by lightening only
+the low-saturation ink and leaving every coloured pixel alone, so TikTok keeps its note
+and LinkSea keeps its swoosh. A plate behind them would have been the easy answer and
+the wrong one. The 16:10 slots are still empty: each prints the filename it wants
 and a line saying what belongs there, so an unfilled flight plan is still a shot
 list. Both folders have a README naming every file.
 

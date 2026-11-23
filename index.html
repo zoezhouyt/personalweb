@@ -212,9 +212,9 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   }
   .tl-yr { font-size: clamp(1.9rem, 3vw, 2.7rem); }
   .tl-mo {
-    display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+    display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 0.9px;
     text-transform: uppercase; color: var(--mute); margin-bottom: 0.35rem;
-    min-height: 1.2em; opacity: 0; transition: opacity 0.25s ease;
+    line-height: 1.4; min-height: 2.8em; opacity: 0; transition: opacity 0.25s ease;
   }
   .tl-group.is-now .tl-mo { opacity: 1; }
   .tl-rows { padding-left: 15.5rem; }
@@ -278,11 +278,15 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
    the whole measure back to the text and lines the entries up with the About
    essay instead of leaving them indented past it. */
 .xp-grid { min-width: 0; }
+/* Every mark gets the same box and is fitted inside it, flush left. The files
+   are keyed and trimmed to their own ink, so a logo that shipped with half an
+   inch of white around it is not quietly smaller than the rest. */
+.markwrap { display: block; }
 .mark {
-  display: block; height: 1.9rem; width: auto; max-width: 8rem;
+  display: block; width: 5rem; height: 1.75rem;
   object-fit: contain; object-position: left center; margin: 0 0 0.9rem;
 }
-@media (min-width: 46rem) { .mark { height: 2.2rem; max-width: 9rem; } }
+@media (min-width: 46rem) { .mark { width: 6rem; height: 2rem; } }
 
 .xp-grid h4 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0; }
 .xp-grid h4 a { color: inherit; transition: color 0.18s ease; }
@@ -475,7 +479,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="tl-when"><span class="tl-mo" aria-hidden="true"></span><h3 class="tl-yr" id="year-2026">2026</h3></div>
 <div class="tl-rows">
 
-<article class="xp" id="experience-noetic" data-category="entrepreneurship" data-month="June">
+<article class="xp" id="experience-noetic" data-category="entrepreneurship" data-span="Since June">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <img class="mark" src="/assets/photos/flightplan/noetic-thumb.png" alt="Noetic logo" loading="lazy" decoding="async">
@@ -499,26 +503,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-bytedance" data-category="work" data-month="June">
-<span class="tl-dot" aria-hidden="true"></span>
-<div class="xp-grid">
-<img class="mark" src="/assets/photos/flightplan/bytedance-thumb.png" alt="TikTok logo" loading="lazy" decoding="async">
-<h4>ByteDance</h4>
-<p class="xp-meta">AI &amp; automation summer project intern &middot; June – August 2026</p>
-<p class="xp-sum">Built LLM automation for policy-enforcement messaging across TikTok Shop.</p>
-<details class="fold plain" name="flight-plan" id="more-bytedance">
-<summary><span class="xp-toggle"></span></summary>
-<div class="fold-body">
-<h5>What I built</h5>
-<p>More than 40 prompt-based workflows. Seller satisfaction rose from 5% to around 70% within a month.</p>
-<h5>Adoption</h5>
-<p>I trained a ten-person team, and over 200 policy staff adopted the procedure.</p>
-</div>
-</details>
-</div>
-</article>
-
-<article class="xp" id="experience-miku" data-category="entrepreneurship" data-month="March">
+<article class="xp" id="experience-miku" data-category="entrepreneurship" data-span="Since March">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <img class="mark" src="/assets/photos/flightplan/miku-thumb.png" alt="Miku logo" loading="lazy" decoding="async">
@@ -544,30 +529,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-linksea" data-category="work" data-month="March">
-<span class="tl-dot" aria-hidden="true"></span>
-<div class="xp-grid">
-<img class="mark" src="/assets/photos/flightplan/linksea-thumb.png" alt="LinkSea logo" loading="lazy" decoding="async">
-<h4>LinkSea</h4>
-<p class="xp-meta">UI/UX designer &middot; March – May 2026</p>
-<p class="xp-sum">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</p>
-<p class="xp-links"><a class="cta" href="/work/linksea">Case study in progress</a></p>
-<details class="fold plain" name="flight-plan" id="more-linksea">
-<summary><span class="xp-toggle"></span></summary>
-<div class="fold-body">
-<h5>What I built</h5>
-<p>The student-facing interface, in JavaScript. The platform also has interfaces for teachers and administrators, which were not mine.</p>
-<h5>How I tested it</h5>
-<p>With the students themselves. I rebuilt the parts they could not complete.</p>
-<div class="plates">
-<span class="shot shot-x"><span class="shot-in"><em>linksea-before-after.jpg</em><span class="cap">One screen before and after the rebuild</span><img src="/assets/photos/flightplan/linksea-before-after.jpg" alt="One screen before and after the rebuild" loading="lazy" decoding="async"></span></span>
-</div>
-</div>
-</details>
-</div>
-</article>
-
-<article class="xp" id="experience-lse" data-category="research" data-month="January">
+<article class="xp" id="experience-lse" data-category="research" data-span="Since January">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <img class="mark" src="/assets/photos/flightplan/lse-thumb.png" alt="LSE logo" loading="lazy" decoding="async">
@@ -598,6 +560,48 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
+<article class="xp" id="experience-bytedance" data-category="work" data-span="June – August">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<picture class="markwrap"><source srcset="/assets/photos/flightplan/bytedance-thumb-dark.png" media="(prefers-color-scheme: dark)"><img class="mark" src="/assets/photos/flightplan/bytedance-thumb.png" alt="TikTok logo" loading="lazy" decoding="async"></picture>
+<h4>ByteDance</h4>
+<p class="xp-meta">AI &amp; automation summer project intern &middot; June – August 2026</p>
+<p class="xp-sum">Built LLM automation for policy-enforcement messaging across TikTok Shop.</p>
+<details class="fold plain" name="flight-plan" id="more-bytedance">
+<summary><span class="xp-toggle"></span></summary>
+<div class="fold-body">
+<h5>What I built</h5>
+<p>More than 40 prompt-based workflows. Seller satisfaction rose from 5% to around 70% within a month.</p>
+<h5>Adoption</h5>
+<p>I trained a ten-person team, and over 200 policy staff adopted the procedure.</p>
+</div>
+</details>
+</div>
+</article>
+
+<article class="xp" id="experience-linksea" data-category="work" data-span="March – May">
+<span class="tl-dot" aria-hidden="true"></span>
+<div class="xp-grid">
+<picture class="markwrap"><source srcset="/assets/photos/flightplan/linksea-thumb-dark.png" media="(prefers-color-scheme: dark)"><img class="mark" src="/assets/photos/flightplan/linksea-thumb.png" alt="LinkSea logo" loading="lazy" decoding="async"></picture>
+<h4>LinkSea</h4>
+<p class="xp-meta">UI/UX designer &middot; March – May 2026</p>
+<p class="xp-sum">Rebuilt the student interface of a school platform used every day at a middle school in Hong Kong.</p>
+<p class="xp-links"><a class="cta" href="/work/linksea">Case study in progress</a></p>
+<details class="fold plain" name="flight-plan" id="more-linksea">
+<summary><span class="xp-toggle"></span></summary>
+<div class="fold-body">
+<h5>What I built</h5>
+<p>The student-facing interface, in JavaScript. The platform also has interfaces for teachers and administrators, which were not mine.</p>
+<h5>How I tested it</h5>
+<p>With the students themselves. I rebuilt the parts they could not complete.</p>
+<div class="plates">
+<span class="shot shot-x"><span class="shot-in"><em>linksea-before-after.jpg</em><span class="cap">One screen before and after the rebuild</span><img src="/assets/photos/flightplan/linksea-before-after.jpg" alt="One screen before and after the rebuild" loading="lazy" decoding="async"></span></span>
+</div>
+</div>
+</details>
+</div>
+</article>
+
 </div>
 </section>
 
@@ -605,7 +609,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="tl-when"><span class="tl-mo" aria-hidden="true"></span><h3 class="tl-yr" id="year-2025">2025</h3></div>
 <div class="tl-rows">
 
-<article class="xp" id="experience-fosun" data-category="work" data-month="June">
+<article class="xp" id="experience-fosun" data-category="work" data-span="From June">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <img class="mark" src="/assets/photos/flightplan/fosun-thumb.png" alt="Fosun International logo" loading="lazy" decoding="async">
@@ -615,7 +619,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 </div>
 </article>
 
-<article class="xp" id="experience-ases" data-category="leadership" data-month="January">
+<article class="xp" id="experience-ases" data-category="leadership" data-span="From January">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
 <img class="mark" src="/assets/photos/flightplan/ases-thumb.png" alt="ASES logo" loading="lazy" decoding="async">
@@ -647,10 +651,10 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="tl-when"><span class="tl-mo" aria-hidden="true"></span><h3 class="tl-yr" id="year-2024">2024</h3></div>
 <div class="tl-rows">
 
-<article class="xp" id="experience-women-in-entrepreneurship" data-category="leadership" data-month="November">
+<article class="xp" id="experience-women-in-entrepreneurship" data-category="leadership" data-span="November">
 <span class="tl-dot" aria-hidden="true"></span>
 <div class="xp-grid">
-<img class="mark" src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async">
+<picture class="markwrap"><source srcset="/assets/photos/flightplan/wie-thumb-dark.png" media="(prefers-color-scheme: dark)"><img class="mark" src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async"></picture>
 <h4>Women in Entrepreneurship</h4>
 <p class="xp-meta">Event project director, LSESU Entrepreneurs &middot; November 2024</p>
 <p class="xp-sum">Directed the events programme for Women in Entrepreneurship.</p>
@@ -1285,11 +1289,11 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     var active = now < 0 ? null : entries[now].closest(".tl-group");
     for (i = 0; i < groups.length; i++) {
       groups[i].classList.toggle("is-now", groups[i] === active);
-      /* the month belongs to whatever is being read, so it is printed above the
+      /* the span belongs to whatever is being read, so it is printed above the
          year rather than beside the entry. The group keeps the last one it was
          given, so the label does not blink while the active group changes. */
       var mo = groups[i].querySelector(".tl-mo");
-      if (mo && groups[i] === active) mo.textContent = entries[now].getAttribute("data-month") || "";
+      if (mo && groups[i] === active) mo.textContent = entries[now].getAttribute("data-span") || "";
     }
   }
   function onScroll() {

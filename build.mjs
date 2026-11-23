@@ -89,13 +89,22 @@ function row(xp) {
   const parts = [];
   parts.push(
     `<article class="xp" id="experience-${esc(xp.id)}" data-category="${esc(xp.category || "")}"` +
-      ` data-month="${esc(xp.month || "")}">`
+      ` data-span="${esc(xp.span || "")}">`
   );
   parts.push(`<span class="tl-dot" aria-hidden="true"></span>`);
   parts.push(`<div class="xp-grid">`);
   if (xp.thumbnail) {
+    // a mark drawn in black ink needs a light-ink copy, or it vanishes on the
+    // dark page. The coloured parts of it are the same file in both.
+    const img =
+      `<img class="mark" src="${esc(xp.thumbnail.src)}" alt="${esc(xp.thumbnail.alt)}"` +
+      ` loading="lazy" decoding="async">`;
     parts.push(
-      `<img class="mark" src="${esc(xp.thumbnail.src)}" alt="${esc(xp.thumbnail.alt)}" loading="lazy" decoding="async">`
+      xp.thumbnail.dark
+        ? `<picture class="markwrap">` +
+          `<source srcset="${esc(xp.thumbnail.dark)}" media="(prefers-color-scheme: dark)">` +
+          `${img}</picture>`
+        : img
     );
   }
   // where there is a live site, the name is the way to it: a title a reader
