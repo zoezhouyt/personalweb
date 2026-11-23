@@ -10,8 +10,8 @@ local time (coordinates only, with `format-detection` off, so iOS does not turn 
 into tappable addresses), one narrow reading column, hairline rules, very small type, and tiny
 uppercase mono labels on a near-white ground. An About essay carries its credentials in
 margin notes: the citation is a mark in the text and the note appears in the left gutter
-beside the line it belongs to, on hover, focus or tap. Below 66rem there is no gutter,
-so the note opens under the line instead. A Flight plan lists the legs. A sign-off
+beside the line it belongs to. Below 66rem there is no gutter, so the note opens under
+the line instead. A Flight plan lists the legs. A sign-off
 closes it.
 
 Content is ordered by **date**, newest first, not by location. Earlier drafts used
@@ -66,6 +66,28 @@ one-line description. A single breakdown would have made a reader open both proj
 find either, and the two are separate research with separate aims.
 
 Fosun and Women in Entrepreneurship are single lines with nothing behind them.
+
+## Margin notes
+
+A citation is a mark in the text and a note in the gutter. **The target is the whole
+line, not the mark.** A mark is nine pixels of raised superscript, and making a reader
+hunt for it is the opposite of what a footnote is for, so the pointer anywhere on a line
+that carries one opens its note. Scrolling such a line under a pointer that has not moved
+counts as touching it, which is why the handler listens to `scroll` as well as
+`mousemove`.
+
+The line box comes from the rect of the character immediately before the mark, taken with
+a one-character `Range`. The mark's own rect is raised and short and is the wrong shape to
+test a pointer against. Where two marks share a line, the nearer one in x wins. The work
+is thrown onto `requestAnimationFrame`, so a fast drag across the column costs one pass
+per frame rather than one per event.
+
+Three things stay as they were. A keyboard focus on a mark opens its note and the
+pointer cannot override it, which is what the `activeElement` guard in `check` is for. A
+tap only ever opens, never toggles, because a tap fires focus and then click and a toggle
+would open and shut the note in the same tap. And below 66rem none of this runs: there is
+no gutter, so the note opens under the line, and a note appearing and disappearing as the
+pointer drifted would shove the paragraph around.
 
 ## The atlas
 

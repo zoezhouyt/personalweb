@@ -156,7 +156,7 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
   color: var(--accent); background: none; border: 0; margin: 0; padding: 0 0 0 1px;
   cursor: help; font-variant-numeric: tabular-nums;
 }
-.refmark:hover { text-decoration: underline; }
+.refmark:hover, .sidenote.on .refmark { text-decoration: underline; }
 .note { display: none; }
 .note b {
   font-family: var(--mono); font-size: 9px; font-weight: 500; color: var(--accent);
@@ -739,14 +739,19 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   tick();
   setInterval(tick, 20000);
 
-  /* margin notes: hover, focus or tap the mark, and the note is placed beside
-     the line it sits on. Only one is ever open. */
+  /* Margin notes. The target is the whole line, not the mark: a citation mark is
+     nine pixels of superscript, and hunting for it is the opposite of what a
+     footnote is for. Put the pointer anywhere on a line that carries one, or
+     scroll such a line under the pointer, and its note appears in the gutter.
+     Only one is ever open. */
   (function () {
     var about = document.querySelector(".about");
     if (!about) return;
     var marks = [].slice.call(about.querySelectorAll(".sidenote"));
+    if (!marks.length) return;
     var open = null;
     var wide = window.matchMedia("(min-width: 66rem)");
+    var px = -1, py = -1, queued = false;
 
     function place(sn) {
       if (!wide.matches) return;
@@ -770,10 +775,54 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
       open = sn;
     }
 
+    /* The rect of the character immediately before the mark is the line box.
+       The mark's own rect is raised and short, so it is the wrong shape to
+       test a pointer against. */
+    function lineOf(sn) {
+      var prev = sn.previousSibling;
+      while (prev && prev.nodeType !== 3) prev = prev.previousSibling;
+      if (prev && prev.textContent.length) {
+        try {
+          var r = document.createRange();
+          r.setStart(prev, prev.textContent.length - 1);
+          r.setEnd(prev, prev.textContent.length);
+          var box = r.getBoundingClientRect();
+          if (box.height) return box;
+        } catch (e) {}
+      }
+      return sn.getBoundingClientRect();
+    }
+
+    function check() {
+      queued = false;
+      if (!wide.matches || py < 0) return;
+      var focused = document.activeElement;
+      if (focused && focused.classList && focused.classList.contains("refmark")) return;
+      var best = null, bestDx = Infinity, i, box, dx;
+      for (i = 0; i < marks.length; i++) {
+        box = lineOf(marks[i]);
+        if (py < box.top || py > box.bottom) continue;
+        dx = Math.abs(px - (box.left + box.width / 2));
+        if (dx < bestDx) { bestDx = dx; best = marks[i]; }
+      }
+      if (best) show(best); else hide();
+    }
+    function queue() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(check);
+    }
+
+    about.addEventListener("mousemove", function (ev) {
+      px = ev.clientX; py = ev.clientY;
+      queue();
+    }, { passive: true });
+    about.addEventListener("mouseleave", function () { px = py = -1; hide(); });
+    /* scrolling a line under a pointer that has not moved counts as touching it */
+    window.addEventListener("scroll", queue, { passive: true });
+
     marks.forEach(function (sn) {
       var mark = sn.querySelector(".refmark");
-      sn.addEventListener("mouseenter", function () { show(sn); });
-      sn.addEventListener("mouseleave", function () { if (document.activeElement !== mark) hide(); });
       mark.addEventListener("focus", function () { show(sn); });
       mark.addEventListener("blur", hide);
       /* a tap fires focus and then click. If click toggled, the note would open
