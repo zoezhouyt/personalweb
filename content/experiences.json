@@ -305,7 +305,7 @@
         }
       ],
       "dates": "January 2025 – June 2026",
-      "editorTodo": "The CV calls this both 'President of ASES London' and 'Appointed Director' in the same entry. The site says Co-director. Pick one and make all three agree."
+      "editorTodo": "Site and CV disagree: the CV says 'President of ASES London' in the role line and 'Appointed Director' in the bullet. Zoe confirmed Co-director on 23 Nov 2026 — update the CV to match."
     },
     {
       "id": "fosun",
@@ -335,8 +335,7 @@
         "alt": "LSESU Entrepreneurs logo"
       },
       "expandable": false,
-      "dates": "2024",
-      "editorTodo": "No months, and this does not appear on the 19 Oct CV at all. Add the real dates or take the entry down."
+      "dates": "November 2024"
     }
   ]
 }

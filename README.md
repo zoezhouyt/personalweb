@@ -162,6 +162,18 @@ tell ten weeks from a year. The two LSE assistantships ran at different times an
 sub-fold carries its own. Women in Entrepreneurship is the one entry with no months: it
 is not on the October 2026 CV at all, and `build.mjs` prints that as an open TODO.
 
+### The masthead
+
+Her portrait opens the page, in a column of its own beside the name, the credential line
+and the one sentence. It is 10rem wide against the 8rem the marks below it get, because
+this is the header rather than another row. The crop is 4:5, taken from a 2:3 original
+with the face set a little above centre, and it is also the `og:image`, so a link to the
+site previews as a person.
+
+`height: auto` on `.masthead .me` is load-bearing. The `height` attribute on an `<img>`
+is a presentational hint, a specified height beats `aspect-ratio`, and without it the
+crop renders 160 by 600 instead of 160 by 200.
+
 ### The end block
 
 The three clocks used to sit at the top of the rail, above the navigation, in the best

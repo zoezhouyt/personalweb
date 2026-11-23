@@ -16,7 +16,12 @@
 <meta property="og:site_name" content="Zoe Zhou">
 <meta property="og:title" content="Zoe Zhou">
 <meta property="og:description" content="Psychological and Behavioural Science at LSE. Research on metacognition and calibration, and the learning tools built on it.">
+<meta property="og:image" content="https://zoezhouyt.com/assets/photos/zoe.jpg">
+<meta property="og:image:width" content="480">
+<meta property="og:image:height" content="600">
+<meta property="og:image:alt" content="Zoe Zhou">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zoezhouyt.com/assets/photos/zoe.jpg">
 <meta name="twitter:title" content="Zoe Zhou">
 <meta name="twitter:description" content="Psychological and Behavioural Science at LSE. Research on metacognition and calibration, and the learning tools built on it.">
 <script type="application/ld+json">
@@ -28,6 +33,7 @@
     "@type": "Person",
     "name": "Zoe Zhou",
     "url": "https://zoezhouyt.com/",
+    "image": "https://zoezhouyt.com/assets/photos/zoe.jpg",
     "email": "zoezhou0912@gmail.com",
     "jobTitle": "Student, Psychological and Behavioural Science",
     "description": "Research on metacognition and calibration, and the learning tools built on it.",
@@ -119,7 +125,17 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 .section-head h2 { font-family: var(--mono); font-size: 10px; letter-spacing: 1.84px; text-transform: uppercase; font-weight: 500; color: var(--ink); margin: 0; }
 
 /* ---- masthead ---- */
-.masthead { padding-block: 0.5rem 0; }
+/* her face first, in a column of its own, so the page opens on a person rather
+   than on prose. It is wider than the marks below it on purpose: this is the
+   header, not another row. */
+.masthead { padding-block: 0.5rem 0; display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 0 1.2rem; align-items: start; }
+@media (min-width: 46rem) { .masthead { grid-template-columns: 10rem minmax(0, 1fr); gap: 0 1.5rem; } }
+.masthead .me {
+  /* height:auto is load-bearing: the height attribute is a presentational hint,
+     and a specified height beats aspect-ratio, which stretched the crop. */
+  display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+  border-radius: 2px; background: var(--sunken);
+}
 .masthead h1 { font-size: 16px; font-weight: 500; color: var(--ink); margin: 0 0 0.4rem; }
 /* what she is, before what she thinks about */
 .masthead .role {
@@ -403,9 +419,12 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="page">
 
   <header class="masthead">
-    <h1>Zoe Zhou</h1>
-    <p class="role">BSc Psychological and Behavioural Science, LSE &middot; Co-founder, Noetic</p>
-    <p class="sub">I study the gap between feeling you know something and actually knowing it, and build learning tools that try to close it.</p>
+    <img class="me" src="assets/photos/zoe.jpg" alt="Zoe Zhou" width="480" height="600" fetchpriority="high" decoding="async">
+    <div>
+      <h1>Zoe Zhou</h1>
+      <p class="role">BSc Psychological and Behavioural Science, LSE &middot; Co-founder, Noetic</p>
+      <p class="sub">I study the gap between feeling you know something and actually knowing it, and build learning tools that try to close it.</p>
+    </div>
   </header>
 
   <section id="about" class="about">
@@ -611,7 +630,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 <div class="xp-grid">
 <span class="shot shot-t logo"><span class="shot-in"><img src="/assets/photos/flightplan/wie-thumb.png" alt="LSESU Entrepreneurs logo" loading="lazy" decoding="async"></span></span>
 <h4>Women in Entrepreneurship</h4>
-<p class="xp-meta">Event project director, LSESU Entrepreneurs &middot; 2024</p>
+<p class="xp-meta">Event project director, LSESU Entrepreneurs &middot; November 2024</p>
 <p class="xp-sum">Directed the events programme for Women in Entrepreneurship.</p>
 </div>
 </article>
