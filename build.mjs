@@ -228,6 +228,7 @@ ${
   }
   <footer class="end">
     <a href="/#flight-plan">Back to the flight plan</a>
+    <a href="https://calendly.com/zoezhou0912/call-with-zoe" rel="noopener noreferrer">Book a call</a>
     <a href="/#contact">Contact</a>
     <a href="https://www.linkedin.com/in/zoezhouyt912/" rel="noopener noreferrer">LinkedIn</a>
   </footer>
@@ -294,6 +295,7 @@ ${rows}
 
   <footer class="end">
     <a href="/#flight-plan">Flight plan</a>
+    <a href="https://calendly.com/zoezhou0912/call-with-zoe" rel="noopener noreferrer">Book a call</a>
     <a href="/#contact">Contact</a>
     <a href="https://www.linkedin.com/in/zoezhouyt912/" rel="noopener noreferrer">LinkedIn</a>
   </footer>

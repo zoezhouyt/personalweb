@@ -226,11 +226,23 @@ site previews as a person.
 is a presentational hint, a specified height beats `aspect-ratio`, and without it the
 crop renders 160 by 600 instead of 160 by 200.
 
+### Contact
+
+Three ways to reach her, in a block of their own under the rail's navigation, behind a
+hairline: **Book a call** (Calendly), **Email** (a plain `mailto`) and **LinkedIn**. It
+replaces the Contact item that used to sit in the navigation, because the three links fit
+in the space the word was taking up, and a reader looking for a way to get in touch
+should not have to click to find one.
+
+The footer keeps its own copy of the three, plus Noetic and Miku, and its Email is still
+the copy-to-clipboard button rather than a `mailto`. Every `/work` page footer carries
+the Calendly link too.
+
 ### The end block
 
 The three clocks used to sit at the top of the rail, above the navigation, in the best
 corner of the page. They are now at the foot, where a reader who wants to propose an hour
-can see what time it is for her. `data-home` on the `.clocks` list names the zone she is
+can see what time it is for her, next to the link that books one. `data-home` on the `.clocks` list names the zone she is
 in: that city moves to the top of the list, takes the accent, and drives the big stamp.
 Change that one attribute when she moves.
 

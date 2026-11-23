@@ -100,12 +100,25 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .rail nav { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.2rem; }
 .rail nav a { font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; text-transform: uppercase; color: var(--mute); line-height: 1.9; }
 .rail nav a:hover { color: var(--ink); }
+.rail .reach { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1.2rem; }
+.rail .reach .label { margin: 0; }
+.rail .reach a {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px;
+  text-transform: uppercase; color: var(--mute); line-height: 1.9;
+}
+.rail .reach a::after { content: " \2197"; color: var(--accent); }
+.rail .reach a:hover { color: var(--accent); }
 @media (min-width: 66rem) {
   .rail {
     position: fixed; top: calc(env(safe-area-inset-top, 0px) + 3rem);
     left: max(2.5rem, env(safe-area-inset-left, 0px)); width: 11rem; z-index: 10; padding: 0;
   }
   .rail nav { flex-direction: column; gap: 0; margin-top: 2.25rem; }
+  .rail .reach {
+    flex-direction: column; gap: 0; margin-top: 2rem;
+    padding-top: 1rem; border-top: 1px solid var(--rule);
+  }
+  .rail .reach .label { margin-bottom: 0.45rem; }
 }
 
 /* ---- page column ---- */
@@ -409,6 +422,9 @@ section { padding-block: 4rem 0; scroll-margin-top: 3rem; }
 }
 .now-note { margin: 0 0 2rem; color: var(--mute); font-size: 13.5px; max-width: 30em; }
 .now-note b { font-weight: 500; color: var(--text); }
+.now-note a { color: var(--accent); }
+.now-note a::after { content: " \2197"; }
+.now-note a:hover { text-decoration: underline; }
 .clocks { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 1rem 3rem; }
 .clocks li {
   font-family: var(--mono); font-size: 9px; letter-spacing: 1.05px; color: var(--mute);
@@ -439,8 +455,15 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
     <a href="/work">Work</a>
     <a href="#flight-plan">Flight plan</a>
     <a href="#signoff">Sign-off</a>
-    <a href="#contact">Contact</a>
   </nav>
+  <!-- Contact is a block of its own rather than a nav item, because the three
+       ways to reach her fit in the space the word Contact was taking up. -->
+  <div class="reach">
+    <p class="label">Contact</p>
+    <a href="https://calendly.com/zoezhou0912/call-with-zoe" rel="noopener noreferrer">Book a call</a>
+    <a href="mailto:zoezhou0912@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/zoezhouyt912/" rel="noopener noreferrer">LinkedIn</a>
+  </div>
 </aside>
 
 <div class="page">
@@ -697,7 +720,7 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
 
   <section id="now" class="now">
     <p class="bigtime"><span id="now-stamp">&nbsp;</span></p>
-    <p class="now-note">Local time in <b id="now-home">London</b>. Write to me and I will work to your hours.</p>
+    <p class="now-note">Local time in <b id="now-home">London</b>. <a href="https://calendly.com/zoezhou0912/call-with-zoe" rel="noopener noreferrer">Book a call</a> and I will work to your hours.</p>
     <!-- Move data-home to another zone below and the page follows you. -->
     <ul class="clocks" data-home="Europe/London">
       <li data-tz="Europe/London" data-city="London">
@@ -716,8 +739,9 @@ footer.end .sig { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6p
   </section>
 
   <footer class="end" id="contact">
+    <a href="https://calendly.com/zoezhou0912/call-with-zoe" rel="noopener noreferrer">Book a call</a>
     <button type="button" id="copy-email" data-email="zoezhou0912@gmail.com">Email</button>
-    <a href="https://www.linkedin.com/in/zoezhouyt912/">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/zoezhouyt912/" rel="noopener noreferrer">LinkedIn</a>
     <a href="https://www.mynoetic.com/">Noetic</a>
     <a href="https://www.mikulearnbyteach.com/">Miku</a>
     <span class="sig" id="sig">zoezhou0912@gmail.com</span>
